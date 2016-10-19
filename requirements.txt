@@ -22,3 +22,4 @@ git
 sni-qt
 sni-qt:i386
 cppcheck
+byobu
