@@ -1,0 +1,24 @@
+#xargs -a <(awk '/^\s*[^#]/' /path/to/this/file) -r -- sudo apt-get install
+
+build-essential
+autoconf
+autogen
+automake
+vim-gtk
+ctags
+checkinstall
+tree
+python-pip
+cscope
+silversearcher-ag
+exuberant-ctags
+meld
+rar
+unrar
+libappindicator3-1
+git-email
+pkg-config
+git
+sni-qt
+sni-qt:i386
+cppcheck
