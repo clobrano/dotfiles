@@ -7,7 +7,13 @@ level = logging.ERROR
 logging.basicConfig(level=level, format='    %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
-filename = sys.argv[1]
+
+if len(sys.argv) > 1:
+    context = sys.argv[1]
+else:
+    context = None
+
+filename = sys.argv[2]
 
 def purge_dates(str):
     return str.replace("s:\d+-\d+-\d+", "")
@@ -26,6 +32,8 @@ for line in open(filename).readlines():
             line = sanitize_links(line)
             line = purge_dates(line)
             reminder = re.sub(".*due:", "REM ", line)
+            if context:
+                reminder = "%s @%s" % (reminder, context)
             if "AT" in reminder:
                 print(reminder + " %b %1")
             else:
