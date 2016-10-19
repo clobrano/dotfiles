@@ -129,6 +129,7 @@ export PATH=$PATH:${GOBIN}
 # Export paths
 PATH=$PATH:$HOME/toolkit/scripts
 PATH=$PATH:$HOME/toolkit/dotfiles
+PATH=$PATH:$HOME/toolkit/dotfiles/remind
 PATH=$HOME/bin:$PATH
 
 # Enable gcc colours, available since gcc 4.9.0

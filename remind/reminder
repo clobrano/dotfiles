@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+INDEX=~/Dropbox/Work/Telit/TelitWiki/index.md
+TODO=~/Dropbox/Work/Telit/TelitWiki/Todo.rem
+REMINDERS=~/Dropbox/Work/Telit/TelitWiki/Reminders.md
+
+find_duties.py $INDEX > $TODO
+remind -n $REMINDERS | sort | raffaello -r "\+\w+=>green_bold @\w+=>cyan_bold \(A\)=>red_bold \(B\)=>yellow_bold today=>red in\s\d+.*=>cyan tomorrow=>yellow"
+remind -s $REMINDERS | rem2ics > remind.ics
