@@ -18,4 +18,9 @@ else
   ln -sf $(pwd)/nvim/colors $HOME/.config/nvim/colors
 fi
 
-curl -fLo "Ubuntu Mono for Powerline Nerd Font Complete.ttf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/UbuntuMono/Regular/complete/Ubuntu%20Mono%20derivative%20Powerline%20Nerd%20Font%20Complete%20Mono.ttf
+font=./"Ubuntu Mono for Powerline Nerd Font Complete.ttf"
+[ ! -f "$font" ] && curl -fLo "Ubuntu Mono for Powerline Nerd Font Complete.ttf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/UbuntuMono/Regular/complete/Ubuntu%20Mono%20derivative%20Powerline%20Nerd%20Font%20Complete%20Mono.ttf
+
+sudo apt install xclip
+pip2 install --user neovim
+pip3 install --user neovim
