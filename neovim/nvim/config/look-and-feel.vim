@@ -12,8 +12,8 @@ syntax enable
 
 "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
 set guifont=Monospace\ 11
-colorscheme PaperColor
-set background=light
+colorscheme gruvbox
+set background=dark
 let g:gruvbox_contrast_dark="hard"
 set linespace=1
 command! Dark colorscheme gruvbox | set background=dark | AirlineTheme bubblegum
