@@ -8,8 +8,8 @@ inoremap <C-s> <Esc>:w<CR>
 noremap <C-s> <Esc>:w<CR>
 
 " Clean close file and remove from buffer (fc: save&close, fq: close)
-noremap <A-q> <Esc>:call CleanClose(1)<CR>
-noremap <A-S-q> <Esc>:call CleanClose(0)<CR>
+noremap <A-q> <Esc>:call CleanClose(0)<CR>
+nnoremap Q <C-w>q
 
 " Move among tabs in Konsole-style and to go to next buffer
 noremap <A-Right> gt
