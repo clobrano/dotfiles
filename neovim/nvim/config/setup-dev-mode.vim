@@ -7,10 +7,8 @@ set number          " Show line numbers
 set colorcolumn=0   " Show a colored line at the 81st column
 "set cursorline      " Colors the current line
 " Auto add closing bracket
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
+inoremap {<CR>  {<CR>}<Esc>O<Tab>
+inoremap {<Tab>  {}<Left>
 
 " Align function arguments
 set cino+=(0
@@ -44,6 +42,12 @@ vnoremap {Leader}/  n
 "" Copy word under cursor into register. TODO: move this somewhere else
 :map <F9> "zyw
 command! CscopeLoadDB cs add cscope.out
+nnoremap csl <Esc>:cs add cscope.out<CR>
+nnoremap csc <Esc>:cs find c 
+nnoremap csd <Esc>:cs find g 
+nnoremap csf <Esc>:cs find f 
+nnoremap css <Esc>:cs find s 
+
 
 if has('cscope')
     set cscopetag cscopeverbose
@@ -191,26 +195,6 @@ augroup END
 " Deoplete-clang
 
 
-
-"" ==========================================================================================
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_cpp_checkers = ['gcc']
-"let g:syntastic_cpp_compiler_options = ' -std=c++11'
-"
-"let g:syntastic_c_cppcheck_args = ['--enable=all']
-"let g:syntastic_cpp_compiler = 'g++'
-"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-" To avoid a 'could not find header' error, add a .syntastic_<filetype>_config file with one
-" include per line, like:
-" -Idir/subdir
-" -Idir/subdir2
-
-
+" ==============================================================================
+" GitGutter
+nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
