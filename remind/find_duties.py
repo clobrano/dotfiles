@@ -19,7 +19,7 @@ def purge_dates(str):
     return str.replace("s:\d+-\d+-\d+", "")
 
 def sanitize_links(str):
-    m = re.search("\[([\w\s\+-]+)\]\([\w\s\+-]+\)", str)
+    m = re.search("\[([\w\s\+-]+)\]\([#\w\s\+-]+\)", str)
     if m:
         return re.sub("\[[\w\s\+-]+\]\([\w\s\+-]+\)", m.group(1), str);
     return str
