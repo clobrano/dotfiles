@@ -18,6 +18,7 @@ set cino+=(0
 
 " Command to set the current working directory
 command! Sethere lcd %:p:h
+nnoremap sth <Esc>:Sethere<CR>
 
 "" Write the file with superuser privilegies
 command! SudoWrite  w !sudo tee %

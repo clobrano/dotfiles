@@ -25,7 +25,7 @@
     Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 
 " Completion and Linting
-    Plug 'Shougo/deoplete.nvim' | Plug 'zchee/deoplete-clang'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
     Plug 'neomake/neomake'
 
 " Foo
