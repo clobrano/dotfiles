@@ -1,12 +1,19 @@
 #!/usr/bin/env python
+'''
+usage:
+    find_duties --file=<file> [--context=<ctx>] [--format=<fmt>]
+
+options:
+    -h --help                   show this message
+    -f <file> --file=<file>     duties file path
+    -c <ctx> --context=<ctx>    additional context (e.g. home, work)
+    --format=<fmt>              convertion format (e.g. todo, remind)
+    --debug                     enable debug logging
+'''
 import sys
 import re
 import logging
-
-level = logging.ERROR
-logging.basicConfig(level=level, format='    %(levelname)s %(message)s')
-logger = logging.getLogger(__name__)
-
+import docopt
 
 class Converter(object):
     def __init__(self, context):
@@ -19,14 +26,17 @@ class Converter(object):
             string = self.__sanitize_links(string)
             t = self.__get_due_date(string)
             if t:
-                res = "REM %s @%s %s" % (t[0], context, t[1])
-                logger.info(res)
-                return res
+                return self.compose(t[0], t[1])
         return None
+
+    def compose(self, date, message):
+        return "REM %s @%s %s %s" % (date, self.context, message, '%b')
 
     def __skip(self, string):
         '''Return True if the string is to be skipped, False otherwise'''
-        return ("[X]" in line)
+        if len(string) and line!= '':
+            return ("[X]" in line)
+        return False
 
     def __get_due_date(self, string):
         '''
@@ -54,10 +64,16 @@ class Converter(object):
         '''
         Converts markdown links
         '''
-        m = re.search("\[([\w\s\+-]+)\]\([#\w\s\+-]+\)", string)
+        m = re.search("\[([\w\s\-]+)\]\(http.*\)", string)
         if m:
-            return re.sub("\[[\w\s\+-]+\]\([\w\s\+-]+\)", m.group(1), string);
+            return re.sub("\[[\w\s\+-]+\]\(http.*\)", m.group(1), string)
         return string
+
+
+class TodoConverter(Converter):
+
+    def compose(self, date, message):
+        return '%s @%s %s' % (date, self.context, message)
 
 
 if len(sys.argv) > 1:
@@ -67,20 +83,38 @@ else:
 
 filename = sys.argv[2]
 
+
 def purge_dates(str):
     return str.replace("s:\d+-\d+-\d+", "")
+
 
 def sanitize_links(str):
     m = re.search("\[([\w\s\+-]+)\]\([#\w\s\+-]+\)", str)
     if m:
-        return re.sub("\[[\w\s\+-]+\]\([\w\s\+-]+\)", m.group(1), str);
+        return re.sub("\[[\w\s\+-]+\]\([\w\s\+-]+\)", m.group(1), str)
     return str
 
-c = Converter(context)
+if __name__ == '__main__':
+    level = logging.INFO
+    logging.basicConfig(level=level, format='    %(levelname)s %(message)s')
+    logger = logging.getLogger(__name__)
+    arguments = docopt.docopt(__doc__)
 
-for line in open(filename).readlines():
-    if len(line) and line != '':
-        line = line.strip()
-        reminder = c.convert(line)
-        if reminder:
-            print(reminder + " %b")
+    if arguments['--context']:
+        context = arguments['--context']
+    else:
+        context = ''
+
+    if arguments['--format'] == 'todo':
+        c = TodoConverter(context)
+    else:
+        c = Converter(context)
+
+    for line in open(arguments['--file']).readlines():
+        if len(line) and line != '':
+            line = line.strip()
+            reminder = c.convert(line)
+            if reminder:
+                print(reminder)
+
+
