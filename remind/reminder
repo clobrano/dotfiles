@@ -8,7 +8,7 @@ find_duties.py personal $MAIN_INDEX > $TODO
 find_duties.py work $WORK_INDEX >> $TODO
 
 echo "===== Next ====="
-remind $REMINDERS 2>/dev/null | sort | raffaello -r "\+\w+=>green_bold @\w+=>cyan_bold @personal=>yellow_bold \(A\)=>red_bold \(B\)=>yellow_bold today=>red in\s\d+.*=>cyan tomorrow=>yellow"
+remind $REMINDERS 2>/dev/null | raffaello -r "\+\w+=>green_bold @\w+=>cyan_bold @personal=>yellow_bold \(A\)=>red_bold \(B\)=>yellow_bold today=>red in\s\d+.*=>cyan tomorrow=>yellow"
 
 echo
 
