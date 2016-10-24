@@ -44,7 +44,6 @@ class Converter(object):
         None if it cannot find due date
         '''
         m = re.findall('due:(\d{4}-\d{2}-\d{2}|\w+)( AT d{2}:\d{2})?', string)
-        logger.info(m)
         # It is not expected to have more than one due date, so
         # keeping only the first
         if len(m) > 0:
