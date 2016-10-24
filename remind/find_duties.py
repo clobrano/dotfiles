@@ -43,16 +43,14 @@ class Converter(object):
         Return tuple: (<due date>, <string without due date>)
         None if it cannot find due date
         '''
-        m = re.findall('due:\d{4}-\d{2}-\d{2} AT \d{2}:\d{2}', string)
-        if len(m) == 0:
-            m = re.findall('due:\d{4}-\d{2}-\d{2}', string)
+        m = re.findall('due:(\d{4}-\d{2}-\d{2}|\w+)( AT d{2}:\d{2})?', string)
+        logger.info(m)
         # It is not expected to have more than one due date, so
         # keeping only the first
         if len(m) > 0:
             due_date = m[0]
-            date = due_date[4:]
-            string = string.replace(due_date, '').strip()
-            logger.debug('due date: %s' % due_date)
+            date = ''.join(due_date)
+            string = string.replace('due:' + date, '').strip()
             return (date, string)
         return None
 
