@@ -82,7 +82,6 @@
 " Enable spell check"
     command! SpellCheckEN set spell spelllang=en
     command! SpellCheckIT set spell spelllang=it
-
 " }}}
 
 " System settings ------------------------------------------------------------------------{{{
@@ -101,11 +100,21 @@
     " Keep the cursor from reaching the last line make it easy to scroll down/up.
     set scrolloff=7
     set number
+    hi clear CursorLine
+    augroup CLClear
+        autocmd! ColorScheme * hi clear CursorLine
+    augroup END
+    hi CursorLineNR cterm=bold
+    augroup CLNRSet
+        autocmd ColorScheme * hi CursorLineNR cterm=NONW ctermbg=NONE ctermfg=NONE
+        set cursorline
+    augroup END
     " Let airline show my status
     set noshowmode
     " Folding
     set foldenable
     nnoremap <space> za
+    vnoremap <space> za
 " Autosave setup
     set nobackup
     set noswapfile
