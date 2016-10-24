@@ -40,7 +40,7 @@ nnoremap fh <Esc>/
 " Look for selected text in current buffer
 vnoremap fh y/<C-r>"<CR>
 " Look for text pattern in all the files recursively
-nnoremap fa <Esc>:Ack! 
+nnoremap fa <Esc>:Ack!<space>
 " Look for file that match a pattern
 nnoremap ff <Esc>:Ex **/
 " Search pattern and replace (sed like syntax)

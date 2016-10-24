@@ -44,10 +44,10 @@ vnoremap {Leader}/  n
 :map <F9> "zyw
 command! CscopeLoadDB cs add cscope.out
 nnoremap csl <Esc>:cs add cscope.out<CR>
-nnoremap csc <Esc>:cs find c 
-nnoremap csd <Esc>:cs find g 
-nnoremap csf <Esc>:cs find f 
-nnoremap css <Esc>:cs find s 
+nnoremap csc <Esc>:cs find c<space>
+nnoremap csd <Esc>:cs find g<space>
+nnoremap csf <Esc>:cs find f<space>
+nnoremap css <Esc>:cs find s<space>
 
 
 if has('cscope')
@@ -106,7 +106,7 @@ set foldlevel=100
 
 " Space opens folds, c-space closes folds
 nnoremap <space> zM
-nnoremap <A-space> zR
+nnoremap <M-space> zR
 nnoremap zx za
 nnoremap <leader>z zMzvzz
 
@@ -161,7 +161,7 @@ fun! ReadMan()
   :exe ":delete"
 endfun
 " Map the K key to the ReadMan function:
-map K :call ReadMan()<CR>
+map M :call ReadMan()<CR>
 
 " ==============================================================================
 " Golang
