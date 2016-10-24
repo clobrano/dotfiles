@@ -66,9 +66,9 @@ TERM=xterm-256color
 function smart_path() {
   echo $(python ~/toolkit/dotfiles/bash/bash_prompt.py )
 }
-PS1='\[\033[01;32m\]$(smart_path)$(__git_ps1)$SYM\[\033[0m\] '
-#PS1='\[\033[01;32m\]$(__git_ps1)$SYM\[\033[0m\] '
 
+[ -x $(which byobu) ] && PS1='\[\033[01;32m\]$(basename $(pwd))$(__git_ps1)$SYM\[\033[0m\] '
+[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]$(smart_path)$(__git_ps1)$SYM\[\033[0m\] '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -157,3 +157,4 @@ alias psaux='ps aux | grep'
 alias soundindicatorback='gsettings set com.canonical.indicator.sound visible true'
 alias xcopy='xclip'
 alias xpaste='xclip -o'
+alias nvimd='nvim -c Dark'
