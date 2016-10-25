@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 MAIN_INDEX=~/Dropbox/Wiki/index.md
 WORK_INDEX=~/Dropbox/Work/Telit/TelitWiki/index.md
-TODO=~/Dropbox/Work/Telit/TelitWiki/Todo.rem
-REMINDERS=~/Dropbox/Work/Telit/TelitWiki/Reminders.md
+TODO_REM=~/Dropbox/Wiki/Todo.rem
+TODO_TXT=~/Dropbox/Wiki/todo.txt
+REMINDERS=~/Dropbox/Wiki/Reminder.md
 
-find_duties.py personal $MAIN_INDEX > $TODO
-find_duties.py work $WORK_INDEX >> $TODO
+# Create Remind file
+find_duties.py -c personal -f $MAIN_INDEX --format remind > $TODO_REM
+find_duties.py -c work -f $WORK_INDEX --format remind >> $TODO_REM
+
+# Create Todo.txt file
+find_duties.py -c personal -f $MAIN_INDEX --format todo > $TODO_TXT
+find_duties.py -c work -f $WORK_INDEX --format todo >> $TODO_TXT
 
 echo "===== Next ====="
 remind $REMINDERS 2>/dev/null | raffaello -r "\+\w+=>green_bold @\w+=>cyan_bold @personal=>yellow_bold \(A\)=>red_bold \(B\)=>yellow_bold today=>red in\s\d+.*=>cyan tomorrow=>yellow"
