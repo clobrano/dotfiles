@@ -1,5 +1,15 @@
+"     _   __                _
+"    / | / /__  ____ _   __(_)___ ___
+"   /  |/ / _ \/ __ \ | / / / __ `__ \
+"  / /|  /  __/ /_/ / |/ / / / / / / /
+" /_/ |_/\___/\____/|_______/ /_/ /_/
+"   _________  ____  / __(_)___ ___  ___________ _/ /_(_)___  ____
+"  / ___/ __ \/ __ \/ /_/ / __ `/ / / / ___/ __ `/ __/ / __ \/ __ \
+" / /__/ /_/ / / / / __/ / /_/ / /_/ / /  / /_/ / /_/ / /_/ / / / /
+" \___/\____/_/ /_/_/ /_/\__, /\__,_/_/   \__,_/\__/_/\____/_/ /_/
+"                       /____/
 
-" Vim-plug plugin manager ----------------------------------------------------------------{{{
+" Vim-plug plugin manager ---------------------------------------------------------------{{{
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
       silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  autocmd VimEnter * PlugInstall | source ~/.config/nvim/init.vim
     endif
@@ -69,7 +79,7 @@
     set hidden
 " }}}
 
-" Editor ---------------------------------------------------------------------------------{{{
+" Editor --------------------------------------------------------------------------------{{{
     set guifont=Monospace\ 11
     colorscheme gruvbox
     set background=dark
@@ -84,7 +94,7 @@
     command! SpellCheckIT set spell spelllang=it
 " }}}
 
-" System settings ------------------------------------------------------------------------{{{
+" System settings -----------------------------------------------------------------------{{{
 
 " Neovim settings
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -242,7 +252,7 @@
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 "}}}
 
-" Buffers ------------------------------------------------------------------------{{{
+" Buffers -------------------------------------------------------------------------------{{{
 
 " Save current buffer.
     inoremap <C-s> <Esc>:w<CR>
@@ -291,7 +301,7 @@ endfunction
 
 " }}}
 
-" Airline ------------------------------------------------------------------------{{{
+" Airline -------------------------------------------------------------------------------{{{
 
     let g:airline_theme='bubblegum'
     let g:airline_powerline_fonts=1
@@ -306,7 +316,7 @@ endfunction
 
 " }}}
 
-" NERDTree ------------------------------------------------------------------------{{{
+" NERDTree ------------------------------------------------------------------------------{{{
 
 nmap <F2> :NERDTreeToggle<CR>
 " Change current working directory based on root directory in NERDTree
@@ -326,7 +336,7 @@ nmap <F2> :NERDTreeToggle<CR>
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " }}}
 
-" Vimwiki ------------------------------------------------------------------------{{{
+" Vimwiki -------------------------------------------------------------------------------{{{
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
@@ -334,7 +344,7 @@ nmap <F2> :NERDTreeToggle<CR>
     let g:vimwiki_folding='expr'
 " }}}
 
-" TagBar ------------------------------------------------------------------------{{{
+" TagBar --------------------------------------------------------------------------------{{{
 
 nnoremap tb <Esc>:TagbarToggle<CR>
 let g:tagbar_ctags_bin = "ctags"
@@ -350,7 +360,11 @@ let g:tagbar_type_vimwiki = {
 
 " }}}
 
+" TBD" ----------------------------------------------------------------------------------{{{
 source ~/.config/nvim/config/setup-dev-mode.vim
+
+
+autocmd Syntax vimwiki setlocal foldlevel=20
 
 " Fix remapping error message for Mark-Karkat
 nnoremap <leader>n <Plug>Mark
@@ -363,17 +377,16 @@ let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-
 " Keep this at the end or it will be overwritten by some plugin
     set foldmethod=marker
     set foldlevel=0
     set modelines=1
 
-"" Notes
+"}}}
+
+" Notes ---------------------------------------------------------------------------------{{{
     " ^x^n: autocomplete with words from the current file (^ == ctrl)
     " ^x^f: autocomplete filenames
     " ^x^]: autocomplete with words from tags
     " ^n: autocomplete for anything specified by the 'complete' option
-
-
-
+" }}}
