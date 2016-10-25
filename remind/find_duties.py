@@ -24,7 +24,7 @@ class Converter(object):
         if not self.__skip(string):
             string = self.__sanitize_toggle(string)
             string = self.__sanitize_links(string)
-            t = self.__get_due_date(string)
+            t = self.get_due_date(string)
             if t:
                 return self.compose(t[0], t[1])
         return None
@@ -35,10 +35,10 @@ class Converter(object):
     def __skip(self, string):
         '''Return True if the string is to be skipped, False otherwise'''
         if len(string) and line!= '':
-            return ("[X]" in line)
+            return ("*" not in line or "[X]" in line)
         return False
 
-    def __get_due_date(self, string):
+    def get_due_date(self, string):
         '''
         Return tuple: (<due date>, <string without due date>)
         None if it cannot find due date
