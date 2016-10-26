@@ -127,7 +127,7 @@ export PATH=$PATH:${GOBIN}
 
 
 # Export paths
-PATH=$PATH:$HOME/toolkit/scripts
+PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$HOME/toolkit/dotfiles
 PATH=$PATH:$HOME/toolkit/dotfiles/remind
 PATH=$HOME/bin:$PATH
@@ -152,9 +152,10 @@ alias installedbyme="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/l
 alias ll='ls -l'
 alias memusage='du -h -t 10M -d 1'
 alias myusage='du -d1 -t100M -h'
-alias mm-log='journalctl -fu ModemManager | raffaello -p modemmanager'
 alias psaux='ps aux | grep'
 alias soundindicatorback='gsettings set com.canonical.indicator.sound visible true'
 alias xcopy='xclip'
 alias xpaste='xclip -o'
 alias nvimd='nvim -c Dark'
+
+source $DOTFILES/bash/modemmanager_aliases.sh
