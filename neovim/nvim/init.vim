@@ -7,7 +7,14 @@
 "  / ___/ __ \/ __ \/ /_/ / __ `/ / / / ___/ __ `/ __/ / __ \/ __ \
 " / /__/ /_/ / / / / __/ / /_/ / /_/ / /  / /_/ / /_/ / /_/ / / / /
 " \___/\____/_/ /_/_/ /_/\__, /\__,_/_/   \__,_/\__/_/\____/_/ /_/
-"                       /____/
+"
+
+" Notes ---------------------------------------------------------------------------------{{{
+    " ^x^n: autocomplete with words from the current file (^ == ctrl)
+    " ^x^f: autocomplete filenames
+    " ^x^]: autocomplete with words from tags
+    " ^n: autocomplete for anything specified by the 'complete' option
+" }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -20,6 +27,7 @@
       Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
+      Plug 'wincent/command-t'
 
     " Look and feel
       Plug 'Tagbar'
@@ -92,6 +100,8 @@
 " Enable spell check"
     command! SpellCheckEN set spell spelllang=en
     command! SpellCheckIT set spell spelllang=it
+" Thesaurus
+    set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt
 " }}}
 
 " System settings -----------------------------------------------------------------------{{{
@@ -109,16 +119,10 @@
     set guioptions-=T
     " Keep the cursor from reaching the last line make it easy to scroll down/up.
     set scrolloff=7
-    set number
+    set relativenumber
     hi clear CursorLine
-    augroup CLClear
-        autocmd! ColorScheme * hi clear CursorLine
-    augroup END
+    set cursorline
     hi CursorLineNR cterm=bold
-    augroup CLNRSet
-        autocmd ColorScheme * hi CursorLineNR cterm=NONW ctermbg=NONE ctermfg=NONE
-        set cursorline
-    augroup END
     " Let airline show my status
     set noshowmode
     " Folding
@@ -160,7 +164,7 @@
 " System mappings------------------------------------------------------------------------{{{
 
 " <Esc> is too far away
-    inoremap jk <Esc>
+    inoremap qq <Esc>
 " No Ex mode
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
@@ -198,13 +202,12 @@
     " Use 'find' with resposability! It'll look into subfolders (e.g. not a great idea run it in the Home)
     set path+=**
     " Tweaks for VIM file browsing
-    let g:netrw_altv=1          " open splits to the right
-    let g:netrw_browse_split=4  " open in prior window
+    let g:netrw_browse_split=0  " open in prior window
     "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
     let g:netrw_list_hide=netrw_gitignore#Hide()
     let g:netrw_liststyle=3     " tree view
     let g:netrw_winsize = 20
-    nnoremap tt <Esc>:Vexplore<CR>
+    nnoremap tt <Esc>:Lexplore<CR>
     set ignorecase
     " search as characters are entered
     set incsearch
@@ -360,6 +363,13 @@ let g:tagbar_type_vimwiki = {
 
 " }}}
 
+" Snippets" -----------------------------------------------------------------------------{{{
+
+" Bash
+    nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
+
+" }}}
+
 " TBD" ----------------------------------------------------------------------------------{{{
 source ~/.config/nvim/config/setup-dev-mode.vim
 
@@ -368,6 +378,7 @@ autocmd Syntax vimwiki setlocal foldlevel=20
 
 " Fix remapping error message for Mark-Karkat
 nnoremap <leader>n <Plug>Mark
+set nocscopeverbose
 
 " Toggl
 let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
@@ -384,9 +395,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 "}}}
 
-" Notes ---------------------------------------------------------------------------------{{{
-    " ^x^n: autocomplete with words from the current file (^ == ctrl)
-    " ^x^f: autocomplete filenames
-    " ^x^]: autocomplete with words from tags
-    " ^n: autocomplete for anything specified by the 'complete' option
+" CommandT --------------------------------------------------------------------------------{{{
+    nnoremap ct <esc>:CommandT<CR>
+    inoremap ct <esc>:CommandT<CR>
 " }}}

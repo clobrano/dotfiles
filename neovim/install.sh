@@ -17,6 +17,7 @@ else
   ln -sf $(pwd)/nvim/config $HOME/.config/nvim/config
   ln -sf $(pwd)/nvim/colors $HOME/.config/nvim/colors
   ln -sf $(pwd)/nvim/thesaurus $HOME/.config/nvim/thesaurus
+  ln -sf $(pwd)/nvim/snippets $HOME/.config/nvim/snippets
 fi
 
 font=./"Ubuntu Mono for Powerline Nerd Font Complete.ttf"
