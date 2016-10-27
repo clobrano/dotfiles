@@ -202,7 +202,7 @@
     " Use 'find' with resposability! It'll look into subfolders (e.g. not a great idea run it in the Home)
     set path+=**
     " Tweaks for VIM file browsing
-    let g:netrw_browse_split=0  " open in prior window
+    let g:netrw_browse_split=4  " open in prior window
     "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
     let g:netrw_list_hide=netrw_gitignore#Hide()
     let g:netrw_liststyle=3     " tree view
@@ -308,8 +308,19 @@ endfunction
 
     let g:airline_theme='bubblegum'
     let g:airline_powerline_fonts=1
-    "let g:airline_left_sep=''
-    "let g:airline_right_sep=''
+
+    " To be used only with Monaco font
+    if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+      endif
+    let g:airline_left_sep = '⮀'
+    let g:airline_left_alt_sep = '⮁'
+    let g:airline_right_sep = '⮂'
+    let g:airline_right_alt_sep = '⮃'
+    let g:airline_symbols.branch = '⭠'
+    let g:airline_symbols.readonly = '⭤'
+    let g:airline_symbols.linenr = '⭡'
+
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#fnamemod = ':t'
     "let g:airline#extensions#tabline#left_alt_sep = ''
