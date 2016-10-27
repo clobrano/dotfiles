@@ -67,8 +67,8 @@ function smart_path() {
   echo $(python ~/toolkit/dotfiles/bash/bash_prompt.py )
 }
 
-[ -x $(which byobu) ] && PS1='\[\033[01;32m\]$(basename $(pwd))$(__git_ps1)$SYM\[\033[0m\] '
-[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]$(smart_path)$(__git_ps1)$SYM\[\033[0m\] '
+[ -x $(which byobu) ] && PS1='\[\033[01;32m\]$(basename "$(pwd)")$(__git_ps1)$SYM\[\033[0m\] '
+[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]"$(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -130,7 +130,7 @@ export PATH=$PATH:${GOBIN}
 PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$HOME/toolkit/dotfiles
 PATH=$PATH:$HOME/toolkit/dotfiles/remind
-PATH=$HOME/bin:$PATH
+PATH=$HOME/workspace/development/android-bin/:$PATH
 
 # Enable gcc colours, available since gcc 4.9.0
 GCC_COLORS=1
