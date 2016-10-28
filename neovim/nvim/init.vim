@@ -112,8 +112,9 @@
     set clipboard+=unnamedplus
 " show last command in the very bottom right of VI
     set showcmd
-"set wildmode=list:longest
-    set wildmode=full
+" graphical menu of autocomplete matches
+    set wildmenu
+    set wildmode=list:longest
 " UI config
     " Remove toolbar, make space!
     set guioptions-=T
@@ -137,7 +138,6 @@
     set completeopt=longest,menu,preview
 " Block select not limited to shortest line
     set virtualedit=
-    set wildmenu        " graphical menu of autocomplete matches
     set laststatus=2
     set lazyredraw      " the screen will be redraw less often
 " Tabs
@@ -164,7 +164,7 @@
 " System mappings------------------------------------------------------------------------{{{
 
 " <Esc> is too far away
-    inoremap qq <Esc>
+    inoremap jj <Esc>
 " No Ex mode
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
@@ -253,6 +253,9 @@
     nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
     " bind \ (backward slash) to grep shortcut
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    " Simplify manual indenting
+    nnoremap > >>
+    nnoremap < <<
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -277,9 +280,9 @@
     noremap <C-Right> <Esc>:bnext<CR>
     noremap <C-l> <Esc>:bnext<CR>
 
-" New Tab
-    nnoremap <C-S-t> :tabnew<CR>
-    inoremap <C-S-t> <Esc>:tabnew<CR>
+" New Tab (temporally replaced to make space to command-t)
+"    nnoremap <C-S-t> :tabnew<CR>
+"    inoremap <C-S-t> <Esc>:tabnew<CR>
 
 " Style open split on the right
     set splitright
@@ -406,7 +409,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 "}}}
 
-" CommandT --------------------------------------------------------------------------------{{{
-    nnoremap ct <esc>:CommandT<CR>
-    inoremap ct <esc>:CommandT<CR>
+" CommandT ------------------------------------------------------------------------------{{{
+    nnoremap <M-t> <esc>:CommandT<CR>
 " }}}
