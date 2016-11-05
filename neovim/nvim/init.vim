@@ -163,8 +163,10 @@
 
 " System mappings------------------------------------------------------------------------{{{
 
-" <Esc> is too far away
+" <Esc> is too far away: using two remaps so that one hand is busy (e.g.
+" mouse, cookie, etc.) I can still use the other one.
     inoremap jj <Esc>
+    inoremap qq <Esc>
 " No Ex mode
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
@@ -286,6 +288,7 @@
 
 " Style open split on the right
     set splitright
+    set splitbelow
 
 function! CleanClose(tosave)
     if (a:tosave == 1)

@@ -43,11 +43,11 @@ vnoremap {Leader}/  n
 "" Copy word under cursor into register. TODO: move this somewhere else
 :map <F9> "zyw
 command! CscopeLoadDB cs add cscope.out
-nnoremap csl <Esc>:cs add cscope.out<CR>
-nnoremap csc <Esc>:cs find c<space>
-nnoremap csd <Esc>:cs find g<space>
-nnoremap csf <Esc>:cs find f<space>
-nnoremap css <Esc>:cs find s<space>
+nnoremap <leader>csl <Esc>:cs add cscope.out<CR>
+nnoremap <leader>csc <Esc>:cs find c<space>
+nnoremap <leader>csd <Esc>:cs find g<space>
+nnoremap <leader>csf <Esc>:cs find f<space>
+nnoremap <leader>css <Esc>:cs find s<space>
 
 
 if has('cscope')
