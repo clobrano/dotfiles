@@ -27,7 +27,6 @@
       Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
-      Plug 'wincent/command-t'
 
     " Look and feel
       Plug 'Tagbar'
@@ -48,6 +47,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+      Plug 'xolox/vim-easytags'
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -80,8 +80,6 @@
 
     call plug#end()
 
-
-    let vim_fold=1
     set nocompatible
 " Let allow buffers to be hidden when not already saved (do I really need this?)
     set hidden
@@ -114,7 +112,7 @@
     set showcmd
 " graphical menu of autocomplete matches
     set wildmenu
-    set wildmode=list:longest
+    set wildmode=list:longest,full
 " UI config
     " Remove toolbar, make space!
     set guioptions-=T
@@ -126,10 +124,6 @@
     hi CursorLineNR cterm=bold
     " Let airline show my status
     set noshowmode
-    " Folding
-    set foldenable
-    nnoremap <space> za
-    vnoremap <space> za
 " Autosave setup
     set nobackup
     set noswapfile
@@ -171,7 +165,7 @@
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
     map q <nop>
-" Exit insert, delete line, back to insert
+" Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
     noremap <silent> <Up> gk
@@ -183,12 +177,8 @@
     nnoremap H ^
     nnoremap K 10k
     nnoremap J 10j
-" Neovim terminal mapping (?)
-    tmap <esc> <c-\><c-n><esc><cr>
-" Let path autocomplete faster
-    inoremap <c-f> <c-x><c-f>
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
-    vnoremap <c-c> "+y<CR>
+    vnoremap <m-c> "+y<CR>
     inoremap <m-v> <esc>"+p
     noremap  <m-v> "+p
 " Manage multi-cursor
@@ -210,6 +200,7 @@
     let g:netrw_liststyle=3     " tree view
     let g:netrw_winsize = 20
     nnoremap tt <Esc>:Lexplore<CR>
+
     set ignorecase
     " search as characters are entered
     set incsearch
@@ -217,8 +208,13 @@
     set hlsearch
     " Fix backspace misbehavior
     set backspace=indent,eol,start
+
     set grepprg=ack
-    let g:ackprg = 'ag'
+    if executable('ag')
+        " Use ag over grep
+        set grepprg=ag\ --nogroup\ --nocolor
+        let g:ackprg = 'ag'
+    endif
     let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
     let g:ackhighlight = 1
     " Highlight current word
@@ -229,6 +225,9 @@
     nnoremap n nzzzv
     " Go to previous match
     nnoremap N Nzzzv
+
+   " bind F to grep word under cursor (use with caution!)
+    nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
     " Look for text in current buffer
     nnoremap fh <Esc>/
     " Look for selected text in current buffer
@@ -236,28 +235,33 @@
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack!<space>
     " Look for file that match a pattern
-    nnoremap ff <Esc>:Ex **/
+    nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
     " TODO: change shortcut?
     noremap rep <Esc>:%s//gc<Left><Left><Left>
+
     " Edit init.vim
     command! Einit edit ~/.config/nvim/init.vim
     " Reload vimrc
     command! Reinit so ~/.config/nvim/init.vim
     nnoremap R <esc>:Reinit<cr>
-    " The Silver Searcher
-    if executable('ag')
-      " Use ag over grep
-      set grepprg=ag\ --nogroup\ --nocolor
-    endif
 
-    " bind F to grep word under cursor
-    nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
     " bind \ (backward slash) to grep shortcut
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     " Simplify manual indenting
     nnoremap > >>
     nnoremap < <<
+    " Quickfix <next>/<prev> entry mapping
+    nnoremap cn :cn<CR>
+    nnoremap cp :cp<CR>
+
+    " Write protected file with superuser privilegies
+    command! SudoWrite  w !sudo tee %
+
+    " Invoke make
+    "nnoremap <leader>m :make<CR>
+    nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -271,9 +275,9 @@
     nnoremap fq <Esc>:bd!<CR>
 
 " Move among tabs in Konsole-style and to go to next buffer (this collides with tmux!?!)
-    noremap <A-Right> gt
+    noremap <A-l> gt
     noremap <A-k> <Esc>gt<CR>
-    noremap <A-Left> gT
+    noremap <A-h> gT
     noremap <A-j> <Esc>gT<CR>
 
 " Move among buffers
@@ -310,6 +314,53 @@ endfunction
 
 " }}}
 
+" Folding " -----------------------------------------------------------------------------{{{
+    " Folding
+    set foldenable
+    " Generic foldmethod
+    set foldmethod=syntax
+    set foldlevel=99
+    nnoremap za zA
+    nnoremap <space> zA
+    vnoremap <space> zA
+    " Set a nicer foldtext function
+    set foldtext=MyFoldText()
+    function! MyFoldText()
+        let line = getline(v:foldstart)
+        if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+            let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+            let linenum = v:foldstart + 1
+            while linenum < v:foldend
+                let line = getline( linenum )
+                let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+                if comment_content != ''
+                    break
+                endif
+                let linenum = linenum + 1
+            endwhile
+            let sub = initial . ' ' . comment_content
+        else
+            let sub = line
+            let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+            if startbrace == '{'
+                let line = getline(v:foldend)
+                let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+                if endbrace == '}'
+                    let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+                endif
+            endif
+        endif
+        let n = v:foldend - v:foldstart
+        let info = " " . n . " lines"
+        let sub = sub . "                                                                                                                  "
+        let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+        let fold_w = getwinvar( 0, '&foldcolumn' )
+        let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+        return sub . info
+    endfunction
+
+" }}}
+
 " Airline -------------------------------------------------------------------------------{{{
 
     let g:airline_theme='bubblegum'
@@ -317,8 +368,8 @@ endfunction
 
     " To be used only with Monaco font
     if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-      endif
+        let g:airline_symbols = {}
+    endif
     let g:airline_left_sep = '⮀'
     let g:airline_left_alt_sep = '⮁'
     let g:airline_right_sep = '⮂'
@@ -361,7 +412,7 @@ nmap <F2> :NERDTreeToggle<CR>
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
     let g:vimwiki_list = [telit, wiki]
-    let g:vimwiki_folding='expr'
+    let g:vimwiki_folding='list'
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -385,33 +436,147 @@ let g:tagbar_type_vimwiki = {
 " Bash
     nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
 
+    " Auto shebang
+    augroup Shebang
+      autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
+      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl>\"|$
+      autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
+      autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
+      autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
+    augroup END
+
+
 " }}}
 
-" TBD" ----------------------------------------------------------------------------------{{{
-source ~/.config/nvim/config/setup-dev-mode.vim
+" FileTypes customizations" -------------------------------------------------------------{{{
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType python setlocal foldlevel=99
+    autocmd FileType python setlocal foldnestmax=2
+    autocmd FileType python setlocal makeprg=pytest
 
+    autocmd Syntax vim setlocal foldmethod=marker
+    autocmd Syntax vim setlocal foldlevel=0
+    autocmd Syntax vim setlocal modelines=1
 
-autocmd Syntax vimwiki setlocal foldlevel=20
-
-" Fix remapping error message for Mark-Karkat
-nnoremap <leader>n <Plug>Mark
-set nocscopeverbose
-
-" Toggl
-let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
-
-" Clang_complete
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-" Keep this at the end or it will be overwritten by some plugin
-    set foldmethod=marker
-    set foldlevel=0
-    set modelines=1
-
+    autocmd FileType vimwiki setlocal textwidth=120
 "}}}
 
-" CommandT ------------------------------------------------------------------------------{{{
-    nnoremap <M-t> <esc>:CommandT<CR>
+" Generic sofware development" ----------------------------------------------------------{{{
+    set number          " Show line numbers
+    set colorcolumn=0   " Show a colored line at the 81st column
+
+    " Auto add closing bracket
+    inoremap {<CR>  {<CR>}<Esc>O<Tab>
+    inoremap {<Tab>  {}<Left>
+
+    " Align function arguments
+    set cino+=(0
+
+    " make
+    nnoremap <leader>i <esc>:!sudo make install<cr>
+
+    " Command to set the current working directory
+    command! Sethere lcd %:p:h
+    nnoremap sth <Esc>:Sethere<CR>
+
+    " Mark--Karkat (TODO dunno what it does)
+    vnoremap {Leader}/  n
+
+    " Mark--Karkat, fix remapping error message
+    nnoremap <leader>n <Plug>Mark
+    set nocscopeverbose
+
+    " Toggl
+    let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
+
+    " Clang_complete
+    let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+
+    " Letsdo mapping
+    nnoremap <leader>ld <esc>:!letsdo<space>
+"}}}
+
+" Cscope" -------------------------------------------------------------------------------{{{
+    set cscopetag nocscopeverbose
+    nnoremap <leader>csl <Esc>:cs add cscope.out<CR>
+    nnoremap <leader>csc <Esc>:cs find c<space>
+    nnoremap <leader>csd <Esc>:cs find g<space>
+    nnoremap <leader>csf <Esc>:cs find f<space>
+    nnoremap <leader>css <Esc>:cs find s<space>
+
+    "" Quickfix window for cscope in place of interactive window
+    if has('quickfix')
+        set cscopequickfix=c-,d-,e-,f-,g-,i-,t-,s-
+    endif
+
+    "" Update cscope db
+    nmap <leader>csu :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs kill -1<CR>:cs add cscope.out<CR>
+
+
+    "" Autoload cscope db if in upper directory
+    function! LoadCscope()
+      let db = findfile("cscope.out", ".;")
+      if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+      endif
+    endfunction
+    au BufEnter /* call LoadCscope()
+"}}}
+
+" Ctags " -------------------------------------------------------------------------------{{{
+    " Command to create new ctags file
+    command! CtagsMake !ctags -R --extra=+f --fields=+lS .
+
+    "Makes ctags visible from subdirectories
+    set tags=tags;/
+
+    noremap T <Esc>:tag
+
+    " Move to next tag
+    noremap <C-[> <C-o>
+
+    " vim-easytag integration
+    let g:easytags_async=1
+    let g:easytags_on_cursorhold = 0
+    set tags=./tags;
+    let g:easytags_dynamic_files = 1
+" }}}
+
+" Golang " ------------------------------------------------------------------------------{{{
+" Vim-go
+    au FileType go nmap <leader>gr <Plug>(go-run)
+    au FileType go nmap <leader>gb <Plug>(go-build)
+    au FileType go nmap <leader>gt <Plug>(go-test)
+    au FileType go nmap <leader>gc <Plug>(go-coverage)
+    au FileType go nmap <Leader>gw <Plug>(go-doc-browser)
+    au FileType go nmap <Leader>gs <Plug>(go-def-split)
+    au FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>gdt <Plug>(go-def-tab)
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_build_constraints = 1
+" }}}
+
+" Git " ----------------------------------------------------------------------------------{{{
+    nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
+
+    nnoremap <leader>gs <esc>:Gstatus<cr>
+    nnoremap <leader>gw <esc>:Gwrite<cr>
+    nnoremap <leader>gr <esc>:Gread<cr>
+    nnoremap <leader>gc <esc>:Gcommit<cr>
+    nnoremap <leader>gph <esc>:Gpush<cr>
+    nnoremap <leader>gpl <esc>:Gpull<cr>
+
+" }}}
+
+" " ----------------------------------------------------------------------------------{{{
 " }}}

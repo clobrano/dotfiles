@@ -23,9 +23,6 @@ nnoremap sth <Esc>:Sethere<CR>
 "" Write the file with superuser privilegies
 command! SudoWrite  w !sudo tee %
 
-noremap <F4> <Esc>:make!<CR>
-nnoremap <F5> <Esc>:Shell cmake ..<CR>
-
 " Mark--Karkat (TODO dunno what it does)
 vnoremap {Leader}/  n
 
@@ -105,7 +102,8 @@ set foldmethod=syntax
 set foldlevel=100
 
 " Space opens folds, c-space closes folds
-nnoremap <space> zM
+nnoremap <space> zA
+nnoremap <c-f> zM
 nnoremap <M-space> zR
 nnoremap zx za
 nnoremap <leader>z zMzvzz
@@ -190,10 +188,6 @@ augroup Shebang
   autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
   autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
 augroup END
-
-
-" ==============================================================================
-" Deoplete-clang
 
 
 " ==============================================================================
