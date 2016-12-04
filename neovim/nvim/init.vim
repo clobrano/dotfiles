@@ -229,9 +229,14 @@
    " bind F to grep word under cursor (use with caution!)
     nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
     " Look for text in current buffer
-    nnoremap fh <Esc>/
+    nnoremap fh <Esc>:g//#<left><left>
     " Look for selected text in current buffer
-    vnoremap fh y/<C-r>"<CR>
+    vnoremap fh y:g/<C-r>"/#<CR>
+    " Find Next/Prev
+    nnoremap fn <esc>/
+    vnoremap fn y/<C-r>"<cr>
+    nnoremap fp <esc>?
+    vnoremap fp y?<C-r>"<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack!<space>
     " Look for file that match a pattern
