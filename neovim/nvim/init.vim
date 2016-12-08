@@ -416,7 +416,7 @@ nmap <F2> :NERDTreeToggle<CR>
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
-    let g:vimwiki_list = [telit, wiki]
+    let g:vimwiki_list = [wiki, telit]
     let g:vimwiki_folding='list'
 " }}}
 
@@ -437,9 +437,13 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Snippets" -----------------------------------------------------------------------------{{{
+" Generic
+    iabbr {{ {}<esc>
+    iabbr (( ()<esc>
 
 " Bash
-    nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
+    nnoremap bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
+    iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
 
     " Auto shebang
     augroup Shebang
@@ -450,7 +454,9 @@ let g:tagbar_type_vimwiki = {
       autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
     augroup END
 
-
+"C-C++
+    iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
+    iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -471,8 +477,8 @@ let g:tagbar_type_vimwiki = {
     set colorcolumn=0   " Show a colored line at the 81st column
 
     " Auto add closing bracket
-    inoremap {<CR>  {<CR>}<Esc>O<Tab>
-    inoremap {<Tab>  {}<Left>
+    "inoremap {<CR>  {<CR>}<Esc>O<Tab>
+    "inoremap {<Tab>  {}<Left>
 
     " Align function arguments
     set cino+=(0
