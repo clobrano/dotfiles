@@ -39,6 +39,7 @@
       Plug 'ryanoasis/vim-devicons'
       Plug 'scrooloose/nerdtree'
       Plug 'mhartington/oceanic-next'
+      Plug 'crusoexia/vim-monokai'
 
     " C/C++
       Plug 'a.vim', {'for': ['c', 'cpp']}
@@ -47,7 +48,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      Plug 'xolox/vim-easytags'
+      Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -87,12 +88,14 @@
 
 " Editor --------------------------------------------------------------------------------{{{
     set guifont=Monospace\ 11
-    colorscheme gruvbox
     set background=dark
+    colorscheme gruvbox
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
+    command! Light set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -469,12 +472,13 @@ let g:tagbar_type_vimwiki = {
     autocmd Syntax vim setlocal foldlevel=0
     autocmd Syntax vim setlocal modelines=1
 
-    autocmd FileType vimwiki setlocal textwidth=120
+    autocmd FileType vimwiki setlocal textwidth=100
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
     set number          " Show line numbers
-    set colorcolumn=0   " Show a colored line at the 81st column
+    set colorcolumn=100   " Show a colored line at the Nth column
+    set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
     "inoremap {<CR>  {<CR>}<Esc>O<Tab>
@@ -552,6 +556,9 @@ let g:tagbar_type_vimwiki = {
 
     " Move to next tag
     noremap <C-[> <C-o>
+
+    " Open Tag in vertical split
+    map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
     " vim-easytag integration
     let g:easytags_async=1

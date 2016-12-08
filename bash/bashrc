@@ -159,8 +159,10 @@ alias xpaste='xclip -o'
 alias nvimd='nvim -c Dark'
 
 source $DOTFILES/bash/modemmanager_aliases.sh
-alias altair-net='telnet 10.0.0.1'
+alias altair-connet='telnet 10.0.0.1'
 alias ALTgdb-glibc='/opt/altair/cs_mips-2014.05/usr/bin/mips-linux-gnu-gdb'
 alias kill-linux-app='ssh root@10.0.0.1 kill'
 alias linux-app-pid='ssh root@10.0.0.1 pidof LE866A1_KK.sct'
 alias linux-app-kill='ssh root@10.0.0.1 kill'
+alias usif0='sudo minicom -D /dev/ttyS0'
+alias usif1='sudo minicom -D /dev/ttyS1'
