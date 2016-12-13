@@ -27,6 +27,7 @@
       Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
+      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
     " Look and feel
       Plug 'Tagbar'
@@ -225,9 +226,13 @@
     " Stop highlighting the old search
     nnoremap <leader><space> :nohlsearch<CR>
     " Go to next match
-    nnoremap n nzzzv
+    nnoremap n nzz
     " Go to previous match
-    nnoremap N Nzzzv
+    nnoremap N Nzz
+    " This zz above is great! It means auto-center, let's do it for more things
+    nnoremap } }zz
+    nnoremap gg ggzz
+    nnoremap G Gzz
 
    " bind F to grep word under cursor (use with caution!)
     nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -240,6 +245,8 @@
     vnoremap fn y/<C-r>"<cr>
     nnoremap fp <esc>?
     vnoremap fp y?<C-r>"<cr>
+    " Fzf fuzzy searcher
+    nnoremap fz <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack!<space>
     " Look for file that match a pattern
@@ -329,6 +336,7 @@ endfunction
     set foldmethod=syntax
     set foldlevel=99
     nnoremap za zA
+    nnoremap zM zm
     nnoremap <space> zA
     vnoremap <space> zA
     " Set a nicer foldtext function
@@ -445,7 +453,8 @@ let g:tagbar_type_vimwiki = {
     iabbr (( ()<esc>
 
 " Bash
-    nnoremap bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
+    " Getopts
+    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
 
     " Auto shebang
@@ -515,24 +524,27 @@ let g:tagbar_type_vimwiki = {
 
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
-    nnoremap <leader>csl <Esc>:cs add cscope.out<CR>
-    nnoremap <leader>csc <Esc>:cs find c<space>
-    nnoremap <leader>csd <Esc>:cs find g<space>
-    nnoremap <leader>csf <Esc>:cs find f<space>
-    nnoremap <leader>css <Esc>:cs find s<space>
+    "" Update cscope db
+    nnoremap csmake :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs kill -1<CR>:cs add cscope.out<CR>
+    nnoremap csl <Esc>:cs add cscope.out<CR>
+    nnoremap csc <Esc>:cs find c<space>
+    nnoremap cscw yw<Esc>:cs find c<space><c-r>"
+    nnoremap csg <Esc>:cs find g<space>
+    nnoremap csgw yw<Esc>:cs find g<space><c-r>"
+    nnoremap csf <Esc>:cs find f<space>
+    nnoremap csfw yw<Esc>:cs find f<space><c-r>"
+    nnoremap css <Esc>:cs find s<space>
+    nnoremap cssw yw<Esc>:cs find s<space><c-r>"
+
 
     "" Quickfix window for cscope in place of interactive window
     if has('quickfix')
         set cscopequickfix=c-,d-,e-,f-,g-,i-,t-,s-
     endif
 
-    "" Update cscope db
-    nmap <leader>csu :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-      \:!cscope -b -i cscope.files -f cscope.out<CR>
-      \:cs kill -1<CR>:cs add cscope.out<CR>
-
-
-    "" Autoload cscope db if in upper directory
+        "" Autoload cscope db if in upper directory
     function! LoadCscope()
       let db = findfile("cscope.out", ".;")
       if (!empty(db))

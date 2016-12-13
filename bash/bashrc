@@ -166,3 +166,8 @@ alias linux-app-pid='ssh root@10.0.0.1 pidof LE866A1_KK.sct'
 alias linux-app-kill='ssh root@10.0.0.1 kill'
 alias usif0='sudo minicom -D /dev/ttyS0'
 alias usif1='sudo minicom -D /dev/ttyS1'
+alias pusif0='sudo pynicom --port=/dev/ttyS0'
+alias pusif1='sudo pynicom --port /dev/ttyS1'
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
