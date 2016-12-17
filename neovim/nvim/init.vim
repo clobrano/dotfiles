@@ -596,7 +596,7 @@ let g:tagbar_type_vimwiki = {
     let g:go_highlight_build_constraints = 1
 " }}}
 
-" Git " ----------------------------------------------------------------------------------{{{
+" Git " ---------------------------------------------------------------------------------{{{
     nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
 
     nnoremap <leader>gs <esc>:Gstatus<cr>
@@ -608,5 +608,9 @@ let g:tagbar_type_vimwiki = {
 
 " }}}
 
+" Jedi-vim " ----------------------------------------------------------------------------{{{
+    let g:jedi#documentation_command = "<M>"
+" }}} 
+"
 " " ----------------------------------------------------------------------------------{{{
 " }}}
