@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ -f $HOME./inputrc ]; then
+    cat $HOME./inputrc > .inputrc
+else
+    echo "\$include /etc/inputrc" > .inputrc
+fi
+cp .inputrc $HOME/.inputrc
+
+# Add option to ~/.inputrc to enable case-insensitive tab completion
+c=`grep "set completion-ignore-case On" ~/.inputrc  | wc -l`
+[ $c -eq 0 ] && echo "set completion-ignore-case On" >> ~/.inputrc
