@@ -26,7 +26,7 @@ configure: install
 	@ln -sf $(CWD)/vim/snippets 	$(VIM_HOME)/snippets
 
 clean:
-	-rm -r $(VIM_HOME)
+	-sudo rm -r $(VIM_HOME)
 	-rm $(VIMRC)
 ifdef XCLIP
 	-sudo apt-get purge xclip

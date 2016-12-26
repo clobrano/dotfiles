@@ -13,5 +13,5 @@ link_bashrc: bashrc bash_prompt.py
 	ln -sf $(PWD)/bashrc $(BASHRC)
 
 clean:
-	[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"
-	[ -f $(BASHRC_BAK) ] && mv -f $(BASHRC_BAK) $(BASHRC)
+	-[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"
+	-[ -f $(BASHRC_BAK) ] && mv -f $(BASHRC_BAK) $(BASHRC)
