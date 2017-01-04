@@ -89,14 +89,15 @@
 
 " Editor --------------------------------------------------------------------------------{{{
     set guifont=Monospace\ 11
-    set background=dark
-    colorscheme gruvbox
+    set background=light
+    colorscheme PaperColor
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     command! Light set background=light | colorscheme PaperColor | AirlineTheme papercolor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
+    command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -379,7 +380,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='bubblegum'
+    let g:airline_theme='cool'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -427,7 +428,7 @@ nmap <F2> :NERDTreeToggle<CR>
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
-    let g:vimwiki_list = [wiki, telit]
+    let g:vimwiki_list = [telit, wiki]
     let g:vimwiki_folding='list'
 " }}}
 
@@ -454,7 +455,8 @@ let g:tagbar_type_vimwiki = {
 
 " Bash
     " Getopts
-    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>wwa
+    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
+    iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
 
     " Auto shebang
@@ -525,6 +527,8 @@ let g:tagbar_type_vimwiki = {
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
     "" Update cscope db
+    command! Csmake !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ; cscope -b -i cscope.files -f cscope.out
+
     nnoremap csmake :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
       \:!cscope -b -i cscope.files -f cscope.out<CR>
       \:cs kill -1<CR>:cs add cscope.out<CR>
@@ -596,7 +600,7 @@ let g:tagbar_type_vimwiki = {
     let g:go_highlight_build_constraints = 1
 " }}}
 
-" Git " ---------------------------------------------------------------------------------{{{
+" Git " ----------------------------------------------------------------------------------{{{
     nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
 
     nnoremap <leader>gs <esc>:Gstatus<cr>

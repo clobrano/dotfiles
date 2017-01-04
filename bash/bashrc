@@ -67,8 +67,8 @@ function smart_path() {
   echo $(python ~/toolkit/dotfiles/bash/bash_prompt.py )
 }
 
-[ -x $(which byobu) ] && PS1='\[\033[01;32m\]$(basename "$(pwd)")$(__git_ps1)$SYM\[\033[0m\] '
-[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]"$(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
+[ -x $(which byobu) ] && PS1='\[\033[01;32m\]\t| $(basename "$(pwd)")\[\033[01;35m\]$(__git_ps1)\[\033[0m\]$SYM\[\033[0m\] '
+[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]"\t| $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -168,6 +168,3 @@ alias usif0='sudo minicom -D /dev/ttyS0'
 alias usif1='sudo minicom -D /dev/ttyS1'
 alias pusif0='sudo pynicom --port=/dev/ttyS0'
 alias pusif1='sudo pynicom --port /dev/ttyS1'
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
