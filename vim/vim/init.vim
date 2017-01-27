@@ -1,8 +1,3 @@
-"     _   __                _
-"    / | / /__  ____ _   __(_)___ ___
-"   /  |/ / _ \/ __ \ | / / / __ `__ \
-"  / /|  /  __/ /_/ / |/ / / / / / / /
-" /_/ |_/\___/\____/|_______/ /_/ /_/
 "   _________  ____  / __(_)___ ___  ___________ _/ /_(_)___  ____
 "  / ___/ __ \/ __ \/ /_/ / __ `/ / / / ___/ __ `/ __/ / __ \/ __ \
 " / /__/ /_/ / / / / __/ / /_/ / /_/ / /  / /_/ / /_/ / /_/ / / / /
@@ -18,7 +13,7 @@
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
     if empty(glob('~/.vim/autoload/plug.vim'))
-      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  autocmd VimEnter * PlugInstall | source ~/.vim/init.vim
+      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim  autocmd VimEnter * PlugInstall | source ~/.vimrc
     endif
     call plug#begin()
 
@@ -260,9 +255,9 @@
     noremap rep <Esc>:%s//gc<Left><Left><Left>
 
     " Edit init.vim
-    command! Einit edit ~/.vim/init.vim
+    command! Einit edit ~/.vimrc
     " Reload vimrc
-    command! Reinit so ~/.vim/init.vim
+    command! Reinit so ~/.vimrc
     nnoremap R <esc>:Reinit<cr>
 
 
