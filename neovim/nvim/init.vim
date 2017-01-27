@@ -30,7 +30,7 @@
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
     " Look and feel
-      Plug 'Tagbar'
+      "Plug 'Tagbar'    " Temporally disabled for issue in Autoupdate function
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
       Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
@@ -49,7 +49,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
+      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'    " Temporally disabled for issue in Autoupdate function
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -430,6 +430,9 @@ nmap <F2> :NERDTreeToggle<CR>
 
     let g:vimwiki_list = [telit, wiki]
     let g:vimwiki_folding='list'
+
+    nnoremap dn :VimwikiDiaryNextDay<cr>
+    nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -458,6 +461,7 @@ let g:tagbar_type_vimwiki = {
     autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
+    command! Docopts r !docopt.sh -s %
 
     " Auto shebang
     augroup Shebang
@@ -487,7 +491,7 @@ let g:tagbar_type_vimwiki = {
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
-    set number          " Show line numbers
+    set number            " Show line numbers
     set colorcolumn=100   " Show a colored line at the Nth column
     set nocursorline      " Disable highlight current line
 
@@ -563,7 +567,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags -R --extra=+f --fields=+lS .
+    command! CtagsMake !ctags -R --extra=+f --fields=+lSK-k -e --c-kinds=+defmtx .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -614,7 +618,7 @@ let g:tagbar_type_vimwiki = {
 
 " Jedi-vim " ----------------------------------------------------------------------------{{{
     let g:jedi#documentation_command = "<M>"
-" }}} 
+" }}}
 "
 " " ----------------------------------------------------------------------------------{{{
 " }}}
