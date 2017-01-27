@@ -159,6 +159,7 @@ alias xpaste='xclip -o'
 alias nvimd='nvim -c Dark'
 
 source $DOTFILES/bash/modemmanager_aliases.sh
+source $DOTFILES/bash/networkmanager_aliases.sh
 alias altair-connet='telnet 10.0.0.1'
 alias ALTgdb-glibc='/opt/altair/cs_mips-2014.05/usr/bin/mips-linux-gnu-gdb'
 alias kill-linux-app='ssh root@10.0.0.1 kill'
@@ -168,3 +169,6 @@ alias usif0='sudo minicom -D /dev/ttyS0'
 alias usif1='sudo minicom -D /dev/ttyS1'
 alias pusif0='sudo pynicom --port=/dev/ttyS0'
 alias pusif1='sudo pynicom --port /dev/ttyS1'
+
+alias nvimg='nvim -c Gruvbox'
+alias nvimm='nvim -c Monokai'
