@@ -49,7 +49,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'    " Temporally disabled for issue in Autoupdate function
+      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'    " Temporally disabled for it slows down on large repos
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -79,6 +79,10 @@
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
+
+    " Presentation
+      Plug 'sotte/presenting.vim'
+      Plug 'alfredodeza/posero.vim'
 
     call plug#end()
 
@@ -467,7 +471,7 @@ let g:tagbar_type_vimwiki = {
     " Auto shebang
     augroup Shebang
       autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
-      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl>\"|$
+      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
       autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
       autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
       autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
@@ -573,7 +577,7 @@ let g:tagbar_type_vimwiki = {
     "Makes ctags visible from subdirectories
     set tags=tags;/
 
-    noremap T <Esc>:tag
+    noremap T <Esc>:tag<space>
 
     " Move to next tag
     noremap <C-[> <C-o>
@@ -605,7 +609,7 @@ let g:tagbar_type_vimwiki = {
     let g:go_highlight_build_constraints = 1
 " }}}
 
-" Git " ----------------------------------------------------------------------------------{{{
+" Git " ---------------------------------------------------------------------------------{{{
     nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
 
     nnoremap <leader>gs <esc>:Gstatus<cr>
@@ -620,6 +624,16 @@ let g:tagbar_type_vimwiki = {
 " Jedi-vim " ----------------------------------------------------------------------------{{{
     let g:jedi#documentation_command = "<M>"
 " }}}
-"
-" " ----------------------------------------------------------------------------------{{{
+
+" Poser----------------------------------------------------------------------------------{{{
+    let g:posero_default_mappings = 1
+" }}}
+
+
+" Neomake " -----------------------------------------------------------------------------{{{
+
+" }}}
+
+
+"" ----------------------------------------------------------------------------------{{{
 " }}}
