@@ -175,6 +175,7 @@
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
     map q <nop>
+    nnoremap m q
 " Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
@@ -251,8 +252,8 @@
     vnoremap fn y/<C-r>"<cr>
     nnoremap fp <esc>?
     vnoremap fp y?<C-r>"<cr>
-    " Fzf fuzzy searcher
-    nnoremap fz <esc>:FZF<cr>
+    " Fzf fuzzy searcher (fs = file search)
+    nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack!<space>
     " Look for file that match a pattern
@@ -292,8 +293,8 @@
     noremap <C-s> <Esc>:w<CR>
 
 " Close and Force Close buffer
-    noremap q <Esc>:bd<CR>
-    nnoremap fq <Esc>:bd!<CR>
+    noremap x <Esc>:bd<CR>
+    nnoremap fx <Esc>:bd!<CR>
 
 " Move among tabs in Konsole-style and to go to next buffer (this collides with tmux!?!)
     noremap <A-l> gt
