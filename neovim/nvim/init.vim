@@ -41,6 +41,7 @@
       Plug 'scrooloose/nerdtree'
       Plug 'mhartington/oceanic-next'
       Plug 'crusoexia/vim-monokai'
+      Plug 'noahfrederick/vim-hemisu'
 
     " C/C++
       Plug 'a.vim', {'for': ['c', 'cpp']}
@@ -94,12 +95,13 @@
 " Editor --------------------------------------------------------------------------------{{{
     set guifont=Monospace\ 11
     set background=light
-    colorscheme PaperColor
+    colorscheme hemisu
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
-    command! Light set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    command! Hemisu set background=light | colorscheme hemisu | AirlineTheme papercolor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
@@ -498,7 +500,7 @@ let g:tagbar_type_vimwiki = {
 
 " Generic sofware development" ----------------------------------------------------------{{{
     set number            " Show line numbers
-    set colorcolumn=100   " Show a colored line at the Nth column
+    set colorcolumn=0     " Show a colored line at the Nth column
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
