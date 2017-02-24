@@ -67,8 +67,11 @@ function smart_path() {
   echo $(python ~/toolkit/dotfiles/bash/bash_prompt.py )
 }
 
-[ -x $(which byobu) ] && PS1='\[\033[01;32m\]\t| $(basename "$(pwd)")\[\033[01;35m\]$(__git_ps1)\[\033[0m\]$SYM\[\033[0m\] '
-[ ! -x $(which byobu) ] && PS1='\[\033[01;32m\]"\t| $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
+if [ -x $(which byobu) ]; then
+    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[01;35m\]$(__git_ps1)\[\033[0m\]$SYM\[\033[0m\] '
+else
+    PS1='\[\033[01;32m\]"\t $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -117,7 +120,7 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Configuration directories
 export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/toolkit/dotfiles
+export DOTFILES=$HOME/dotfiles
 export EDITOR="gvim -f"
 
 # Golang paths
@@ -128,9 +131,7 @@ export PATH=$PATH:${GOBIN}
 
 # Export paths
 PATH=$PATH:$HOME/workspace/scripts
-PATH=$PATH:$HOME/toolkit/dotfiles
-PATH=$PATH:$HOME/toolkit/dotfiles/remind
-PATH=$HOME/workspace/development/android-bin/:$PATH
+PATH=$PATH:$DOTFILES
 
 # Enable gcc colours, available since gcc 4.9.0
 GCC_COLORS=1
@@ -172,3 +173,4 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
+source $HOME/.letsdo-autocomplete
