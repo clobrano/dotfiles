@@ -100,7 +100,7 @@
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
-    command! Hemisu set background=light | colorscheme hemisu | AirlineTheme papercolor
+    command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
     command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
@@ -388,7 +388,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='cool'
+    let g:airline_theme='oceanicnextlight'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
