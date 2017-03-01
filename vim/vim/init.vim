@@ -36,6 +36,7 @@
       Plug 'scrooloose/nerdtree'
       Plug 'mhartington/oceanic-next'
       Plug 'crusoexia/vim-monokai'
+      Plug 'noahfrederick/vim-hemisu'
 
     " C/C++
       Plug 'a.vim', {'for': ['c', 'cpp']}
@@ -78,6 +79,9 @@
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
 
+    " Presentation
+      Plug 'sotte/presenting.vim'
+      Plug 'alfredodeza/posero.vim'
     call plug#end()
 
     set nocompatible
@@ -86,14 +90,16 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monospace\ 11
+    set guifont=Monaco\ for\ Powerline\ 9
     set background=light
-    colorscheme PaperColor
+    colorscheme hemisu
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
-    command! Light set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    nnoremap sf <esc>:set guifont=Monaco\ for\ Powerline\<space>
+    command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
@@ -107,6 +113,7 @@
 
 " System settings -----------------------------------------------------------------------{{{
 
+    set mouse=a
 " Neovim settings
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -244,8 +251,8 @@
     vnoremap fn y/<C-r>"<cr>
     nnoremap fp <esc>?
     vnoremap fp y?<C-r>"<cr>
-    " Fzf fuzzy searcher
-    nnoremap fz <esc>:FZF<cr>
+    " Fzf fuzzy searcher (fs = file search)
+    nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack!<space>
     " Look for file that match a pattern
@@ -285,8 +292,8 @@
     noremap <C-s> <Esc>:w<CR>
 
 " Close and Force Close buffer
-    noremap q <Esc>:bd<CR>
-    nnoremap fq <Esc>:bd!<CR>
+    noremap x <Esc>:bd<CR>
+    nnoremap fx <Esc>:bd!<CR>
 
 " Move among tabs in Konsole-style and to go to next buffer (this collides with tmux!?!)
     noremap <A-l> gt
@@ -378,7 +385,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='cool'
+    let g:airline_theme='oceanicnextlight'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -428,6 +435,8 @@ nmap <F2> :NERDTreeToggle<CR>
 
     let g:vimwiki_list = [telit, wiki]
     let g:vimwiki_folding='list'
+    nnoremap dn :VimwikiDiaryNextDay<cr>
+    nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -453,13 +462,14 @@ let g:tagbar_type_vimwiki = {
 
 " Bash
     " Getopts
-    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.vim/snippets/bash/getopts.sh<CR>wwa
+    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
+    iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
 
     " Auto shebang
     augroup Shebang
       autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
-      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl>\"|$
+      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
       autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
       autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
       autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
@@ -485,7 +495,7 @@ let g:tagbar_type_vimwiki = {
 
 " Generic sofware development" ----------------------------------------------------------{{{
     set number          " Show line numbers
-    set colorcolumn=100   " Show a colored line at the Nth column
+    set colorcolumn=0     " Show a colored line at the Nth column
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
@@ -524,6 +534,7 @@ let g:tagbar_type_vimwiki = {
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
     "" Update cscope db
+    command! Csmake !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ; cscope -b -i cscope.files -f cscope.out
     nnoremap csmake :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
       \:!cscope -b -i cscope.files -f cscope.out<CR>
       \:cs kill -1<CR>:cs add cscope.out<CR>
@@ -536,6 +547,11 @@ let g:tagbar_type_vimwiki = {
     nnoremap csfw yw<Esc>:cs find f<space><c-r>"
     nnoremap css <Esc>:cs find s<space>
     nnoremap cssw yw<Esc>:cs find s<space><c-r>"
+
+    command! -nargs=1 Csdef  :cs find g <f-args>
+    command! -nargs=1 Cscall :cs find c <f-args>
+    command! -nargs=1 Cssym  :cs find s <f-args>
+    command! -nargs=1 Csincl :cs find i <f-args>
 
 
     "" Quickfix window for cscope in place of interactive window
@@ -558,12 +574,12 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags -R --extra=+f --fields=+lS .
+    command! CtagsMake !ctags -R --extra=+f --fields=+lSK-k -e --c-kinds=+defmtx .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
 
-    noremap T <Esc>:tag
+    noremap T <Esc>:tag<space>
 
     " Move to next tag
     noremap <C-[> <C-o>
@@ -595,7 +611,7 @@ let g:tagbar_type_vimwiki = {
     let g:go_highlight_build_constraints = 1
 " }}}
 
-" Git " ----------------------------------------------------------------------------------{{{
+" Git " ---------------------------------------------------------------------------------{{{
     nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
 
     nnoremap <leader>gs <esc>:Gstatus<cr>
@@ -607,11 +623,16 @@ let g:tagbar_type_vimwiki = {
 
 " }}}
 
-" Neomake" ----------------------------------------------------------------------------------{{{
-let g:neomake_cpp_make_maker = {
-    \ 'args': [],
-    \}
-let g:neomanke_cpp_enabled_makers = ['make']
+" Jedi-vim " ----------------------------------------------------------------------------{{{
+    let g:jedi#documentation_command = "<M>"
+" }}}
+" Poser----------------------------------------------------------------------------------{{{
+    let g:posero_default_mappings = 1
+" }}}
+
+
+" Neomake " -----------------------------------------------------------------------------{{{
+
 " }}}
 " " ----------------------------------------------------------------------------------{{{
 " }}}
