@@ -23,3 +23,5 @@ sni-qt
 sni-qt:i386
 cppcheck
 byobu
+libappindicator1
+xclip
