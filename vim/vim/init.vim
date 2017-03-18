@@ -45,7 +45,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
+      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
 
     " Completion and Linting
       "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -90,7 +90,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 9
+    set guifont=Monaco\ for\ Powerline\ 11
     set background=light
     colorscheme hemisu
     syntax enable
@@ -175,6 +175,7 @@
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
     map q <nop>
+    nnoremap m q
 " Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
@@ -432,8 +433,9 @@ nmap <F2> :NERDTreeToggle<CR>
 " Vimwiki -------------------------------------------------------------------------------{{{
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
+    let projects =    {'path': '~/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
-    let g:vimwiki_list = [telit, wiki]
+    let g:vimwiki_list = [telit, projects, wiki]
     let g:vimwiki_folding='list'
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
@@ -465,6 +467,7 @@ let g:tagbar_type_vimwiki = {
     autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
+    command! Docopts r !docopt.sh -s %
 
     " Auto shebang
     augroup Shebang
@@ -474,6 +477,9 @@ let g:tagbar_type_vimwiki = {
       autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
       autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
     augroup END
+
+    " Redirect to syslog
+    iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
 
 "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
@@ -494,7 +500,7 @@ let g:tagbar_type_vimwiki = {
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
-    set number          " Show line numbers
+    set number            " Show line numbers
     set colorcolumn=0     " Show a colored line at the Nth column
     set nocursorline      " Disable highlight current line
 
@@ -626,13 +632,14 @@ let g:tagbar_type_vimwiki = {
 " Jedi-vim " ----------------------------------------------------------------------------{{{
     let g:jedi#documentation_command = "<M>"
 " }}}
+
 " Poser----------------------------------------------------------------------------------{{{
     let g:posero_default_mappings = 1
 " }}}
 
-
 " Neomake " -----------------------------------------------------------------------------{{{
 
 " }}}
+
 " " ----------------------------------------------------------------------------------{{{
 " }}}

@@ -483,6 +483,9 @@ let g:tagbar_type_vimwiki = {
       autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
     augroup END
 
+    " Redirect to syslog
+    iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
+
 "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
@@ -556,6 +559,11 @@ let g:tagbar_type_vimwiki = {
     nnoremap csfw yw<Esc>:cs find f<space><c-r>"
     nnoremap css <Esc>:cs find s<space>
     nnoremap cssw yw<Esc>:cs find s<space><c-r>"
+
+    command! -nargs=1 Csdef  :cs find g <f-args>
+    command! -nargs=1 Cscall :cs find c <f-args>
+    command! -nargs=1 Cssym  :cs find s <f-args>
+    command! -nargs=1 Csincl :cs find i <f-args>
 
 
     "" Quickfix window for cscope in place of interactive window
