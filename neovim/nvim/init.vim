@@ -85,6 +85,9 @@
       Plug 'sotte/presenting.vim'
       Plug 'alfredodeza/posero.vim'
 
+    " QML
+      Plug 'peterhoeg/vim-qml'
+
     call plug#end()
 
     set nocompatible
