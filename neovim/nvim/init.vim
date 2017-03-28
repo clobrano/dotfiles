@@ -24,13 +24,14 @@
 
     " Generic
       Plug 'gnupg.vim'
-      Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
+      "Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
+      Plug 'craigemery/vim-autotag'
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
     " Look and feel
-      "Plug 'Tagbar'    " Temporally disabled for issue in Autoupdate function
+      Plug 'Tagbar'    " Temporally disabled for issue in Autoupdate function
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
       Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
@@ -162,9 +163,11 @@
     highlight ExtraWhitespace ctermbg=Yellow
 " Enable remove extra whitespaces
     nnoremap ss :ToggleStripWhitespaceOnSave<CR>
-" Insert the current date (insert mode, normal/command mode)
-    inoremap <A-d> <C-R>=strftime("%Y-%m-%d")<CR>
-    map <A-d> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+" Insert the current date long and short (insert mode, normal/command mode)
+    inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
+    map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+    inoremap <A-d> <C-R>=strftime("%m-%d")<CR>
+    map <A-d> a<C-R>=strftime("%m-%d")<CR><Esc>
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
@@ -286,6 +289,11 @@
     " Invoke make
     "nnoremap <leader>m :make<CR>
     nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+
+    " Var definition
+    nnoremap <leader>vd [i
+    " Macro definition
+    nnoremap <leader>md [d
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -435,12 +443,19 @@ nmap <F2> :NERDTreeToggle<CR>
 " Vimwiki -------------------------------------------------------------------------------{{{
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
+    let tracker =    {'path': '~/Dropbox/Work/Telit/Tracker/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
+    let notes =    {'path': '~/Dropbox/Notes/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
-    let g:vimwiki_list = [telit, wiki]
+    let g:vimwiki_list = [notes, telit, tracker, wiki]
     let g:vimwiki_folding='list'
 
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
+    " Task Done (move current line at the bottom of the file)
+    nnoremap td ddGo<esc>p
+    vnoremap td dGo<esc>p
+    " Task Up (move current line on top of the list
+    nnoremap tu dd?^#<cr>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -497,8 +512,6 @@ let g:tagbar_type_vimwiki = {
     autocmd Syntax vim setlocal foldmethod=marker
     autocmd Syntax vim setlocal foldlevel=0
     autocmd Syntax vim setlocal modelines=1
-
-    autocmd FileType vimwiki setlocal textwidth=100
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
@@ -583,7 +596,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags -R --extra=+f --fields=+lSK-k -e --c-kinds=+defmtx .
+    command! CtagsMake !ctags -R --exclude=.git --extra=+f .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -596,11 +609,11 @@ let g:tagbar_type_vimwiki = {
     " Open Tag in vertical split
     map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-    " vim-easytag integration
-    let g:easytags_async=1
-    let g:easytags_on_cursorhold = 0
-    set tags=./tags;
-    let g:easytags_dynamic_files = 1
+    "" vim-easytag integration
+    "let g:easytags_async=1
+    "let g:easytags_on_cursorhold = 0
+    ""set tags=./tags;
+    "let g:easytags_dynamic_files = 1
 " }}}
 
 " Golang " ------------------------------------------------------------------------------{{{
@@ -640,11 +653,9 @@ let g:tagbar_type_vimwiki = {
     let g:posero_default_mappings = 1
 " }}}
 
-
 " Neomake " -----------------------------------------------------------------------------{{{
 
 " }}}
-
 
 "" ----------------------------------------------------------------------------------{{{
 " }}}
