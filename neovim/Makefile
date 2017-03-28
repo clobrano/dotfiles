@@ -26,12 +26,13 @@ ifndef XCLIP
 endif
 
 configure: install
-	mkdir $(NVIM_HOME)
-	ln -sf $(CWD)/nvim/init.vim  $(NVIM_HOME)/init.vim
-	ln -sf $(CWD)/nvim/config 	 $(NVIM_HOME)/config
-	ln -sf $(CWD)/nvim/colors 	 $(NVIM_HOME)/colors
-	ln -sf $(CWD)/nvim/thesaurus $(NVIM_HOME)/thesaurus
-	ln -sf $(CWD)/nvim/snippets  $(NVIM_HOME)/snippets
+	[ -d $(NVIM_HOME) ] 			  || mkdir $(NVIM_HOME)
+	[ -L $(INIT) ] 					  || ln -s $(CWD)/nvim/init.vim  	$(INIT)
+	[ -L $(NVIM_HOME)/config ] 		  || ln -s $(CWD)/nvim/config 	 	$(NVIM_HOME)/config
+	[ -L $(NVIM_HOME)/colors ] 		  || ln -s $(CWD)/nvim/colors 	 	$(NVIM_HOME)/colors
+	[ -L $(NVIM_HOME)/thesaurus ] 	  || ln -s $(CWD)/nvim/thesaurus 	$(NVIM_HOME)/thesaurus
+	[ -L $(NVIM_HOME)/snippets ] 	  || ln -s $(CWD)/nvim/snippets  	$(NVIM_HOME)/snippets
+	[ -L $(NVIM_HOME)/after/syntax ]  || ln -s $(CWD)/nvim/syntax 		$(NVIM_HOME)/after/syntax
 
 clean:
 ifdef NVIM
