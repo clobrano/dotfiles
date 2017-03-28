@@ -90,7 +90,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 11
+    set guifont=Monaco\ for\ Powerline\ 9
     set background=light
     colorscheme hemisu
     syntax enable
@@ -284,6 +284,10 @@
     " Invoke make
     "nnoremap <leader>m :make<CR>
     nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+
+    " Vertical splits to Horizontal and vice versa
+    nnoremap h2v <C-w>t<C-w>H
+    nnoremap v2h <C-w>t<C-w>K
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
