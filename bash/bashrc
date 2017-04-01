@@ -62,9 +62,14 @@ else
 	SYM=$
 fi
 
+# Configuration directories
+export TOOLKIT=$HOME/toolkit
+export DOTFILES=$HOME/toolkit/dotfiles
+export EDITOR="gvim -f"
+
 TERM=xterm-256color
 function smart_path() {
-  echo $(python ~/toolkit/dotfiles/bash/bash_prompt.py )
+  echo $(python "$DOTFILES"/bash/bash_prompt.py )
 }
 
 if [ -x $(which byobu) ]; then
@@ -118,11 +123,6 @@ fi
 # Add timestamp to history
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
-# Configuration directories
-export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/dotfiles
-export EDITOR="gvim -f"
-
 # Golang paths
 export GOPATH=$HOME/workspace/gocode/
 export GOBIN=${GOPATH}bin
@@ -173,4 +173,6 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
-source $HOME/.letsdo-autocomplete
+source $DOTFILES/bash/modemmanager_aliases.sh
+source $DOTFILES/bash/networkmanager_aliases.sh
+source $DOTFILES/git/aliases.sh
