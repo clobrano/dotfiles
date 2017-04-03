@@ -120,7 +120,7 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Configuration directories
 export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/dotfiles
+export DOTFILES=$HOME/toolkit/dotfiles
 export EDITOR="gvim -f"
 
 # Golang paths
@@ -154,7 +154,7 @@ alias dmesg-w='dmesg -wH | raffaello -p dmesg'
 alias installedbyme="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
 alias ll='ls -l'
 alias memusage='du -h -t 10M -d 1'
-alias myusage='du -d1 -t10M -h 2>/dev/null | sort -hr'
+alias dirusage='du -d1 -t10M -h 2>/dev/null | sort -hr'
 alias psaux='ps aux | grep'
 alias soundindicatorback='gsettings set com.canonical.indicator.sound visible true'
 alias xcopy='xclip'
@@ -177,3 +177,7 @@ alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
 source $HOME/.letsdo-autocomplete
 alias gvim='gvim -geom 800:400'
+source $DOTFILES/bash/modemmanager_aliases.sh
+source $DOTFILES/bash/networkmanager_aliases.sh
+source $DOTFILES/git/aliases.sh
+PATH=~/.local/bin:$PATH
