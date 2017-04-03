@@ -105,7 +105,7 @@
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
@@ -454,11 +454,16 @@ nmap <F2> :NERDTreeToggle<CR>
 
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
+
     " Task Done (move current line at the bottom of the file)
-    nnoremap td ddGo<esc>p
-    vnoremap td dGo<esc>p
+    nnoremap td dd/Archivied<esc>p^f]a <C-R>=strftime("%Y-%m-%d")<CR><esc>
+    vnoremap td d/Archivied<esc>p<leader><space>
     " Task Up (move current line on top of the list
-    nnoremap tu dd?^#<cr>p
+    nnoremap tu dd?^#<cr>p<leader><space>
+
+    " Todo later
+    nnoremap tl dd/OnHold<cr><esc>p
+    vnoremap tl d/OnHold<cr><esc>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{

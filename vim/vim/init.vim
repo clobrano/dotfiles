@@ -38,6 +38,9 @@
       Plug 'crusoexia/vim-monokai'
       Plug 'noahfrederick/vim-hemisu'
 
+    " Android
+      Plug 'hsanson/vim-android'
+
     " C/C++
       Plug 'a.vim', {'for': ['c', 'cpp']}
       Plug 'chazy/cscope_maps', {'for': ['c', 'cpp']}

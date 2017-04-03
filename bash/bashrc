@@ -123,6 +123,10 @@ fi
 # Add timestamp to history
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
+# Configuration directories
+export TOOLKIT=$HOME/toolkit
+export DOTFILES=$HOME/toolkit/dotfiles
+export EDITOR="gvim -f"
 # Golang paths
 export GOPATH=$HOME/workspace/gocode/
 export GOBIN=${GOPATH}bin
@@ -130,8 +134,10 @@ export PATH=$PATH:${GOBIN}
 
 
 # Export paths
+ANDROID_REPO=$HOME/external/bin/
 PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$DOTFILES
+PATH=$PATH:$ANDROID_REPO
 
 # Enable gcc colours, available since gcc 4.9.0
 GCC_COLORS=1
@@ -152,7 +158,7 @@ alias dmesg-w='dmesg -wH | raffaello -p dmesg'
 alias installedbyme="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
 alias ll='ls -l'
 alias memusage='du -h -t 10M -d 1'
-alias myusage='du -d1 -t10M -h 2>/dev/null | sort -hr'
+alias dirusage='du -d1 -t10M -h 2>/dev/null | sort -hr'
 alias psaux='ps aux | grep'
 alias soundindicatorback='gsettings set com.canonical.indicator.sound visible true'
 alias xcopy='xclip'
@@ -173,6 +179,11 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
+source $HOME/.letsdo-autocomplete
+alias gvim='gvim -geom 800:400'
 source $DOTFILES/bash/modemmanager_aliases.sh
 source $DOTFILES/bash/networkmanager_aliases.sh
 source $DOTFILES/git/aliases.sh
+PATH=~/.local/bin:$PATH
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

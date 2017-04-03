@@ -32,7 +32,7 @@ configure: install
 	[ -L $(NVIM_HOME)/colors ] 		  || ln -s $(CWD)/nvim/colors 	 	$(NVIM_HOME)/colors
 	[ -L $(NVIM_HOME)/thesaurus ] 	  || ln -s $(CWD)/nvim/thesaurus 	$(NVIM_HOME)/thesaurus
 	[ -L $(NVIM_HOME)/snippets ] 	  || ln -s $(CWD)/nvim/snippets  	$(NVIM_HOME)/snippets
-	[ -L $(NVIM_HOME)/after/syntax ]  || ln -s $(CWD)/nvim/syntax 		$(NVIM_HOME)/after/syntax
+	[ -L $(NVIM_HOME)/after/syntax ]  || mkdir -p $(NVIM_HOME)/after && ln -s $(CWD)/nvim/syntax 		$(NVIM_HOME)/after/syntax
 
 clean:
 ifdef NVIM
