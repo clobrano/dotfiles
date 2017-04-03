@@ -102,7 +102,7 @@
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode

@@ -130,8 +130,10 @@ export PATH=$PATH:${GOBIN}
 
 
 # Export paths
+ANDROID_REPO=$HOME/external/bin/
 PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$DOTFILES
+PATH=$PATH:$ANDROID_REPO
 
 # Enable gcc colours, available since gcc 4.9.0
 GCC_COLORS=1
@@ -174,3 +176,4 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
 source $HOME/.letsdo-autocomplete
+alias gvim='gvim -geom 800:400'
