@@ -181,3 +181,5 @@ source $DOTFILES/bash/modemmanager_aliases.sh
 source $DOTFILES/bash/networkmanager_aliases.sh
 source $DOTFILES/git/aliases.sh
 PATH=~/.local/bin:$PATH
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
