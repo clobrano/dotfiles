@@ -456,8 +456,8 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
 
     " Task Done (move current line at the bottom of the file)
-    nnoremap td dd/Archivied<esc>p^f]a <C-R>=strftime("%Y-%m-%d")<CR><esc>
-    vnoremap td d/Archivied<esc>p<leader><space>
+    nnoremap td dd/Archived<esc>p^a <C-R>=strftime("%Y-%m-%d")<CR><esc>
+    vnoremap td d/Archived<esc>p<leader><space>
     " Task Up (move current line on top of the list
     nnoremap tu dd?^#<cr>p<leader><space>
 
@@ -469,6 +469,8 @@ nmap <F2> :NERDTreeToggle<CR>
 " TagBar --------------------------------------------------------------------------------{{{
 
 nnoremap tb <Esc>:TagbarToggle<CR>
+let g:tagbar_left = 1
+let g:tagbar_zoomwidth = 0
 let g:tagbar_ctags_bin = "ctags"
 let g:tagbar_type_vimwiki = {
           \   'ctagstype':'vimwiki'
