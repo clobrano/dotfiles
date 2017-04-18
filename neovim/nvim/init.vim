@@ -169,8 +169,8 @@
 " Insert the current date long and short (insert mode, normal/command mode)
     inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
     map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-    inoremap <A-d> <C-R>=strftime("%m-%d")<CR>
-    map <A-d> a<C-R>=strftime("%m-%d")<CR><Esc>
+    inoremap <A-d> <C-R>=strftime("%y/%j")<CR>
+    map <A-d> a<C-R>=strftime("%y/%j")<CR><Esc>
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
