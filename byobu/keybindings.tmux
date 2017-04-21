@@ -6,7 +6,14 @@ bind a send-prefix
 # Custom
 bind-key -n M-o display-panes \; split-window -v -c "#{pane_current_path}"
 bind-key -n M-e display-panes \; split-window -h -c "#{pane_current_path}"
-bind-key -n M-k kill-pane
+bind-key -n M-x kill-pane
+
+# Moves
+bind-key -n M-h select-pane -L
+bind-key -n M-j select-pane -D
+bind-key -n M-k select-pane -U
+bind-key -n M-l select-pane -R
+
 unbind-key -n F2
 bind-key -n M-n new-window -c "#{pane_current_path}" \; rename-window "-"
 
