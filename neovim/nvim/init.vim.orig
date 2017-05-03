@@ -99,7 +99,7 @@
 " Editor --------------------------------------------------------------------------------{{{
     set guifont=Monospace\ 11
     set background=light
-    colorscheme PaperColor
+    colorscheme hemisu
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
@@ -169,8 +169,8 @@
 " Insert the current date long and short (insert mode, normal/command mode)
     inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
     map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-    inoremap <A-d> <C-R>=strftime("%y/%j")<CR>
-    map <A-d> a<C-R>=strftime("%y/%j")<CR><Esc>
+    inoremap <A-d> <C-R>=strftime("%m-%d")<CR>
+    map <A-d> a<C-R>=strftime("%m-%d")<CR><Esc>
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
@@ -456,20 +456,18 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
 
     " Task Done (move current line at the bottom of the file)
-    nnoremap td dd/Done<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+<<<<<<< c84bc59d464b4ca6ee735fcf541a9dd641a31d20
+    nnoremap td dd/Archived<esc>p^a <C-R>=strftime("%Y-%m-%d")<CR><esc>
+    vnoremap td d/Archived<esc>p<leader><space>
+=======
+    nnoremap td dd/Done<esc>p^a <C-R>=strftime("%Y-%m-%d")<CR><esc>
+>>>>>>> Vimwiki todos: renamed Archived to Done
     " Task Up (move current line on top of the list
     nnoremap tu dd?^#<cr>p<leader><space>
-    " Todo in Waiting
-    nnoremap tw dd/Waiting<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
-    " Todo back in todo
-    nnoremap tt dd?Todo<esc>p^a<esc>
-    " Todo prio change
-    nnoremap tpa v$:s/([A-C])/(A)/g<CR>
-    nnoremap tpb v$:s/([A-C])/(B)/g<CR>
-    nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 
-    "nnoremap tl dd/OnHold<cr><esc>p
-    "vnoremap tl d/OnHold<cr><esc>p
+    " Todo later
+    nnoremap tl dd/OnHold<cr><esc>p
+    vnoremap tl d/OnHold<cr><esc>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -670,13 +668,6 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Neomake " -----------------------------------------------------------------------------{{{
-    " Automatic open error window (:ll move to the next error)
-    let g:neomake_open_list = 2
-    let g:neomake_c_calendar_maker = {
-                \ 'exe': 'astyle',
-                \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--indent-continuation=0', '--break-blocks', '--pad-oper', '--pad-header'],
-                \ }
-    let g:neomake_c_enabled_markers = ['calendar']
 
 " }}}
 
