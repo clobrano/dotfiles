@@ -564,6 +564,10 @@ let g:tagbar_type_vimwiki = {
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
 
+    " Clang-format
+    map <C-K> :pyf /usr/share/clang/clang-format-4.0/clang-format.py<cr>
+    imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-4.0/clang-format.py<cr>
+
     " Letsdo mapping
     nnoremap <leader>ld <esc>:!letsdo<space>
 "}}}
@@ -674,7 +678,7 @@ let g:tagbar_type_vimwiki = {
     let g:neomake_open_list = 2
     let g:neomake_c_calendar_maker = {
                 \ 'exe': 'astyle',
-                \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--indent-continuation=0', '--break-blocks', '--pad-oper', '--pad-header'],
+                \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
                 \ }
     let g:neomake_c_enabled_markers = ['calendar']
 
