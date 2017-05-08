@@ -30,6 +30,9 @@
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+    " Beautify copy/paste on external media
+      Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
+
     " Look and feel
       Plug 'Tagbar'    " Temporally disabled for issue in Autoupdate function
       Plug 'jeetsukumaran/vim-buffergator'
@@ -565,8 +568,8 @@ let g:tagbar_type_vimwiki = {
     autocmd QuickFixCmdPost    l* nested lwindow
 
     " Clang-format
-    map <C-K> :pyf /usr/share/clang/clang-format-4.0/clang-format.py<cr>
-    imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-4.0/clang-format.py<cr>
+    map <C-K> :pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
+    imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
 
     " Letsdo mapping
     nnoremap <leader>ld <esc>:!letsdo<space>
@@ -681,6 +684,12 @@ let g:tagbar_type_vimwiki = {
                 \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
                 \ }
     let g:neomake_c_enabled_markers = ['calendar']
+
+    let g:neomake_python_yapf_maker = {
+                \ 'exe': 'yapf',
+                \ 'args': ['--in-place'],
+                \ }
+    let g:neomake_python_enabled_markers = ['yapf']
 
 " }}}
 
