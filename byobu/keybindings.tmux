@@ -29,3 +29,4 @@ bind-key -n M-n new-window -c "#{pane_current_path}" \; rename-window "-"
 # Enable Search mode
 unbind-key -n F7
 bind-key -n M-n new-window -c "#{pane_current_path}" \; rename-window "-"
+
