@@ -25,3 +25,5 @@ cppcheck
 byobu
 libappindicator1
 xclip
+# linter
+astyle
