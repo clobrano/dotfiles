@@ -29,6 +29,8 @@
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+      Plug 'frioux/vim-lost'
+      Plug 'MattesGroeger/vim-bookmarks'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -68,6 +70,7 @@
       Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
+      Plug 'codeindulgence/vim-tig'
 
     " Go
       Plug 'fatih/vim-go', {'for': 'go'}
@@ -108,7 +111,7 @@
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme PaperColor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
@@ -185,8 +188,8 @@
 " No Ex mode
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
-    map q <nop>
-    nnoremap m q
+    "map q <nop>
+    "nnoremap s q
 " Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
@@ -266,7 +269,7 @@
     " Fzf fuzzy searcher (fs = file search)
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
-    nnoremap fa <Esc>:Ack!<space>
+    nnoremap fa <Esc>:Ack! --ignore-dir=tags --ignore-dir=cscope.*<space>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -402,7 +405,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='oceanicnextlight'
+    let g:airline_theme='PaperColor'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -459,13 +462,15 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
 
     " Task Done (move current line at the bottom of the file)
-    nnoremap td dd/Done<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+    nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
     " Task Up (move current line on top of the list
     nnoremap tu dd?^#<cr>p<leader><space>
-    " Todo in Waiting
-    nnoremap tw dd/Waiting<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
-    " Todo back in todo
-    nnoremap tt dd?Todo<esc>p^a<esc>
+    " Todo in Later
+    nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+    " Todo in Next
+    nnoremap tn dd?^#.*Todo<esc>p^a<esc>
+    " Todo in someday
+    nnoremap ts dd?^#.*Someday<esc>p^a<esc>
     " Todo prio change
     nnoremap tpa v$:s/([A-C])/(A)/g<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
@@ -539,11 +544,14 @@ let g:tagbar_type_vimwiki = {
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
-    "inoremap {<CR>  {<CR>}<Esc>O<Tab>
-    "inoremap {<Tab>  {}<Left>
+    inoremap {<CR>  {<CR>}<Esc>O
+    inoremap {<Tab>  {}<Left>
 
     " Align function arguments
     set cino+=(0
+
+    " Automatic close brackets
+    "inoremap { {<CR>}<Esc>ko
 
     " make
     nnoremap <leader>i <esc>:!sudo make install<cr>
@@ -573,6 +581,9 @@ let g:tagbar_type_vimwiki = {
 
     " Letsdo mapping
     nnoremap <leader>ld <esc>:!letsdo<space>
+
+    " Syncopate
+    command! CopyFormat SyncopateExportToClipboard
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
@@ -683,7 +694,11 @@ let g:tagbar_type_vimwiki = {
                 \ 'exe': 'astyle',
                 \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
                 \ }
-    let g:neomake_c_enabled_markers = ['calendar']
+   let g:neomake_c_clang_maker = {
+                \ 'exe': 'clang-format',
+                \ 'args': ['-style=file', '-i'],
+                \ }
+    let g:neomake_c_enabled_markers = ['calendar', 'clang']
 
     let g:neomake_python_yapf_maker = {
                 \ 'exe': 'yapf',
@@ -691,6 +706,15 @@ let g:tagbar_type_vimwiki = {
                 \ }
     let g:neomake_python_enabled_markers = ['yapf']
 
+" }}}
+
+" Generic Mappings ----------------------------------------------------------------------{{{
+
+" Dump web page
+command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
+
+" Grep from index a daily report of tasks created, moved, done
+command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
 "" ----------------------------------------------------------------------------------{{{
