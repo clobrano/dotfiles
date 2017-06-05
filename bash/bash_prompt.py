@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import os
 
-
 # Show path up to 20 chars or smart strip instead
 def smartPath():
     pwd = os.getcwd()
