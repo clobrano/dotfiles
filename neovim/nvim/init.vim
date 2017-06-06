@@ -23,7 +23,7 @@
     call plug#begin()
 
     " Generic
-      Plug 'gnupg.vim'
+      Plug 'vim-scripts/gnupg.vim'
       "Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
       Plug 'craigemery/vim-autotag'
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
@@ -36,7 +36,7 @@
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
 
     " Look and feel
-      Plug 'Tagbar'    " Temporally disabled for issue in Autoupdate function
+      Plug 'vim-scripts/Tagbar'    " Temporally disabled for issue in Autoupdate function
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
       Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
@@ -50,7 +50,7 @@
       Plug 'noahfrederick/vim-hemisu'
 
     " C/C++
-      Plug 'a.vim', {'for': ['c', 'cpp']}
+      Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
       Plug 'chazy/cscope_maps', {'for': ['c', 'cpp']}
       Plug 'hari-rangarajan/CCTree', {'for': ['c', 'cpp']} " C Call-Tree Explorer -- Cscope based source-code browser; code flow analyzer
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
@@ -79,7 +79,7 @@
       Plug 'junegunn/goyo.vim', {'on': 'Goyo'}        " Distraction free editing toggle :Goyo, end :Goyo!
       Plug 'vim-jp/vital.vim'
       Plug 'termoshtt/toggl.vim'
-      Plug 'wakatime/vim-wakatime'                    " Track working time
+      "Plug 'wakatime/vim-wakatime'                    " Track working time
 
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
