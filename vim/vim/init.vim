@@ -18,14 +18,14 @@
     call plug#begin()
 
     " Generic
-      Plug 'gnupg.vim'
+      Plug 'vim-scripts/gnupg.vim'
       Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
     " Look and feel
-      Plug 'Tagbar'
+      Plug 'vim-scripts/Tagbar'
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
       Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
@@ -42,7 +42,7 @@
       Plug 'hsanson/vim-android'
 
     " C/C++
-      Plug 'a.vim', {'for': ['c', 'cpp']}
+      Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
       Plug 'chazy/cscope_maps', {'for': ['c', 'cpp']}
       Plug 'hari-rangarajan/CCTree', {'for': ['c', 'cpp']} " C Call-Tree Explorer -- Cscope based source-code browser; code flow analyzer
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}

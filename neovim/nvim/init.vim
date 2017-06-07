@@ -36,7 +36,7 @@
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
 
     " Look and feel
-      Plug 'vim-scripts/Tagbar'    " Temporally disabled for issue in Autoupdate function
+      Plug 'vim-scripts/Tagbar'
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
       Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
