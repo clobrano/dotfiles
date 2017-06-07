@@ -93,7 +93,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 9
+    set guifont=Monaco\ for\ Powerline\ 11
     set background=light
     colorscheme hemisu
     syntax enable

@@ -14,6 +14,8 @@
     " ^x^f: autocomplete filenames
     " ^x^]: autocomplete with words from tags
     " ^n: autocomplete for anything specified by the 'complete' option
+    " <C-r>=    : in insert mode evaluate any expression
+    " g <C-g>   : text statistics
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -48,6 +50,7 @@
       Plug 'mhartington/oceanic-next'
       Plug 'crusoexia/vim-monokai'
       Plug 'noahfrederick/vim-hemisu'
+      Plug 'flazz/vim-colorschemes'
 
     " C/C++
       Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -84,6 +87,11 @@
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
 
+    " NodeJS
+      Plug 'moll/vim-node', {'for': 'javascript'}
+      Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'} 
+      Plug 'guileen/vim-node-dict'
+
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
@@ -103,7 +111,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monospace\ 11
+    set guifont=Monospace\ 9
     set background=light
     colorscheme PaperColor
     syntax enable
@@ -297,7 +305,8 @@
 
     " Invoke make
     "nnoremap <leader>m :make<CR>
-    nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+    "nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+    nnoremap <leader>m :Neomake makeprg<CR>
 
     " Var definition
     nnoremap <leader>vd [i
@@ -457,7 +466,6 @@ nmap <F2> :NERDTreeToggle<CR>
 
     let g:vimwiki_list = [notes, telit, tracker, wiki]
     let g:vimwiki_folding='list'
-
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
 
@@ -536,6 +544,13 @@ let g:tagbar_type_vimwiki = {
     autocmd Syntax vim setlocal foldmethod=marker
     autocmd Syntax vim setlocal foldlevel=0
     autocmd Syntax vim setlocal modelines=1
+
+    autocmd FileType javascript set dictionary+=$HOME/.config/nvim/plugged/dict/node.dict
+    " Exec nodejs
+    autocmd FileType javascript nnoremap <leader>e <esc>:!nodejs %<cr>
+    " Debug nodejs
+    autocmd FileType javascript nnoremap <leader>b <esc>:!nodejs debug %<cr>
+
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
@@ -689,6 +704,8 @@ let g:tagbar_type_vimwiki = {
 
 " Neomake " -----------------------------------------------------------------------------{{{
     " Automatic open error window (:ll move to the next error)
+    
+    " C/C++
     let g:neomake_open_list = 2
     let g:neomake_c_calendar_maker = {
                 \ 'exe': 'astyle',
@@ -700,6 +717,7 @@ let g:tagbar_type_vimwiki = {
                 \ }
     let g:neomake_c_enabled_markers = ['calendar', 'clang']
 
+    " Python
     let g:neomake_python_yapf_maker = {
                 \ 'exe': 'yapf',
                 \ 'args': ['--in-place'],
