@@ -62,11 +62,6 @@ else
 	SYM=$
 fi
 
-# Configuration directories
-export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/toolkit/dotfiles
-export EDITOR="gvim -f"
-
 TERM=xterm-256color
 function smart_path() {
   echo $(python "$DOTFILES"/bash/bash_prompt.py )
@@ -125,7 +120,7 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Configuration directories
 export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/toolkit/dotfiles
+export DOTFILES=$HOME/dotfiles
 export EDITOR="gvim -f"
 # Golang paths
 export GOPATH=$HOME/workspace/gocode/
@@ -179,11 +174,22 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
-source $HOME/.letsdo-autocomplete
+if [ -f $HOME/.letsdo-autocomplete ]; then
+	source $HOME/.letsdo-autocomplete
+fi
 alias gvim='gvim -geom 800:400'
-source $DOTFILES/bash/modemmanager_aliases.sh
-source $DOTFILES/bash/networkmanager_aliases.sh
-source $DOTFILES/git/aliases.sh
+
+if [ -f $DOTFILES/bash/modemmanager_aliases.sh ]; then
+	source $DOTFILES/bash/modemmanager_aliases.sh
+fi
+if [ -f $DOTFILES/bash/networkmanager_aliases.sh ]; then
+	source $DOTFILES/bash/networkmanager_aliases.sh
+fi
+
+if [ -f $DOTFILES/git/aliases.sh ]; then
+	source $DOTFILES/git/aliases.sh
+fi
 PATH=~/.local/bin:$PATH
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+alias letsdo='letsdo -c'
