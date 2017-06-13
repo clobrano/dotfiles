@@ -125,8 +125,8 @@
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
-    command! SpellCheckEN set spell spelllang=en
-    command! SpellCheckIT set spell spelllang=it
+    command! SpellEn set spell spelllang=en
+    command! SpellIt set spell spelllang=it
 " Thesaurus
     set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt
 " }}}
@@ -170,7 +170,8 @@
     set softtabstop=4
     set expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
-    set list lcs=trail:·,tab:»· ",eol:¶
+    set list
+    set lcs=trail:·,tab:»· ",eol:¶
     set wrap linebreak nolist
     set showbreak=└
     set showmatch       " show matching parenthesis
@@ -281,7 +282,6 @@
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
-    " TODO: change shortcut?
     noremap rep <Esc>:%s//gc<Left><Left><Left>
 
     " Edit init.vim
@@ -306,12 +306,15 @@
     " Invoke make
     "nnoremap <leader>m :make<CR>
     "nnoremap <leader>m :silent make\|redraw!\|cw<CR>
-    nnoremap <leader>m :Neomake makeprg<CR>
 
     " Var definition
     nnoremap <leader>vd [i
     " Macro definition
     nnoremap <leader>md [d
+
+    " Vertical splits to Horizontal and vice versa
+    nnoremap h2v <C-w>t<C-w>H
+    nnoremap v2h <C-w>t<C-w>K
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -508,8 +511,8 @@ let g:tagbar_type_vimwiki = {
 
 " Snippets" -----------------------------------------------------------------------------{{{
 " Generic
-    iabbr {{ {}<esc>
-    iabbr (( ()<esc>
+    "iabbr {{ {}<esc>
+    "iabbr (( ()<esc>
 
 " Bash
     " Getopts
@@ -599,6 +602,10 @@ let g:tagbar_type_vimwiki = {
 
     " Syncopate
     command! CopyFormat SyncopateExportToClipboard
+
+    " Tab policy
+    command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
+    command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{

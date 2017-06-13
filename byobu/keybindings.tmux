@@ -30,3 +30,5 @@ bind-key -n M-n new-window -c "#{pane_current_path}" \; rename-window "-"
 unbind-key -n F7
 bind-key -n M-n new-window -c "#{pane_current_path}" \; rename-window "-"
 
+bind -t vi-copy y copy-pipe 'xclip -in -selection clipboard'
+bind C-p run "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
