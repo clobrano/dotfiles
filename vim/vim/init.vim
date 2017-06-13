@@ -238,7 +238,7 @@
         set grepprg=ag\ --nogroup\ --nocolor
         let g:ackprg = 'ag'
     endif
-    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
+    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow --ignore=TAGS --ignore=tags --ignore=cscope.*"
     let g:ackhighlight = 1
     " Highlight current word
     nnoremap * *<C-o>
