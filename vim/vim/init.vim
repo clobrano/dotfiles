@@ -23,6 +23,11 @@
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+      Plug 'frioux/vim-lost'
+      Plug 'MattesGroeger/vim-bookmarks'
+
+    " Beautify copy/paste on external media
+      Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
 
     " Look and feel
       Plug 'vim-scripts/Tagbar'
@@ -65,6 +70,7 @@
       Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
+      Plug 'codeindulgence/vim-tig'
 
     " Go
       Plug 'fatih/vim-go', {'for': 'go'}
@@ -108,8 +114,8 @@
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
-    command! SpellCheckEN set spell spelllang=en
-    command! SpellCheckIT set spell spelllang=it
+    command! SpellEn set spell spelllang=en
+    command! SpellIt set spell spelllang=it
 " Thesaurus
     set thesaurus+=~/.vim/thesaurus/thesaurus.txt
 " }}}
@@ -153,7 +159,8 @@
     set softtabstop=4
     set expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
-    set list lcs=trail:·,tab:»· ",eol:¶
+    set list
+    set lcs=trail:·,tab:»· ",eol:¶
     set wrap linebreak nolist
     set showbreak=└
     set showmatch       " show matching parenthesis
@@ -163,9 +170,11 @@
     highlight ExtraWhitespace ctermbg=Yellow
 " Enable remove extra whitespaces
     nnoremap ss :ToggleStripWhitespaceOnSave<CR>
-" Insert the current date (insert mode, normal/command mode)
-    inoremap <A-d> <C-R>=strftime("%Y-%m-%d")<CR>
-    map <A-d> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+" Insert the current date long and short (insert mode, normal/command mode)
+    inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
+    map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+    inoremap <A-d> <C-R>=strftime("%y/%j")<CR>
+    map <A-d> a<C-R>=strftime("%y/%j")<CR><Esc>
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
@@ -177,8 +186,8 @@
 " No Ex mode
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
-    map q <nop>
-    nnoremap m q
+    "map q <nop>
+    "nnoremap m q
 " Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
@@ -262,7 +271,6 @@
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
-    " TODO: change shortcut?
     noremap rep <Esc>:%s//gc<Left><Left><Left>
 
     " Edit init.vim
@@ -440,12 +448,29 @@ nmap <F2> :NERDTreeToggle<CR>
 " Vimwiki -------------------------------------------------------------------------------{{{
     let wiki =     {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
     let telit =    {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
-    let projects =    {'path': '~/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
+    let tracker =    {'path': '~/Dropbox/Work/Telit/Tracker/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
+    let notes =    {'path': '~/Dropbox/Notes/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
 
-    let g:vimwiki_list = [telit, projects, wiki]
+    let g:vimwiki_list = [notes, telit, tracker, wiki]
     let g:vimwiki_folding='list'
+
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
+
+    " Task Done (move current line at the bottom of the file)
+    nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+    " Task Up (move current line on top of the list
+    nnoremap tu dd?^#<cr>p<leader><space>
+    " Todo in Later
+    nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+    " Todo in Next
+    nnoremap tn dd?^#.*Todo<esc>p^a<esc>
+    " Todo in someday
+    nnoremap ts dd?^#.*Someday<esc>p^a<esc>
+    " Todo prio change
+    nnoremap tpa v$:s/([A-C])/(A)/g<CR>
+    nnoremap tpb v$:s/([A-C])/(B)/g<CR>
+    nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -466,8 +491,8 @@ let g:tagbar_type_vimwiki = {
 
 " Snippets" -----------------------------------------------------------------------------{{{
 " Generic
-    iabbr {{ {}<esc>
-    iabbr (( ()<esc>
+    "iabbr {{ {}<esc>
+    "iabbr (( ()<esc>
 
 " Bash
     " Getopts
@@ -502,8 +527,6 @@ let g:tagbar_type_vimwiki = {
     autocmd Syntax vim setlocal foldmethod=marker
     autocmd Syntax vim setlocal foldlevel=0
     autocmd Syntax vim setlocal modelines=1
-
-    autocmd FileType vimwiki setlocal textwidth=100
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
@@ -512,8 +535,8 @@ let g:tagbar_type_vimwiki = {
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
-    "inoremap {<CR>  {<CR>}<Esc>O<Tab>
-    "inoremap {<Tab>  {}<Left>
+    inoremap {<CR>  {<CR>}<Esc>O
+    inoremap {<Tab>  {}<Left>
 
     " Align function arguments
     set cino+=(0
@@ -542,6 +565,13 @@ let g:tagbar_type_vimwiki = {
 
     " Letsdo mapping
     nnoremap <leader>ld <esc>:!letsdo<space>
+
+    " Syncopate
+    command! CopyFormat SyncopateExportToClipboard
+
+    " Tab policy
+    command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
+    command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
@@ -648,5 +678,14 @@ let g:tagbar_type_vimwiki = {
 
 " }}}
 
+" Generic Mappings ----------------------------------------------------------------------{{{
+
+" Dump web page
+command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
+
+" Grep from index a daily report of tasks created, moved, done
+command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
+" }}}
+"
 " " ----------------------------------------------------------------------------------{{{
 " }}}
