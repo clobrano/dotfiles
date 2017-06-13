@@ -108,7 +108,7 @@
     set linespace=1
     nnoremap sf <esc>:set guifont=Monaco\ for\ Powerline\<space>
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme papercolor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme PaperColor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
@@ -267,7 +267,7 @@
     " Fzf fuzzy searcher (fs = file search)
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
-    nnoremap fa <Esc>:Ack!<space>
+    nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.*<space>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -296,9 +296,10 @@
     "nnoremap <leader>m :make<CR>
     nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 
-    " Vertical splits to Horizontal and vice versa
-    nnoremap h2v <C-w>t<C-w>H
-    nnoremap v2h <C-w>t<C-w>K
+    " Var definition
+    nnoremap <leader>vd [i
+    " Macro definition
+    nnoremap <leader>md [d
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -476,6 +477,8 @@ nmap <F2> :NERDTreeToggle<CR>
 " TagBar --------------------------------------------------------------------------------{{{
 
 nnoremap tb <Esc>:TagbarToggle<CR>
+let g:tagbar_left = 1
+let g:tagbar_zoomwidth = 0
 let g:tagbar_ctags_bin = "ctags"
 let g:tagbar_type_vimwiki = {
           \   'ctagstype':'vimwiki'
