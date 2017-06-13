@@ -84,9 +84,6 @@
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
 
-    " Javascript
-      Plug 'pangloss/vim-javascript', {'for': 'js'}
-
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
@@ -102,7 +99,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 9
+    set guifont=Monaco\ for\ Powerline\ 11
     set background=light
     colorscheme hemisu
     syntax enable
@@ -241,7 +238,7 @@
         set grepprg=ag\ --nogroup\ --nocolor
         let g:ackprg = 'ag'
     endif
-    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow --ignore=TAGS --ignore=tags --ignore=cscope.*"
+    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
     let g:ackhighlight = 1
     " Highlight current word
     nnoremap * *<C-o>
@@ -475,6 +472,12 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap tpa v$:s/([A-C])/(A)/g<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
     nnoremap tpc v$:s/([A-C])/(C)/g<CR>
+<<<<<<< Updated upstream
+=======
+
+    "nnoremap tl dd/OnHold<cr><esc>p
+    "vnoremap tl d/OnHold<cr><esc>p
+>>>>>>> Stashed changes
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -541,7 +544,11 @@ let g:tagbar_type_vimwiki = {
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
+<<<<<<< Updated upstream
     inoremap {<CR>  {<CR>}<Esc>O
+=======
+    inoremap {<CR>  {<CR>}<Esc>O<Tab>
+>>>>>>> Stashed changes
     inoremap {<Tab>  {}<Left>
 
     " Align function arguments
@@ -574,10 +581,13 @@ let g:tagbar_type_vimwiki = {
 
     " Syncopate
     command! CopyFormat SyncopateExportToClipboard
+<<<<<<< Updated upstream
 
     " Tab policy
     command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
     command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
+=======
+>>>>>>> Stashed changes
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
