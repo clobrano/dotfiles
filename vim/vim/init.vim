@@ -241,7 +241,7 @@
         set grepprg=ag\ --nogroup\ --nocolor
         let g:ackprg = 'ag'
     endif
-    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow --ignore=TAGS --ignore=tags --ignore=cscope.*"
+    let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
     let g:ackhighlight = 1
     " Highlight current word
     nnoremap * *<C-o>
@@ -270,7 +270,7 @@
     " Fzf fuzzy searcher (fs = file search)
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
-    nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.*<space>
+    nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -500,7 +500,7 @@ let g:tagbar_type_vimwiki = {
     "iabbr {{ {}<esc>
     "iabbr (( ()<esc>
 
-" Bash
+    " Bash
     " Getopts
     autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
@@ -519,9 +519,12 @@ let g:tagbar_type_vimwiki = {
     " Redirect to syslog
     iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
 
-"C-C++
+    "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
+
+    "Canonical bugs
+    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug #<esc>pa](<esc>
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{

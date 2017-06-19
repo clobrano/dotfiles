@@ -267,7 +267,7 @@
     " Fzf fuzzy searcher (fs = file search)
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
-    nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.*<space>
+    nnoremap fa <Esc>:Ack! --ignore=TAGS --ignore=tags --ignore=cscope.* ""<left>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -472,12 +472,9 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap tpa v$:s/([A-C])/(A)/g<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
     nnoremap tpc v$:s/([A-C])/(C)/g<CR>
-<<<<<<< Updated upstream
-=======
 
     "nnoremap tl dd/OnHold<cr><esc>p
     "vnoremap tl d/OnHold<cr><esc>p
->>>>>>> Stashed changes
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -544,11 +541,7 @@ let g:tagbar_type_vimwiki = {
     set nocursorline      " Disable highlight current line
 
     " Auto add closing bracket
-<<<<<<< Updated upstream
     inoremap {<CR>  {<CR>}<Esc>O
-=======
-    inoremap {<CR>  {<CR>}<Esc>O<Tab>
->>>>>>> Stashed changes
     inoremap {<Tab>  {}<Left>
 
     " Align function arguments
@@ -581,13 +574,10 @@ let g:tagbar_type_vimwiki = {
 
     " Syncopate
     command! CopyFormat SyncopateExportToClipboard
-<<<<<<< Updated upstream
 
     " Tab policy
     command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
     command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
-=======
->>>>>>> Stashed changes
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
