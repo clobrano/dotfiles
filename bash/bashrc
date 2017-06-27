@@ -69,7 +69,7 @@ function smart_path() {
 }
 
 if [ -x $(which byobu) ]; then
-    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[01;35m\]$(__git_ps1)\[\033[0m\]$SYM\[\033[0m\] '
+    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[0m\]$(__git_ps1)$SYM\[\033[0m\] '
 else
     PS1='\[\033[01;32m\]"\t $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
 fi
@@ -121,7 +121,7 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Configuration directories
 export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/dotfiles
+export DOTFILES=$HOME/toolkit/dotfiles
 export EDITOR="gvim -f"
 # Golang paths
 export GOPATH=$HOME/workspace/gocode/
@@ -175,8 +175,8 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
-if [ -f $HOME/.letsdo-autocomplete ]; then
-	source $HOME/.letsdo-autocomplete
+if [ -f $HOME/.letsdo_completion ]; then
+	source $HOME/.letsdo_completion
 fi
 alias gvim='gvim -geom 800:400'
 
