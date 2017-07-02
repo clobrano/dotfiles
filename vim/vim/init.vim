@@ -102,9 +102,9 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 9
+    set guifont=Monaco\ for\ Powerline\ 11
     set background=light
-    colorscheme hemisu
+    colorscheme molokai
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
@@ -113,6 +113,7 @@
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
     command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme PaperColor
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
+    command! Molokai set background=dark | colorscheme molokai | AirlineTheme oceanicnextlight
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
@@ -172,7 +173,7 @@
 " Better whitespace color
     highlight ExtraWhitespace ctermbg=Yellow
 " Enable remove extra whitespaces
-    nnoremap ss :ToggleStripWhitespaceOnSave<CR>
+    nnoremap <leader>ss :ToggleStripWhitespaceOnSave<CR>
 " Insert the current date long and short (insert mode, normal/command mode)
     inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
     map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
@@ -204,7 +205,7 @@
     nnoremap K 10k
     nnoremap J 10j
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
-    vnoremap <m-c> "+y<CR>
+    vnoremap c "+y<CR>
     inoremap <m-v> <esc>"+p
     noremap  <m-v> "+p
 " Manage multi-cursor
@@ -225,7 +226,7 @@
     let g:netrw_list_hide=netrw_gitignore#Hide()
     let g:netrw_liststyle=3     " tree view
     let g:netrw_winsize = 20
-    nnoremap tt <Esc>:Lexplore<CR>
+    nnoremap <leader>tt <Esc>:Lexplore<CR>
 
     set ignorecase
     " search as characters are entered
@@ -522,9 +523,11 @@ let g:tagbar_type_vimwiki = {
     "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
+    iabbr minc #include <><esc><left>
+    iabbr linc #include ""<esc><left>
 
     "Canonical bugs
-    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug #<esc>pa](<esc>
+    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>acanonical/<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -573,7 +576,7 @@ let g:tagbar_type_vimwiki = {
     autocmd QuickFixCmdPost    l* nested lwindow
 
     " Letsdo mapping
-    nnoremap <leader>ld <esc>:!letsdo<space>
+    nnoremap <leader>ld <esc>:!letsdo --ascii<space>
 
     " Syncopate
     command! CopyFormat SyncopateExportToClipboard
