@@ -27,3 +27,4 @@ libappindicator1
 xclip
 # linter
 astyle
+bzr
