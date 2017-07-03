@@ -10,7 +10,7 @@ all: .inputrc set_bashrc
 	./create_inputrc
 
 set_bashrc: bashrc bash_prompt.py
-	mv $(BASHRC) $(BASHRC_BAK)
+	-mv $(BASHRC) $(BASHRC_BAK)
 	ln -sf $(PWD)/bashrc $(BASHRC)
 	sed -i 's_PLACEHOLDER_$(DOTFILE_DIR)_g' $(BASHRC)
 
