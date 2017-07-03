@@ -64,6 +64,7 @@
 
     " Foo
       Plug 'szw/vim-g'                                " Quick Google lookup
+      Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
       Plug 'vimwiki/vimwiki'
@@ -111,7 +112,7 @@
     set linespace=1
     nnoremap sf <esc>:set guifont=Monaco\ for\ Powerline\<space>
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme PaperColor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
     command! Molokai set background=dark | colorscheme molokai | AirlineTheme oceanicnextlight
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
@@ -205,7 +206,7 @@
     nnoremap K 10k
     nnoremap J 10j
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
-    vnoremap c "+y<CR>
+    vnoremap <m-c> "+y<CR>
     inoremap <m-v> <esc>"+p
     noremap  <m-v> "+p
 " Manage multi-cursor
@@ -675,6 +676,8 @@ let g:tagbar_type_vimwiki = {
     nnoremap <leader>gc <esc>:Gcommit<cr>
     nnoremap <leader>gph <esc>:Gpush<cr>
     nnoremap <leader>gpl <esc>:Gpull<cr>
+    " Push in review for given branch
+    nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 
 " }}}
 
