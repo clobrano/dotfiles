@@ -86,7 +86,8 @@
       Plug 'alvan/vim-closetag', {'for': 'html'}
 
     " Javascript
-      Plug 'pangloss/vim-javascript', {'for': 'js'}
+      Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+      Plug 'digitaltoad/vim-pug', {'for': 'pug'}
 
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
@@ -103,7 +104,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 11
+    set guifont=Monaco\ for\ Powerline\ 10
     set background=light
     colorscheme molokai
     syntax enable
