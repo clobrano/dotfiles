@@ -196,4 +196,3 @@ PATH=~/.local/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias letsdo='letsdo -c'
 alias node='nodejs'
-export DOTFILES=/home/carlolo/dotfiles
