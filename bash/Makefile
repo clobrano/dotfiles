@@ -1,16 +1,18 @@
 ## Makefile for bash configuration
 PWD=$(shell pwd)
+DOTFILE_DIR=$(shell dirname ${PWD})
 BASHRC=$(HOME)/.bashrc
 BASHRC_BAK=$(HOME)/.bashrc.bak
 
-all: .inputrc link_bashrc
+all: .inputrc set_bashrc
 
 .inputrc:
 	./create_inputrc
 
-link_bashrc: bashrc bash_prompt.py
+set_bashrc: bashrc bash_prompt.py
 	mv $(BASHRC) $(BASHRC_BAK)
 	ln -sf $(PWD)/bashrc $(BASHRC)
+	sed -i 's_PLACEHOLDER_$(DOTFILE_DIR)_g' $(BASHRC)
 
 clean:
 	-[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"

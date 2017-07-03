@@ -62,6 +62,11 @@ else
 	SYM=$
 fi
 
+# Configuration directories
+export TOOLKIT=$HOME/toolkit
+export DOTFILES=PLACEHOLDER
+export EDITOR="gvim -f"
+
 COLORTERM=gnome-terminal
 TERM=xterm-256color
 function smart_path() {
@@ -119,10 +124,6 @@ fi
 # Add timestamp to history
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
-# Configuration directories
-export TOOLKIT=$HOME/toolkit
-export DOTFILES=$HOME/toolkit/dotfiles
-export EDITOR="gvim -f"
 # Golang paths
 export GOPATH=$HOME/workspace/gocode/
 export GOBIN=${GOPATH}bin
@@ -195,3 +196,4 @@ PATH=~/.local/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias letsdo='letsdo -c'
 alias node='nodejs'
+export DOTFILES=/home/carlolo/dotfiles
