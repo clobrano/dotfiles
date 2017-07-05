@@ -9,6 +9,7 @@
     " ^x^f: autocomplete filenames
     " ^x^]: autocomplete with words from tags
     " ^n: autocomplete for anything specified by the 'complete' option
+    " gg=G: fix up indentention in file
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -104,9 +105,9 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 10
+    set guifont=Monaco\ for\ Powerline\ 11
     set background=light
-    colorscheme molokai
+    colorscheme PaperColor
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
