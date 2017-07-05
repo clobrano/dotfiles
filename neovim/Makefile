@@ -25,7 +25,7 @@ ifndef XCLIP
 	sudo apt-get install -y xclip
 endif
 
-configure: install
+configure:
 	[ -d $(NVIM_HOME) ] 			  || mkdir $(NVIM_HOME)
 	[ -L $(INIT) ] 					  || ln -s $(CWD)/nvim/init.vim  	$(INIT)
 	[ -L $(NVIM_HOME)/config ] 		  || ln -s $(CWD)/nvim/config 	 	$(NVIM_HOME)/config
