@@ -68,6 +68,7 @@
 
     " Foo
       Plug 'szw/vim-g'                                " Quick Google lookup
+      Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
       Plug 'vimwiki/vimwiki'
@@ -90,8 +91,11 @@
 
     " NodeJS
       Plug 'moll/vim-node', {'for': 'javascript'}
-      Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'} 
       Plug 'guileen/vim-node-dict'
+
+    " Javascript
+      Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+      Plug 'digitaltoad/vim-pug', {'for': 'pug'}
 
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
@@ -120,8 +124,9 @@
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme PaperColor
+    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
+    command! Molokai set background=dark | colorscheme molokai | AirlineTheme oceanicnextlight
     command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
@@ -199,7 +204,7 @@
     nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
     "map q <nop>
-    "nnoremap s q
+    "nnoremap m q
 " Exit, delete line, back to insert (and I should remember to use it)
     inoremap <C-d> <esc>ddi
 " Navigate through lines in wrapping mode
@@ -237,6 +242,8 @@
     nnoremap tt <Esc>:Lexplore<CR>
 
     set ignorecase
+    set infercase
+    set smartcase
     " search as characters are entered
     set incsearch
     " highlight matches
@@ -279,7 +286,7 @@
     " Fzf fuzzy searcher (fs = file search)
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
-    nnoremap fa <Esc>:Ack! --ignore-dir=tags --ignore-dir=cscope.*<space>
+    nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -312,10 +319,6 @@
     nnoremap <leader>vd [i
     " Macro definition
     nnoremap <leader>md [d
-
-    " Vertical splits to Horizontal and vice versa
-    nnoremap h2v <C-w>t<C-w>H
-    nnoremap v2h <C-w>t<C-w>K
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -418,7 +421,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='PaperColor'
+    let g:airline_theme='oceanicnextlight'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -470,6 +473,7 @@ nmap <F2> :NERDTreeToggle<CR>
 
     let g:vimwiki_list = [notes, telit, tracker, wiki]
     let g:vimwiki_folding='list'
+
     nnoremap dn :VimwikiDiaryNextDay<cr>
     nnoremap dp :VimwikiDiaryPrevDay<cr>
 
@@ -488,8 +492,8 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
     nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 
-    "nnoremap tl dd/OnHold<cr><esc>p
-    "vnoremap tl d/OnHold<cr><esc>p
+    "nnoremap tl dd/Waiting<cr><esc>p
+    "vnoremap tl d/Waiting<cr><esc>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -515,7 +519,7 @@ let g:tagbar_type_vimwiki = {
     "iabbr {{ {}<esc>
     "iabbr (( ()<esc>
 
-" Bash
+    " Bash
     " Getopts
     autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
@@ -534,9 +538,14 @@ let g:tagbar_type_vimwiki = {
     " Redirect to syslog
     iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
 
-"C-C++
+    "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
+    iabbr minc #include <><esc><left>
+    iabbr linc #include ""<esc><left>
+
+    "Canonical bugs
+    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>acanonical/<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -569,9 +578,6 @@ let g:tagbar_type_vimwiki = {
     " Align function arguments
     set cino+=(0
 
-    " Automatic close brackets
-    "inoremap { {<CR>}<Esc>ko
-
     " make
     nnoremap <leader>i <esc>:!sudo make install<cr>
 
@@ -599,7 +605,7 @@ let g:tagbar_type_vimwiki = {
     imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
 
     " Letsdo mapping
-    nnoremap <leader>ld <esc>:!letsdo<space>
+    nnoremap <leader>ld <esc>:!letsdo --ascii<space>
 
     " Syncopate
     command! CopyFormat SyncopateExportToClipboard
@@ -699,6 +705,8 @@ let g:tagbar_type_vimwiki = {
     nnoremap <leader>gc <esc>:Gcommit<cr>
     nnoremap <leader>gph <esc>:Gpush<cr>
     nnoremap <leader>gpl <esc>:Gpull<cr>
+    " Push in review for given branch
+    nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 
 " }}}
 
