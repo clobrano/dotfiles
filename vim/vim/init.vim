@@ -231,6 +231,8 @@
     nnoremap <leader>tt <Esc>:Lexplore<CR>
 
     set ignorecase
+    set infercase
+    set smartcase
     " search as characters are entered
     set incsearch
     " highlight matches
