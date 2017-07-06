@@ -16,6 +16,7 @@ add_repo:
 	sudo apt-get update
 
 install:
+	-sudo apt-get install -y curl
 ifndef NVIM
 	sudo apt-get install -y neovim
 endif
