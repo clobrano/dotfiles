@@ -1,8 +1,5 @@
 #unbind-key -n C-a
-set -g prefix ^A
-set -g prefix2 ^A
 set -g mode-keys vi
-bind a send-prefix
 
 # Custom
 bind-key -n M-o display-panes \; split-window -v -c "#{pane_current_path}"
@@ -28,11 +25,16 @@ bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
 
 unbind-key -n F2
-bind-key -n M-c new-window -c "#{pane_current_path}" \; rename-window "-"
+bind-key -n M-s new-window -c "#{pane_current_path}" \; rename-window "-"
 
 # Enable Search mode
 #unbind-key -n F7
-bind-key -n M-c new-window -c "#{pane_current_path}" \; rename-window "-"
+bind-key -n M-s new-window -c "#{pane_current_path}" \; rename-window "-"
 
 bind -t vi-copy y copy-pipe 'xclip -in -selection clipboard'
 bind C-p run "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
+unbind-key -n C-a
+unbind-key -n C-b
+set -g prefix ^B
+set -g prefix2 ^B
+bind b send-prefix
