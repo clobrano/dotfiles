@@ -16,6 +16,7 @@
     " ^n: autocomplete for anything specified by the 'complete' option
     " <C-r>=    : in insert mode evaluate any expression
     " g <C-g>   : text statistics
+    " gg=G      : uniform indentation in the whole file
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -177,6 +178,7 @@
     set lcs=trail:·,tab:»· ",eol:¶
     set wrap linebreak nolist
     set showbreak=└
+    set showmatch       " show matching parenthesis
     let loaded_matchparen = 0
     hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " Better whitespace color
@@ -193,7 +195,6 @@
     au FocusGained * :checktime
 
     set list
-    set showmatch       " show matching parenthesis
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
@@ -546,7 +547,7 @@ let g:tagbar_type_vimwiki = {
     iabbr linc #include ""<esc><left>
 
     "Canonical bugs
-    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>pa)
+    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug/<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -560,11 +561,6 @@ let g:tagbar_type_vimwiki = {
     autocmd Syntax vim setlocal modelines=1
 
     autocmd FileType javascript set dictionary+=$HOME/.config/nvim/plugged/dict/node.dict
-    " Exec nodejs
-    autocmd FileType javascript nnoremap <leader>e <esc>:!nodejs %<cr>
-    " Debug nodejs
-    autocmd FileType javascript nnoremap <leader>b <esc>:!nodejs debug %<cr>
-
 "}}}
 
 " Generic sofware development" ----------------------------------------------------------{{{
@@ -724,7 +720,7 @@ let g:tagbar_type_vimwiki = {
 
 " Neomake " -----------------------------------------------------------------------------{{{
     " Automatic open error window (:ll move to the next error)
-
+    
     " C/C++
     let g:neomake_open_list = 2
     let g:neomake_c_calendar_maker = {
@@ -732,7 +728,7 @@ let g:tagbar_type_vimwiki = {
                 \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
                 \ }
 
-    let g:neomake_c_clang_maker = {
+   let g:neomake_c_clang_maker = {
                 \ 'exe': 'clang-format',
                 \ 'args': ['-style=file', '-i'],
                 \ }
@@ -758,9 +754,6 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 
 " Grep from index a daily report of tasks created, moved, done
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
-" }}}
-
-"" Vim-surround -------------------------------------------------------------------------{{{
 " }}}
 
 "" ----------------------------------------------------------------------------------{{{
