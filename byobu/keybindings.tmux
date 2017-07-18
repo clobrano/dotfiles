@@ -17,12 +17,15 @@ bind -n M-p previous-window
 bind -n M-n next-window
 
 # Copy/Paste vim-like
+bind-key -n M-c copy-mode
 unbind [
-bind Escape copy-mode
+#bind Escape copy-mode
 unbind p
 bind p paste-buffer
 bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
+bind -t vi-copy y copy-pipe 'xclip -in -selection clipboard'
+bind C-p run "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
 
 unbind-key -n F2
 bind-key -n M-s new-window -c "#{pane_current_path}" \; rename-window "-"
@@ -31,8 +34,6 @@ bind-key -n M-s new-window -c "#{pane_current_path}" \; rename-window "-"
 #unbind-key -n F7
 bind-key -n M-s new-window -c "#{pane_current_path}" \; rename-window "-"
 
-bind -t vi-copy y copy-pipe 'xclip -in -selection clipboard'
-bind C-p run "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
 unbind-key -n C-a
 unbind-key -n C-b
 set -g prefix ^B
