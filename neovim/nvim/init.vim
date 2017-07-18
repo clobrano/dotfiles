@@ -26,13 +26,13 @@
 
     " Generic
       Plug 'vim-scripts/gnupg.vim'
-      "Plug 'ludovicchabant/vim-gutentags'             " A Vim Plug that manages your tag files
-      Plug 'craigemery/vim-autotag'
       Plug 'mileszs/ack.vim'                          " Replacement for vimgrep
       Plug 'vim-scripts/Mark--Karkat', {'on': 'Mark'} " Highlight several words in different colors simultaneously
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
       Plug 'frioux/vim-lost'
       Plug 'MattesGroeger/vim-bookmarks'
+      Plug 'MarcWeber/SmartTag'
+      Plug 'Yggdroot/indentLine'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -60,7 +60,6 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'    " Temporally disabled for it slows down on large repos
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -84,7 +83,6 @@
       Plug 'junegunn/goyo.vim', {'on': 'Goyo'}        " Distraction free editing toggle :Goyo, end :Goyo!
       Plug 'vim-jp/vital.vim'
       Plug 'termoshtt/toggl.vim'
-      Plug 'wakatime/vim-wakatime'                    " Track working time
 
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
@@ -176,11 +174,9 @@
     set softtabstop=4
     set expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
-    set list
     set lcs=trail:·,tab:»· ",eol:¶
     set wrap linebreak nolist
     set showbreak=└
-    set showmatch       " show matching parenthesis
     let loaded_matchparen = 0
     hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " Better whitespace color
@@ -192,6 +188,12 @@
     map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
     inoremap <A-d> <C-R>=strftime("%y/%j")<CR>
     map <A-d> a<C-R>=strftime("%y/%j")<CR><Esc>
+" Notify changes outside neovim
+    set autoread
+    au FocusGained * :checktime
+
+    set list
+    set showmatch       " show matching parenthesis
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
@@ -242,8 +244,6 @@
     nnoremap tt <Esc>:Lexplore<CR>
 
     set ignorecase
-    set infercase
-    set smartcase
     " search as characters are entered
     set incsearch
     " highlight matches
@@ -287,6 +287,7 @@
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
+    nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -545,7 +546,7 @@ let g:tagbar_type_vimwiki = {
     iabbr linc #include ""<esc><left>
 
     "Canonical bugs
-    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>acanonical/<esc>pa)
+    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -613,6 +614,9 @@ let g:tagbar_type_vimwiki = {
     " Tab policy
     command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
     command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
+
+    " Cmake
+    command! Cmake :cd build | make | cd -
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
@@ -659,7 +663,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags -R --exclude=.git --extra=+f .
+    command! CtagsMake !ctags --file-scope=no -R --exclude=.git --extra=+f .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -720,18 +724,23 @@ let g:tagbar_type_vimwiki = {
 
 " Neomake " -----------------------------------------------------------------------------{{{
     " Automatic open error window (:ll move to the next error)
-    
+
     " C/C++
     let g:neomake_open_list = 2
     let g:neomake_c_calendar_maker = {
                 \ 'exe': 'astyle',
                 \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
                 \ }
-   let g:neomake_c_clang_maker = {
+
+    let g:neomake_c_clang_maker = {
                 \ 'exe': 'clang-format',
                 \ 'args': ['-style=file', '-i'],
                 \ }
-    let g:neomake_c_enabled_markers = ['calendar', 'clang']
+    let g:neomake_c_make_maker =  {
+                \ 'exe': 'make',
+                \ }
+
+    let g:neomake_c_enabled_markers = ['calendar', 'clang', 'make']
 
     " Python
     let g:neomake_python_yapf_maker = {
@@ -749,6 +758,9 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 
 " Grep from index a daily report of tasks created, moved, done
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
+" }}}
+
+"" Vim-surround -------------------------------------------------------------------------{{{
 " }}}
 
 "" ----------------------------------------------------------------------------------{{{
