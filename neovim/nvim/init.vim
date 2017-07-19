@@ -34,6 +34,7 @@
       Plug 'MattesGroeger/vim-bookmarks'
       Plug 'MarcWeber/SmartTag'
       Plug 'Yggdroot/indentLine'
+      Plug 'vim-scripts/gtk-vim-syntax'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
