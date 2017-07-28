@@ -73,11 +73,12 @@ function smart_path() {
   echo $(python "$DOTFILES"/bash/bash_prompt.py )
 }
 
-if [ -x $(which byobu) ]; then
-    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[0m\]$(__git_ps1)$SYM\[\033[0m\] '
-else
-    PS1='\[\033[01;32m\]"\t $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
-fi
+#if [ -x $(which byobu) ]; then
+#    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[0m\]$(__git_ps1)$SYM\[\033[0m\] '
+#else
+#    PS1='\[\033[01;32m\]"\t $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
+#fi
+PS1='$(smart_path)$(__git_ps1)❯ '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

@@ -1,5 +1,6 @@
 alias mm-stop='sudo systemctl stop ModemManager'
 alias mm-start='sudo systemctl start ModemManager'
+alias mm-reload='sudo systemctl daemon-reload'
 alias mm-restart='sudo systemctl daemon-reload && sudo systemctl restart ModemManager'
 alias mm-status='sudo systemctl status ModemManager'
 alias mm-log='journalctl -fu ModemManager | raffaello -f modemmanager'
