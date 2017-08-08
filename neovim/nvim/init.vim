@@ -35,6 +35,7 @@
       Plug 'MarcWeber/SmartTag'
       Plug 'Yggdroot/indentLine'
       Plug 'vim-scripts/gtk-vim-syntax'
+      Plug 'justinmk/vim-dirvish'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -53,7 +54,7 @@
       Plug 'mhartington/oceanic-next'
       Plug 'crusoexia/vim-monokai'
       Plug 'noahfrederick/vim-hemisu'
-      Plug 'flazz/vim-colorschemes'
+      Plug 'dikiaap/minimalist'
 
     " C/C++
       Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -62,6 +63,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+      Plug 'vim-scripts/valgrind.vim', {'for': ['c', 'cpp']}
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
@@ -222,6 +224,8 @@
     nnoremap K 10k
     nnoremap J 10j
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
+    " Do not overwrite selected text on copy
+    xnoremap <silent> p p:let @+=@0<CR>
     vnoremap <m-c> "+y<CR>
     inoremap <m-v> <esc>"+p
     noremap  <m-v> "+p
@@ -314,9 +318,9 @@
     " Write protected file with superuser privilegies
     command! SudoWrite  w !sudo tee %
 
-    " Invoke make
-    "nnoremap <leader>m :make<CR>
-    "nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+    " Invoke make <leader>C_ompile
+    nnoremap <leader>c :make<CR>
+    nnoremap <leader>c :silent make\|redraw!\|cw<CR>
 
     " Var definition
     nnoremap <leader>vd [i
@@ -544,7 +548,9 @@ let g:tagbar_type_vimwiki = {
     "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
-    iabbr minc #include <><esc><left>
+    " include system headers
+    iabbr inc #include <><esc><left>
+    " include local headers
     iabbr linc #include ""<esc><left>
 
     "Canonical bugs
@@ -609,8 +615,8 @@ let g:tagbar_type_vimwiki = {
     command! CopyFormat SyncopateExportToClipboard
 
     " Tab policy
-    command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
-    command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
+    command! Set2TabSpace :set ts=2 sts=2 sw=2
+    command! Set4TabSpace :set ts=4 sts=4 sw=4
 
     " Cmake
     command! Cmake :cd build | make | cd -
@@ -619,11 +625,8 @@ let g:tagbar_type_vimwiki = {
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
     "" Update cscope db
-    command! Csmake !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ; cscope -b -i cscope.files -f cscope.out
+    command! Csfiles !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files
 
-    nnoremap csmake :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-      \:!cscope -b -i cscope.files -f cscope.out<CR>
-      \:cs kill -1<CR>:cs add cscope.out<CR>
     nnoremap csl <Esc>:cs add cscope.out<CR>
     nnoremap csc <Esc>:cs find c<space>
     nnoremap cscw yw<Esc>:cs find c<space><c-r>"
@@ -699,6 +702,7 @@ let g:tagbar_type_vimwiki = {
 
 " Git " ---------------------------------------------------------------------------------{{{
     nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
+    let g:gitgutter_max_signs = 100  " default value
 
     nnoremap <leader>gs <esc>:Gstatus<cr>
     nnoremap <leader>gw <esc>:Gwrite<cr>
@@ -721,7 +725,7 @@ let g:tagbar_type_vimwiki = {
 
 " Neomake " -----------------------------------------------------------------------------{{{
     " Automatic open error window (:ll move to the next error)
-    
+
     " C/C++
     let g:neomake_open_list = 2
     let g:neomake_c_calendar_maker = {
@@ -757,5 +761,8 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
-"" ----------------------------------------------------------------------------------{{{
+" Valgring" -----------------------------------------------------------------------------{{{
+let g:valgrind_arguments="--leak-check=full"
+" }}}
+"" --------------------------------------------------------------------------------------{{{
 " }}}
