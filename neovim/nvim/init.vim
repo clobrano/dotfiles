@@ -67,14 +67,13 @@
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
-      Plug 'neomake/neomake'
+      "Plug 'neomake/neomake'
 
     " Foo
       Plug 'szw/vim-g'                                " Quick Google lookup
       Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
-      Plug 'vimwiki/vimwiki'
       Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -84,9 +83,11 @@
       Plug 'fatih/vim-go', {'for': 'go'}
 
     " GTD
+      Plug 'vimwiki/vimwiki'
       Plug 'junegunn/goyo.vim', {'on': 'Goyo'}        " Distraction free editing toggle :Goyo, end :Goyo!
       Plug 'vim-jp/vital.vim'
       Plug 'termoshtt/toggl.vim'
+      Plug 'freitass/todo.txt-vim', {'for': 'txt'}
 
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
@@ -102,6 +103,7 @@
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
+      Plug 'w0rp/ale'
 
     " Presentation
       Plug 'sotte/presenting.vim'
@@ -145,6 +147,7 @@
 " Neovim settings
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
     set clipboard+=unnamedplus
 " show last command in the very bottom right of VI
     set showcmd
@@ -553,6 +556,10 @@ let g:tagbar_type_vimwiki = {
     " include local headers
     iabbr linc #include ""<esc><left>
 
+    "Bootstrap
+    au Filetype html,pug iabbr btnsucc btn-success
+    au Filetype html,pug iabbr gly glyphicon
+
     "Canonical bugs
     nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug/<esc>pa)
 " }}}
@@ -724,32 +731,31 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Neomake " -----------------------------------------------------------------------------{{{
-    " Automatic open error window (:ll move to the next error)
-
     " C/C++
-    let g:neomake_open_list = 2
-    let g:neomake_c_calendar_maker = {
-                \ 'exe': 'astyle',
-                \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
-                \ }
+    "let g:airline#extensions#ale#enabled = 1
+    "let g:neomake_c_calendar_maker = {
+    "            \ 'exe': 'astyle',
+    "            \ 'args': ['--indent=spaces=2', '--style=gnu', '--indent-cases', '--max-instatement-indent=120', '--break-blocks', '--pad-oper', '--pad-header'],
+    "            \ }
 
-   let g:neomake_c_clang_maker = {
-                \ 'exe': 'clang-format',
-                \ 'args': ['-style=file', '-i'],
-                \ }
-    let g:neomake_c_make_maker =  {
-                \ 'exe': 'make',
-                \ }
+    "let g:neomake_c_clang_maker = {
+    "            \ 'exe': 'clang-format',
+    "            \ 'args': ['-style=file', '-i'],
+    "            \ }
+    "let g:neomake_c_make_maker =  {
+    "            \ 'exe': 'make',
+    "            \ }
 
-    let g:neomake_c_enabled_markers = ['calendar', 'clang', 'make']
+    "let g:neomake_c_enabled_markers = ['calendar', 'clang', 'make']
 
-    " Python
-    let g:neomake_python_yapf_maker = {
-                \ 'exe': 'yapf',
-                \ 'args': ['--in-place'],
-                \ }
-    let g:neomake_python_enabled_markers = ['yapf']
-
+    "" Python
+    "let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501'], }
+    "let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266'], }
+    "let g:neomake_python_yapf_maker = {
+    "            \ 'exe': 'yapf',
+    "            \ 'args': ['--in-place'],
+    "            \ }
+    "let g:neomake_python_enabled_markers = ['yapf', 'flake8', 'pep8']
 " }}}
 
 " Generic Mappings ----------------------------------------------------------------------{{{
@@ -761,8 +767,15 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
-" Valgring" -----------------------------------------------------------------------------{{{
-let g:valgrind_arguments="--leak-check=full"
-" }}}
+" Ale-linter " ----------------------------------------------------------------------------------{{{
+    nmap <F8> <Plug>(ale_fix)
+    let g:ale_fixers = {
+    \ 'python': [
+    \   'yapf',
+    \   'autopep8',
+    \ ],
+    \}
+    " }}}
+
 "" --------------------------------------------------------------------------------------{{{
 " }}}
