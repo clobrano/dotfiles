@@ -9,7 +9,10 @@
     " ^x^f: autocomplete filenames
     " ^x^]: autocomplete with words from tags
     " ^n: autocomplete for anything specified by the 'complete' option
-    " gg=G: fix up indentention in file
+    " <C-r>=    : in insert mode evaluate any expression
+    " g <C-g>   : text statistics
+    " gg=G      : uniform indentation in the whole file
+    " :global/require/normal @b     Apply register b to all file
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -34,7 +37,8 @@
       Plug 'vim-scripts/Tagbar'
       Plug 'jeetsukumaran/vim-buffergator'
       Plug 'ntpeters/vim-better-whitespace'
-      Plug 'bling/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+      Plug 'vim-airline/vim-airline'
+      Plug 'vim-airline/vim-airline-themes'
       Plug 'fatih/molokai'
       Plug 'NLKNguyen/papercolor-theme'
       Plug 'morhetz/gruvbox'
@@ -43,9 +47,7 @@
       Plug 'mhartington/oceanic-next'
       Plug 'crusoexia/vim-monokai'
       Plug 'noahfrederick/vim-hemisu'
-
-    " Android
-      Plug 'hsanson/vim-android'
+      Plug 'dikiaap/minimalist'
 
     " C/C++
       Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -54,21 +56,13 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      "Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
-
-    " Completion and Linting
-      "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
-      "Plug 'neomake/neomake'
-
-    " Programming
-      Plug 'idanarye/vim-vebugger'
+      Plug 'vim-scripts/valgrind.vim', {'for': ['c', 'cpp']} 
 
     " Foo
       Plug 'szw/vim-g'                                " Quick Google lookup
       Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
-      Plug 'vimwiki/vimwiki'
       Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -78,13 +72,16 @@
       Plug 'fatih/vim-go', {'for': 'go'}
 
     " GTD
+      Plug 'vimwiki/vimwiki'
       Plug 'junegunn/goyo.vim', {'on': 'Goyo'}        " Distraction free editing toggle :Goyo, end :Goyo!
       Plug 'vim-jp/vital.vim'
-      Plug 'termoshtt/toggl.vim'
-      Plug 'wakatime/vim-wakatime'                    " Track working time
 
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
+
+    " NodeJS
+      Plug 'moll/vim-node', {'for': 'javascript'}
+      Plug 'guileen/vim-node-dict'
 
     " Javascript
       Plug 'pangloss/vim-javascript', {'for': 'javascript'}
@@ -93,10 +90,15 @@
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
+      Plug 'w0rp/ale'
 
     " Presentation
       Plug 'sotte/presenting.vim'
       Plug 'alfredodeza/posero.vim'
+
+    " QML
+      Plug 'peterhoeg/vim-qml'
+
     call plug#end()
 
     set nocompatible
@@ -105,7 +107,7 @@
 " }}}
 
 " Editor --------------------------------------------------------------------------------{{{
-    set guifont=Monaco\ for\ Powerline\ 11
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
     set background=light
     colorscheme PaperColor
     syntax enable
@@ -133,6 +135,7 @@
 " Neovim settings
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
     set clipboard+=unnamedplus
 " show last command in the very bottom right of VI
     set showcmd
@@ -166,7 +169,6 @@
     set softtabstop=4
     set expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
-    set list
     set lcs=trail:·,tab:»· ",eol:¶
     set wrap linebreak nolist
     set showbreak=└
@@ -176,7 +178,7 @@
 " Better whitespace color
     highlight ExtraWhitespace ctermbg=Yellow
 " Enable remove extra whitespaces
-    nnoremap <leader>ss :ToggleStripWhitespaceOnSave<CR>
+    nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " Insert the current date long and short (insert mode, normal/command mode)
     inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
     map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
@@ -208,6 +210,8 @@
     nnoremap K 10k
     nnoremap J 10j
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
+    " Do not overwrite selected text on copy
+    xnoremap <silent> p p:let @+=@0<CR>
     vnoremap <m-c> "+y<CR>
     inoremap <m-v> <esc>"+p
     noremap  <m-v> "+p
@@ -232,8 +236,6 @@
     nnoremap <leader>tt <Esc>:Lexplore<CR>
 
     set ignorecase
-    set infercase
-    set smartcase
     " search as characters are entered
     set incsearch
     " highlight matches
@@ -277,6 +279,7 @@
     nnoremap fs <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
+    nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
     " Look for file that match a pattern
     nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
@@ -305,8 +308,6 @@
     "nnoremap <leader>m :make<CR>
     nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 
-    " Var definition
-    nnoremap <leader>vd [i
     " Macro definition
     nnoremap <leader>md [d
 "}}}
@@ -481,6 +482,9 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap tpa v$:s/([A-C])/(A)/g<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
     nnoremap tpc v$:s/([A-C])/(C)/g<CR>
+
+    "nnoremap tl dd/Waiting<cr><esc>p
+    "vnoremap tl d/Waiting<cr><esc>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -528,14 +532,21 @@ let g:tagbar_type_vimwiki = {
     "C-C++
     iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
     iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
-    iabbr minc #include <><esc><left>
+    " include system headers
+    iabbr inc #include <><esc><left>
+    " include local headers
     iabbr linc #include ""<esc><left>
 
+    "Bootstrap
+    au Filetype html,pug iabbr btnsucc btn-success
+    au Filetype html,pug iabbr gly glyphicon
+
     "Canonical bugs
-    nnoremap <leader>cb i+canonical<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>acanonical/<esc>pa)
+    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug/<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
+    autocmd FileType c,cpp nmap silent <leader>d [i
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
     autocmd FileType python setlocal foldnestmax=2
@@ -576,7 +587,7 @@ let g:tagbar_type_vimwiki = {
     let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
 
     " Clang_complete
-    let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+    "let g:clang_library_path='/usr/lib/llvm-4.0/lib/libLLVM-4.0.so.1'
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
 
@@ -587,17 +598,25 @@ let g:tagbar_type_vimwiki = {
     command! CopyFormat SyncopateExportToClipboard
 
     " Tab policy
-    command! Set2TabSpace :set ts=2 sts=2 tw=2 sw=2
-    command! Set4TabSpace :set ts=4 sts=4 tw=4 sw=4
+    command! Set2TabSpace :set ts=2 sts=2 sw=2
+    command! Set4TabSpace :set ts=4 sts=4 sw=4
+
+    " Cmake
+    command! Cmake :cd build | make | cd -
+
+    " Show GTK documentation
+    autocmd Filetype c nmap <silent> <C-g> :! devhelp -s "<cword>" &<CR><CR>
+
+    " Move in lopen
+    nnoremap <localleader>ln <esc>:lnext<cr>
+    nnoremap <localleader>lp <esc>:lprev<cr>
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
     "" Update cscope db
-    command! Csmake !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ; cscope -b -i cscope.files -f cscope.out
-    nnoremap csmake :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-      \:!cscope -b -i cscope.files -f cscope.out<CR>
-      \:cs kill -1<CR>:cs add cscope.out<CR>
+    command! Csfiles !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files
+
     nnoremap csl <Esc>:cs add cscope.out<CR>
     nnoremap csc <Esc>:cs find c<space>
     nnoremap cscw yw<Esc>:cs find c<space><c-r>"
@@ -634,7 +653,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags -R --extra=+f --fields=+lSK-k -e --c-kinds=+defmtx .
+    command! CtagsMake !ctags --file-scope=no -R --exclude=.git --extra=+f .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -686,7 +705,7 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Jedi-vim " ----------------------------------------------------------------------------{{{
-    let g:jedi#documentation_command = "<M>"
+    let g:jedi#documentation_command = "<leader>pm"
 " }}}
 
 " Poser----------------------------------------------------------------------------------{{{
@@ -705,6 +724,17 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 " Grep from index a daily report of tasks created, moved, done
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
-"
-" " ----------------------------------------------------------------------------------{{{
+
+" Ale-linter " ----------------------------------------------------------------------------------{{{
+    nmap <F8> <Plug>(ale_fix)
+    let g:ale_fixers = {
+    \ 'python': [
+    \   'flake8',
+    \ ],
+    \}
+
+    let g:ale_python_flake8_options = '--ignore=E115,E266,E501,C0301'
+    " }}}
+
+"" --------------------------------------------------------------------------------------{{{
 " }}}
