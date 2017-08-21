@@ -17,7 +17,6 @@
     " <C-r>=    : in insert mode evaluate any expression
     " g <C-g>   : text statistics
     " gg=G      : uniform indentation in the whole file
-    " :global/require/normal @b     Apply register b to all file
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -68,8 +67,6 @@
 
     " Completion and Linting
       Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'zchee/deoplete-clang'
-      Plug 'zchee/deoplete-jedi', {'for': 'python'}
-      Plug 'Shougo/neoinclude.vim'
       "Plug 'neomake/neomake'
 
     " Foo
@@ -89,6 +86,8 @@
       Plug 'vimwiki/vimwiki'
       Plug 'junegunn/goyo.vim', {'on': 'Goyo'}        " Distraction free editing toggle :Goyo, end :Goyo!
       Plug 'vim-jp/vital.vim'
+      Plug 'termoshtt/toggl.vim'
+      Plug 'freitass/todo.txt-vim', {'for': 'txt'}
 
     " HTML
       Plug 'alvan/vim-closetag', {'for': 'html'}
@@ -251,7 +250,7 @@
     let g:netrw_list_hide=netrw_gitignore#Hide()
     let g:netrw_liststyle=3     " tree view
     let g:netrw_winsize = 20
-    nnoremap <leader>tt <Esc>:Lexplore<CR>
+    nnoremap tt <Esc>:Lexplore<CR>
 
     set ignorecase
     " search as characters are entered
@@ -326,6 +325,8 @@
     nnoremap <leader>c :make<CR>
     nnoremap <leader>c :silent make\|redraw!\|cw<CR>
 
+    " Var definition
+    nnoremap <leader>vd [i
     " Macro definition
     nnoremap <leader>md [d
 "}}}
@@ -564,7 +565,6 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
-    autocmd FileType c,cpp nmap silent <leader>d [i
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
     autocmd FileType python setlocal foldnestmax=2
@@ -607,13 +607,13 @@ let g:tagbar_type_vimwiki = {
     let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
 
     " Clang_complete
-    "let g:clang_library_path='/usr/lib/llvm-4.0/lib/libLLVM-4.0.so.1'
+    let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
 
     " Clang-format
-    "map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format.py<cr>
-    "imap <C-K> <c-o>:pyf /usr/share/vim/addons/syntax/clang-format.py<cr>
+    map <C-K> :pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
+    imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
 
     " Letsdo mapping
     nnoremap <leader>ld <esc>:!letsdo --ascii<space>
@@ -627,13 +627,6 @@ let g:tagbar_type_vimwiki = {
 
     " Cmake
     command! Cmake :cd build | make | cd -
-
-    " Show GTK documentation
-    autocmd Filetype c nmap <silent> <C-g> :! devhelp -s "<cword>" &<CR><CR>
-
-    " Move in lopen
-    nnoremap <localleader>ln <esc>:lnext<cr>
-    nnoremap <localleader>lp <esc>:lprev<cr>
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
@@ -697,11 +690,6 @@ let g:tagbar_type_vimwiki = {
     "let g:easytags_dynamic_files = 1
 " }}}
 
-" Deoplete " ----------------------------------------------------------------------------{{{
-    let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-4.0/lib/libclang.so.1'
-    let g:deoplete#sources#clang#clang_header='/usr/lib/llvm-4.0/lib/clang/4.0.0/include'
-" }}}
-
 " Golang " ------------------------------------------------------------------------------{{{
 " Vim-go
     au FileType go nmap <leader>gr <Plug>(go-run)
@@ -735,9 +723,7 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Jedi-vim " ----------------------------------------------------------------------------{{{
-    let g:jedi#documentation_command = "<leader>pm"
-    let g:jedi#show_call_signature = 1
-    let g:jedi#completions_enabled = 1
+    let g:jedi#documentation_command = "<M>"
 " }}}
 
 " Poser----------------------------------------------------------------------------------{{{
@@ -745,6 +731,11 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Neomake " -----------------------------------------------------------------------------{{{
+<<<<<<< Updated upstream
+    " Automatic open error window (:ll move to the next error)
+
+=======
+>>>>>>> Stashed changes
     " C/C++
     "let g:airline#extensions#ale#enabled = 1
     "let g:neomake_c_calendar_maker = {
@@ -781,16 +772,20 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
+<<<<<<< Updated upstream
+" Valgring" -----------------------------------------------------------------------------{{{
+let g:valgrind_arguments="--leak-check=full"
+" }}}
+"" --------------------------------------------------------------------------------------{{{
+" }}}
+=======
 " Ale-linter " ----------------------------------------------------------------------------------{{{
     nmap <F8> <Plug>(ale_fix)
     let g:ale_fixers = {
     \ 'python': [
-    \   'flake8',
+    \   'yapf',
+    \   'autopep8',
     \ ],
     \}
-
-    let g:ale_python_flake8_options = '--ignore=E115,E266,E501,C0301'
     " }}}
-
-"" --------------------------------------------------------------------------------------{{{
-" }}}
+>>>>>>> Stashed changes
