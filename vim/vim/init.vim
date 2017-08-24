@@ -114,7 +114,7 @@
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
-    nnoremap sf <esc>:set guifont=Monaco\ for\ Powerline\<space>
+    nnoremap sf <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\<space>
     command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
     command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
     command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
@@ -323,10 +323,10 @@
     nnoremap fx <Esc>:bd!<CR>
 
 " Move among tabs in Konsole-style and to go to next buffer (this collides with tmux!?!)
-    noremap <A-l> gt
-    noremap <A-k> <Esc>gt<CR>
-    noremap <A-h> gT
-    noremap <A-j> <Esc>gT<CR>
+    noremap <A-L> gt
+    noremap <A-K> <Esc>gt<CR>
+    noremap <A-H> gT
+    noremap <A-J> <Esc>gT<CR>
 
 " Move among buffers
     noremap <C-Left> <Esc>:bp<CR>
@@ -542,7 +542,7 @@ let g:tagbar_type_vimwiki = {
     au Filetype html,pug iabbr gly glyphicon
 
     "Canonical bugs
-    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug/<esc>pa)
+    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
 " }}}
 
 " FileTypes customizations" -------------------------------------------------------------{{{
@@ -605,7 +605,7 @@ let g:tagbar_type_vimwiki = {
     command! Cmake :cd build | make | cd -
 
     " Show GTK documentation
-    autocmd Filetype c nmap <silent> <C-g> :! devhelp -s "<cword>" &<CR><CR>
+    autocmd Filetype c,css nmap <silent> <C-g> :! devhelp -s "<cword>" &<CR><CR>
 
     " Move in lopen
     nnoremap <localleader>ln <esc>:lnext<cr>
