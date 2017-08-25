@@ -56,16 +56,11 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ $USER == root ]; then
-	SYM=#
-else
-	SYM=$
-fi
-
 # Configuration directories
 export TOOLKIT=$HOME/toolkit
 export DOTFILES=PLACEHOLDER
 export EDITOR="gvim -f"
+export CDPATH=$HOME/workspace
 
 COLORTERM=gnome-terminal
 TERM=xterm-256color
@@ -73,11 +68,6 @@ function smart_path() {
   echo $(python "$DOTFILES"/bash/bash_prompt.py )
 }
 
-#if [ -x $(which byobu) ]; then
-#    PS1='\[\033[01;32m\]\t $(basename "$(pwd)")\[\033[0m\]$(__git_ps1)$SYM\[\033[0m\] '
-#else
-#    PS1='\[\033[01;32m\]"\t $(smart_path)"$(__git_ps1)$SYM\[\033[0m\] '
-#fi
 PS1='$(smart_path)$(__git_ps1)❯ '
 
 # enable color support of ls and also add handy aliases
@@ -177,9 +167,17 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
-if [ -f $HOME/.letsdo_completion ]; then
+alias gvimm='gvim -c Monokai'
+
+# Let's do configuration
+letsbin=$(which lets)
+if [ ! -z ${letsbin:x} ]; then
+    export LETSDO_COLOR=1
+    if [ -f $HOME/.letsdo_completion ]; then
 	source $HOME/.letsdo_completion
+    fi
 fi
+
 alias gvim='gvim -geom 800:400'
 
 if [ -f $DOTFILES/bash/modemmanager_aliases.sh ]; then
@@ -197,3 +195,6 @@ PATH=~/.local/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias letsdo='letsdo -c'
 alias node='nodejs'
+
+# Disable terminal freeze shortcut C-s
+stty -ixon
