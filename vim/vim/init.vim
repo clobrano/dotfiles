@@ -29,6 +29,8 @@
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
       Plug 'frioux/vim-lost'
       Plug 'MattesGroeger/vim-bookmarks'
+      Plug 'Yggdroot/indentLine'
+      Plug 'chrisbra/Colorizer'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
