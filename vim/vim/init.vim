@@ -727,7 +727,7 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
-" Ale-linter " ----------------------------------------------------------------------------------{{{
+" Ale-linter " --------------------------------------------------------------------------{{{
     nmap <F8> <Plug>(ale_fix)
     let g:ale_fixers = {
     \ 'python': [
@@ -738,5 +738,9 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
     let g:ale_python_flake8_options = '--ignore=E115,E266,E501,C0301'
     " }}}
 
+"" FZF ----------------------------------------------------------------------------------{{{
+let g:fzf_launcher = 'xterm -T fzf'
+    \ .' -fa monaco -fs 10 -e bash -ic %s'
+" }}}
 "" --------------------------------------------------------------------------------------{{{
 " }}}
