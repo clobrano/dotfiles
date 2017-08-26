@@ -7,3 +7,9 @@ dependencies:
 	-git clone https://github.com/tmux-plugins/tpm 				$(HOME)/.byobu/plugins/tpm
 	-git clone https://github.com/jimeh/tmux-themepack			$(HOME)/.byobu/plugins/tmux-themepack
 	-git clone https://github.com/NHDaly/tmux-better-mouse-mode $(HOME)/.byobu/plugins/tmux-better-mouse-mode
+
+theme:
+	git clone git://github.com/pricco/gnome-terminal-colors-monokai.git ${DOTFILES}/
+	cd ${DOTFILES}/gnome-terminal-colors-monokai
+	./install.sh
+
