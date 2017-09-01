@@ -13,6 +13,7 @@
     " g <C-g>   : text statistics
     " gg=G      : uniform indentation in the whole file
     " :global/require/normal @b     Apply register b to all file
+    " cgn: change multicursor native: change first, then n (next) . (dot) to repeat
 " }}}                       /____/
 
 " Vim-plug plugin manager ---------------------------------------------------------------{{{
@@ -31,6 +32,9 @@
       Plug 'MattesGroeger/vim-bookmarks'
       Plug 'Yggdroot/indentLine'
       Plug 'chrisbra/Colorizer'
+      Plug 'tpope/vim-surround'
+      Plug 'ctrlpvim/ctrlp.vim', {'for': 'go'}
+      Plug 'terryma/vim-multiple-cursors'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -50,6 +54,7 @@
       Plug 'crusoexia/vim-monokai'
       Plug 'noahfrederick/vim-hemisu'
       Plug 'dikiaap/minimalist'
+      Plug 'w0rp/ale'
 
     " C/C++
       Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -58,7 +63,7 @@
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
       Plug 'vim-utils/vim-man', {'for': ['c', 'cpp']}
       Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-      Plug 'vim-scripts/valgrind.vim', {'for': ['c', 'cpp']} 
+      Plug 'vim-scripts/valgrind.vim', {'for': ['c', 'cpp']}
 
     " Foo
       Plug 'szw/vim-g'                                " Quick Google lookup
@@ -92,7 +97,6 @@
     " Python
       Plug 'davidhalter/jedi', {'for': 'python'}
       Plug 'davidhalter/jedi-vim', {'for': 'python'}
-      Plug 'w0rp/ale'
 
     " Presentation
       Plug 'sotte/presenting.vim'
@@ -189,10 +193,12 @@
 "}}}
 
 " System mappings------------------------------------------------------------------------{{{
-
+    let mapleader=" "
 " <Esc> is too far away: using two remaps so that one hand is busy (e.g.
 " mouse, cookie, etc.) I can still use the other one.
     inoremap jj <Esc>
+    inoremap fj <Esc>
+    inoremap <C-space> <Esc>
     inoremap qq <Esc>
 " No Ex mode
     nnoremap Q <nop>
@@ -207,10 +213,10 @@
     noremap <silent> k gk
     noremap <silent> j gj
     " Remap fast moves
-    nnoremap L g_
-    nnoremap H ^
-    nnoremap K 10k
-    nnoremap J 10j
+    nnoremap <C-l> g_
+    nnoremap <C-h> ^
+    nnoremap <C-k> 10k
+    nnoremap <C-j> 10j
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
     " Do not overwrite selected text on copy
     xnoremap <silent> p p:let @+=@0<CR>
@@ -267,7 +273,7 @@
     nnoremap G Gzz
 
    " bind F to grep word under cursor (use with caution!)
-    nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+    nnoremap <leader>F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
     " Look for text in current buffer
     nnoremap fh <Esc>:g//#<left><left>
     " Look for selected text in current buffer
@@ -277,13 +283,13 @@
     vnoremap fn y/<C-r>"<cr>
     nnoremap fp <esc>?
     vnoremap fp y?<C-r>"<cr>
-    " Fzf fuzzy searcher (fs = file search)
-    nnoremap fs <esc>:FZF<cr>
+    " Fzf fuzzy searcher (ff = find file)
+    nnoremap ff <esc>:FZF<cr>
     " Look for text pattern in all the files recursively
     nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
     nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
     " Look for file that match a pattern
-    nnoremap ff <Esc>:find *
+    "nnoremap ff <Esc>:find *
     " Search pattern and replace (sed like syntax)
     noremap rep <Esc>:%s//gc<Left><Left><Left>
 
@@ -302,16 +308,15 @@
     " Quickfix <next>/<prev> entry mapping
     nnoremap cn :cn<CR>
     nnoremap cp :cp<CR>
-
+    " Location-list <next>/<prev> entry mapping
+    "nnoremap <leader>ln :lne<CR>
+    "nnoremap <leader>lp :lp<CR>
     " Write protected file with superuser privilegies
     command! SudoWrite  w !sudo tee %
 
     " Invoke make
-    "nnoremap <leader>m :make<CR>
-    nnoremap <leader>m :silent make\|redraw!\|cw<CR>
-
-    " Macro definition
-    nnoremap <leader>md [d
+    "nnoremap <leader>c :make<CR>
+    nnoremap <leader>c :silent make\|redraw!\|cw<CR>
 "}}}
 
 " Buffers -------------------------------------------------------------------------------{{{
@@ -324,17 +329,11 @@
     noremap x <Esc>:bd<CR>
     nnoremap fx <Esc>:bd!<CR>
 
-" Move among tabs in Konsole-style and to go to next buffer (this collides with tmux!?!)
-    noremap <A-L> gt
-    noremap <A-K> <Esc>gt<CR>
-    noremap <A-H> gT
-    noremap <A-J> <Esc>gT<CR>
-
 " Move among buffers
-    noremap <C-Left> <Esc>:bp<CR>
-    noremap <C-h> <Esc>:bp<CR>
-    noremap <C-Right> <Esc>:bnext<CR>
-    noremap <C-l> <Esc>:bnext<CR>
+    noremap <A-Left> <Esc>:bp<CR>
+    noremap H <Esc>:bp<CR>
+    noremap <A-Right> <Esc>:bnext<CR>
+    noremap L <Esc>:bnext<CR>
 
 " New Tab (temporally replaced to make space to command-t)
 "    nnoremap <C-S-t> :tabnew<CR>
@@ -372,8 +371,8 @@ endfunction
     set foldlevel=99
     nnoremap za zA
     nnoremap zM zm
-    nnoremap <space> zA
-    vnoremap <space> zA
+    "nnoremap <space> zA
+    "vnoremap <space> zA
     " Set a nicer foldtext function
     set foldtext=MyFoldText()
     function! MyFoldText()
@@ -414,7 +413,7 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='oceanicnextlight'
+    let g:airline_theme='papercolor'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -607,11 +606,14 @@ let g:tagbar_type_vimwiki = {
     command! Cmake :cd build | make | cd -
 
     " Show GTK documentation
-    autocmd Filetype c,css nmap <silent> <C-g> :! devhelp -s "<cword>" &<CR><CR>
+    autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
 
     " Move in lopen
-    nnoremap <localleader>ln <esc>:lnext<cr>
-    nnoremap <localleader>lp <esc>:lprev<cr>
+    "nnoremap <localleader>ln <esc>:lnext<cr>
+    "nnoremap <localleader>lp <esc>:lprev<cr>
+
+    " Shortcut to restore session from  ~/.vim/session
+    nnoremap <leader>session <esc>:source ~/.vim/sessions/
 "}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
@@ -655,7 +657,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags --file-scope=no -R --exclude=.git --extra=+f .
+    command! CtagsMake !ctags --file-scope=no -R --exclude=.git .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -677,24 +679,24 @@ let g:tagbar_type_vimwiki = {
 
 " Golang " ------------------------------------------------------------------------------{{{
 " Vim-go
-    au FileType go nmap <leader>gr <Plug>(go-run)
-    au FileType go nmap <leader>gb <Plug>(go-build)
-    au FileType go nmap <leader>gt <Plug>(go-test)
-    au FileType go nmap <leader>gc <Plug>(go-coverage)
-    au FileType go nmap <Leader>gw <Plug>(go-doc-browser)
-    au FileType go nmap <Leader>gs <Plug>(go-def-split)
-    au FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
     au FileType go nmap <Leader>gdt <Plug>(go-def-tab)
+    au FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>gi <Plug>(go-imports)
+    au FileType go nmap <Leader>gs <Plug>(go-def-split)
+    au FileType go nmap <Leader>gw <Plug>(go-doc-browser)
+    au FileType go nmap <leader>gb <Plug>(go-build)
+    au FileType go nmap <leader>gc <Plug>(go-coverage)
+    au FileType go nmap <leader>gr <Plug>(go-run)
+    au FileType go nmap <leader>gt <Plug>(go-test)
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_structs = 1
     let g:go_highlight_operators = 1
     let g:go_highlight_build_constraints = 1
+    let g:go_fmt_command = "goimports"
 " }}}
 
 " Git " ---------------------------------------------------------------------------------{{{
-    nnoremap gt <Esc>:GitGutterLineHighlightsToggle<CR>
-
     nnoremap <leader>gs <esc>:Gstatus<cr>
     nnoremap <leader>gw <esc>:Gwrite<cr>
     nnoremap <leader>gr <esc>:Gread<cr>
@@ -714,11 +716,12 @@ let g:tagbar_type_vimwiki = {
     let g:posero_default_mappings = 1
 " }}}
 
-" Neomake " -----------------------------------------------------------------------------{{{
-
-" }}}
-
 " Generic Mappings ----------------------------------------------------------------------{{{
+
+" set filetype markdown<->vimwiki
+nnoremap <leader>stm <esc>:set filetype=markdown<cr>
+nnoremap <leader>stv <esc>:set filetype=vimwiki<cr>
+nnoremap <leader>o <C-w>o
 
 " Dump web page
 command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
@@ -727,20 +730,29 @@ command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
 command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
 " }}}
 
-" Ale-linter " --------------------------------------------------------------------------{{{
+" ALE " ---------------------------------------------------------------------------------{{{
     nmap <F8> <Plug>(ale_fix)
     let g:ale_fixers = {
-    \ 'python': [
-    \   'flake8',
-    \ ],
+        \ 'c': [
+        \   'cppcheck',
+        \ ],
+        \ 'python': [
+        \   'flake8',
+        \ ],
     \}
 
+    let g:ale_linters = {
+        \ 'c': ['cppcheck', 'clang', 'gcc'],
+        \ 'cpp': ['cppcheck', 'clang', 'gcc'],
+    \}
+
+    let g:ale_cppcheck_options = '--enable=warning --enable=style --enable=performace'
     let g:ale_python_flake8_options = '--ignore=E115,E266,E501,C0301'
     " }}}
 
 "" FZF ----------------------------------------------------------------------------------{{{
-let g:fzf_launcher = 'xterm -T fzf'
-    \ .' -fa monaco -fs 10 -e bash -ic %s'
+let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 " }}}
+
 "" --------------------------------------------------------------------------------------{{{
 " }}}
