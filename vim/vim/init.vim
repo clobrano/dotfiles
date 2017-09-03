@@ -4,6 +4,9 @@
 " \___/\____/_/ /_/_/ /_/\__, /\__,_/_/   \__,_/\__/_/\____/_/ /_/
 "
 
+"" Template -----------------------------------------------------------------------------{{{
+" }}}
+
 " Notes ---------------------------------------------------------------------------------{{{
     " ^x^n: autocomplete with words from the current file (^ == ctrl)
     " ^x^f: autocomplete filenames
@@ -114,18 +117,21 @@
 
 " Editor --------------------------------------------------------------------------------{{{
     set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
-    set background=light
-    colorscheme PaperColor
+    "set background=light
+    "colorscheme PaperColor
     syntax enable
     filetype on
     let g:gruvbox_contrast_dark="hard"
     set linespace=1
     nnoremap sf <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\<space>
-    command! Hemisu set background=light | colorscheme hemisu | AirlineTheme oceanicnextlight
-    command! Papercolor set background=light | colorscheme PaperColor | AirlineTheme oceanicnextlight
-    command! Monokai set background=dark | colorscheme monokai | AirlineTheme bubblegum
-    command! Molokai set background=dark | colorscheme molokai | AirlineTheme oceanicnextlight
-    command! Gruvbox set background=dark | colorscheme gruvbox | AirlineTheme bubblegum
+    command! Gruvbox    colorscheme gruvbox    | set background=dark  | AirlineTheme bubblegum
+    command! Hemisu     colorscheme hemisu     | set background=dark  | AirlineTheme oceanicnextlight
+    command! Molokai    colorscheme molokai    | set background=dark  | AirlineTheme oceanicnextlight
+    command! Monokai    colorscheme monokai    | set background=dark  | AirlineTheme bubblegum
+    command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
+    colorscheme monokai  
+    set background=dark
+    let g:airline_theme='bubblegum'
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -136,12 +142,7 @@
 " }}}
 
 " System settings -----------------------------------------------------------------------{{{
-
     set mouse=a
-" Neovim settings
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
     set clipboard+=unnamedplus
 " show last command in the very bottom right of VI
     set showcmd
@@ -153,7 +154,7 @@
     set guioptions-=T
     " Keep the cursor from reaching the last line make it easy to scroll down/up.
     set scrolloff=7
-    set relativenumber
+    "set relativenumber
     hi clear CursorLine
     set cursorline
     hi CursorLineNR cterm=bold
@@ -217,6 +218,8 @@
     nnoremap <C-h> ^
     nnoremap <C-k> 10k
     nnoremap <C-j> 10j
+    vnoremap E g_
+    vnoremap B ^
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
     " Do not overwrite selected text on copy
     xnoremap <silent> p p:let @+=@0<CR>
@@ -413,7 +416,6 @@ endfunction
 
 " Airline -------------------------------------------------------------------------------{{{
 
-    let g:airline_theme='papercolor'
     let g:airline_powerline_fonts=1
 
     " To be used only with Monaco font
@@ -430,6 +432,7 @@ endfunction
 
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#tabline#buffer_nr_show = 1
     "let g:airline#extensions#tabline#left_alt_sep = ''
     "let g:airline#extensions#tabline#left_sep = ''
     "let g:airline#extensions#tabline#right_sep = ''
@@ -483,9 +486,6 @@ nmap <F2> :NERDTreeToggle<CR>
     nnoremap tpa v$:s/([A-C])/(A)/g<CR>
     nnoremap tpb v$:s/([A-C])/(B)/g<CR>
     nnoremap tpc v$:s/([A-C])/(C)/g<CR>
-
-    "nnoremap tl dd/Waiting<cr><esc>p
-    "vnoremap tl d/Waiting<cr><esc>p
 " }}}
 
 " TagBar --------------------------------------------------------------------------------{{{
@@ -505,116 +505,6 @@ let g:tagbar_type_vimwiki = {
           \ }
 
 " }}}
-
-" Snippets" -----------------------------------------------------------------------------{{{
-" Generic
-    "iabbr {{ {}<esc>
-    "iabbr (( ()<esc>
-
-    " Bash
-    " Getopts
-    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
-    iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
-    iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
-    command! Docopts r !docopt.sh -s %
-
-    " Auto shebang
-    augroup Shebang
-      autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
-      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
-      autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
-      autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
-      autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
-    augroup END
-
-    " Redirect to syslog
-    iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
-
-    "C-C++
-    iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
-    iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
-    " include system headers
-    iabbr inc #include <><esc><left>
-    " include local headers
-    iabbr linc #include ""<esc><left>
-
-    "Bootstrap
-    au Filetype html,pug iabbr btnsucc btn-success
-    au Filetype html,pug iabbr gly glyphicon
-
-    "Canonical bugs
-    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
-" }}}
-
-" FileTypes customizations" -------------------------------------------------------------{{{
-    autocmd FileType c,cpp nmap silent <leader>d [i
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType python setlocal foldlevel=99
-    autocmd FileType python setlocal foldnestmax=2
-    autocmd FileType python setlocal makeprg=pytest
-
-    autocmd Syntax vim setlocal foldmethod=marker
-    autocmd Syntax vim setlocal foldlevel=0
-    autocmd Syntax vim setlocal modelines=1
-"}}}
-
-" Generic sofware development" ----------------------------------------------------------{{{
-    set number            " Show line numbers
-    set colorcolumn=0     " Show a colored line at the Nth column
-    set nocursorline      " Disable highlight current line
-
-    " Auto add closing bracket
-    inoremap {<CR>  {<CR>}<Esc>O
-    inoremap {<Tab>  {}<Left>
-
-    " Align function arguments
-    set cino+=(0
-
-    " make
-    nnoremap <leader>i <esc>:!sudo make install<cr>
-
-    " Command to set the current working directory
-    command! Sethere lcd %:p:h
-    nnoremap sth <Esc>:Sethere<CR>
-
-    " Mark--Karkat (TODO dunno what it does)
-    vnoremap {Leader}/  n
-
-    " Mark--Karkat, fix remapping error message
-    nnoremap <leader>n <Plug>Mark
-    set nocscopeverbose
-
-    " Toggl
-    let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
-
-    " Clang_complete
-    "let g:clang_library_path='/usr/lib/llvm-4.0/lib/libLLVM-4.0.so.1'
-    autocmd QuickFixCmdPost [^l]* nested cwindow
-    autocmd QuickFixCmdPost    l* nested lwindow
-
-    " Letsdo mapping
-    nnoremap <leader>ld <esc>:!letsdo --ascii<space>
-
-    " Syncopate
-    command! CopyFormat SyncopateExportToClipboard
-
-    " Tab policy
-    command! Set2TabSpace :set ts=2 sts=2 sw=2
-    command! Set4TabSpace :set ts=4 sts=4 sw=4
-
-    " Cmake
-    command! Cmake :cd build | make | cd -
-
-    " Show GTK documentation
-    autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
-
-    " Move in lopen
-    "nnoremap <localleader>ln <esc>:lnext<cr>
-    "nnoremap <localleader>lp <esc>:lprev<cr>
-
-    " Shortcut to restore session from  ~/.vim/session
-    nnoremap <leader>session <esc>:source ~/.vim/sessions/
-"}}}
 
 " Cscope" -------------------------------------------------------------------------------{{{
     set cscopetag nocscopeverbose
@@ -712,24 +602,6 @@ let g:tagbar_type_vimwiki = {
     let g:jedi#documentation_command = "<leader>pm"
 " }}}
 
-" Poser----------------------------------------------------------------------------------{{{
-    let g:posero_default_mappings = 1
-" }}}
-
-" Generic Mappings ----------------------------------------------------------------------{{{
-
-" set filetype markdown<->vimwiki
-nnoremap <leader>stm <esc>:set filetype=markdown<cr>
-nnoremap <leader>stv <esc>:set filetype=vimwiki<cr>
-nnoremap <leader>o <C-w>o
-
-" Dump web page
-command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
-
-" Grep from index a daily report of tasks created, moved, done
-command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
-" }}}
-
 " ALE " ---------------------------------------------------------------------------------{{{
     nmap <F8> <Plug>(ale_fix)
     let g:ale_fixers = {
@@ -754,5 +626,130 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
 let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 " }}}
 
-"" --------------------------------------------------------------------------------------{{{
+" Poser----------------------------------------------------------------------------------{{{
+    let g:posero_default_mappings = 1
 " }}}
+
+" Snippets" -----------------------------------------------------------------------------{{{
+" Generic
+    "iabbr {{ {}<esc>
+    "iabbr (( ()<esc>
+
+    " Bash
+    " Getopts
+    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
+    iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
+    iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
+    command! Docopts r !docopt.sh -s %
+
+    " Auto shebang
+    augroup Shebang
+      autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
+      autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
+      autocmd BufNewFile *.rb 0put =\"#!/usr/bin/env ruby\<nl># -*- coding: None -*-\<nl>\"|$
+      autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
+      autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
+    augroup END
+
+    " Redirect to syslog
+    iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
+
+    "C-C++
+    iabbr cfor  for(i =; i; i++) {<cr>}<esc>1<up>f=a
+    iabbr cifelse if (){<cr>} else {<cr>}<esc>2<up>f(
+    " include system headers
+    iabbr inc #include <><esc><left>
+    " include local headers
+    iabbr linc #include ""<esc><left>
+
+    "Bootstrap
+    au Filetype html,pug iabbr btnsucc btn-success
+    au Filetype html,pug iabbr gly glyphicon
+
+    "Canonical bugs
+    nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
+" }}}
+
+" Generic Mappings ----------------------------------------------------------------------{{{
+
+" set filetype markdown<->vimwiki
+nnoremap <leader>stm <esc>:set filetype=markdown<cr>
+nnoremap <leader>stv <esc>:set filetype=vimwiki<cr>
+nnoremap <leader>o <C-w>o
+
+" Dump web page
+command! -nargs=1 GetUrl :r!lynx -dump -justify=off -width=100 -nolist <f-args>
+
+" Grep from index a daily report of tasks created, moved, done
+command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes/index.md
+" }}}
+
+" FileTypes customizations" -------------------------------------------------------------{{{
+    autocmd FileType c,cpp nmap silent <leader>d [i
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType python setlocal foldlevel=99
+    autocmd FileType python setlocal foldnestmax=2
+    autocmd FileType python setlocal makeprg=pytest
+
+    autocmd Syntax vim setlocal foldmethod=marker
+    autocmd Syntax vim setlocal foldlevel=0
+    autocmd Syntax vim setlocal modelines=1
+"}}}
+
+" Generic sofware development" ----------------------------------------------------------{{{
+    set number            " Show line numbers
+    set colorcolumn=0     " Show a colored line at the Nth column
+    set nocursorline      " Disable highlight current line
+
+    " Auto add closing bracket
+    inoremap {<CR>  {<CR>}<Esc>O
+    inoremap {<Tab>  {}<Left>
+
+    " Align function arguments
+    set cino+=(0
+
+    " make
+    nnoremap <leader>i <esc>:!sudo make install<cr>
+
+    " Command to set the current working directory
+    command! Sethere lcd %:p:h
+    nnoremap sth <Esc>:Sethere<CR>
+
+    " Mark--Karkat (TODO dunno what it does)
+    vnoremap {Leader}/  n
+
+    " Mark--Karkat, fix remapping error message
+    nnoremap <leader>n <Plug>Mark
+    set nocscopeverbose
+
+    " Toggl
+    let g:toggl_api_token = "20baf6309de3690b1e311a33bb149f3e"
+
+    " Clang_complete
+    "let g:clang_library_path='/usr/lib/llvm-4.0/lib/libLLVM-4.0.so.1'
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+
+    " Letsdo mapping
+    nnoremap <leader>ld <esc>:!letsdo --ascii<space>
+
+    " Syncopate
+    command! CopyFormat SyncopateExportToClipboard
+
+    " Tab policy
+    command! Set2TabSpace :set ts=2 sts=2 sw=2
+    command! Set4TabSpace :set ts=4 sts=4 sw=4
+
+    " Cmake
+    command! Cmake :cd build | make | cd -
+
+    " Show GTK documentation
+    autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
+
+    " Move in lopen
+    "nnoremap <localleader>ln <esc>:lnext<cr>
+    "nnoremap <localleader>lp <esc>:lprev<cr>
+
+    " Shortcut to restore session from  ~/.vim/session
+    nnoremap <leader>session <esc>:source ~/.vim/sessions/
+"}}}
