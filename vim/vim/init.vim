@@ -129,9 +129,9 @@
     command! Molokai    colorscheme molokai    | set background=dark  | AirlineTheme oceanicnextlight
     command! Monokai    colorscheme monokai    | set background=dark  | AirlineTheme bubblegum
     command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
-    colorscheme monokai  
-    set background=dark
-    let g:airline_theme='bubblegum'
+    colorscheme PaperColor
+    set background=light
+    let g:airline_theme='base16'
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -199,7 +199,6 @@
 " mouse, cookie, etc.) I can still use the other one.
     inoremap jj <Esc>
     inoremap fj <Esc>
-    inoremap <C-space> <Esc>
     inoremap qq <Esc>
 " No Ex mode
     nnoremap Q <nop>
