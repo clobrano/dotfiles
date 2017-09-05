@@ -134,7 +134,7 @@
     command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
     colorscheme PaperColor
     set background=light
-    let g:airline_theme='base16'
+    let g:airline_theme='papercolor'
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
