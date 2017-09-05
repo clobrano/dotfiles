@@ -74,12 +74,11 @@
       Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
+      Plug 'lambdalisue/gina.vim'
       "Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
-      Plug 'bmizerany/assert'
-      Plug 'codeindulgence/vim-tig'
-      Plug 'lambdalisue/gina.vim'
+      "Plug 'codeindulgence/vim-tig'
 
     " Go
       Plug 'fatih/vim-go', {'for': 'go'}
