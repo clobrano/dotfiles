@@ -38,6 +38,7 @@
       Plug 'tpope/vim-surround'
       Plug 'ctrlpvim/ctrlp.vim', {'for': 'go'}
       Plug 'terryma/vim-multiple-cursors'
+      Plug 'derekwyatt/vim-fswitch'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -60,7 +61,7 @@
       Plug 'w0rp/ale'
 
     " C/C++
-      Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
+      "Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
       Plug 'chazy/cscope_maps', {'for': ['c', 'cpp']}
       Plug 'hari-rangarajan/CCTree', {'for': ['c', 'cpp']} " C Call-Tree Explorer -- Cscope based source-code browser; code flow analyzer
       Plug 'vim-scripts/glib.vim', {'for': ['c', 'cpp']}
@@ -73,10 +74,12 @@
       Plug 'vim-scripts/DrawIt'
 
     " GIT helpers
-      Plug 'tpope/vim-fugitive'
+      "Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
+      Plug 'bmizerany/assert'
       Plug 'codeindulgence/vim-tig'
+      Plug 'lambdalisue/gina.vim'
 
     " Go
       Plug 'fatih/vim-go', {'for': 'go'}
@@ -598,7 +601,8 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Jedi-vim " ----------------------------------------------------------------------------{{{
-    let g:jedi#documentation_command = "<leader>pm"
+    "let g:jedi#documentation_command = "<leader>pm"
+    let g:jedi#force_py_version=3
 " }}}
 
 " ALE " ---------------------------------------------------------------------------------{{{
@@ -751,4 +755,8 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
 
     " Shortcut to restore session from  ~/.vim/session
     nnoremap <leader>session <esc>:source ~/.vim/sessions/
+
+    " Show alternate file (ex. .c/.cpp <-> .h)
+    nnoremap <space>a :FSHere<cr>
+    nnoremap <space>al :FSSplitRight<cr>
 "}}}
