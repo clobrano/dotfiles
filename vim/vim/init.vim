@@ -220,6 +220,11 @@
     nnoremap <C-j> 10j
     vnoremap E g_
     vnoremap B ^
+" Trying to copy/paste to/from clipboard faster (leader-c as leader-copy.
+" <leader>c is easier than <leader>y, because I don't need to move too much
+" the hands.
+    vnoremap <leader>c "+y<CR>
+    nnoremap <leader>p "+p
 " Copy-to/Paste-from system clipboard (using Meta-v for paste, because Ctrl-v is for visual mode)
     " Do not overwrite selected text on copy
     xnoremap <silent> p p:let @+=@0<CR>
@@ -417,7 +422,7 @@ endfunction
 " Airline -------------------------------------------------------------------------------{{{
 
     let g:airline_powerline_fonts=1
-    let g:airline_theme='oceanicnextlight'
+    let g:airline_theme='base16'
 
     " To be used only with Monaco font
     if !exists('g:airline_symbols')
