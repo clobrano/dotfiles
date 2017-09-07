@@ -133,7 +133,6 @@
     command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
     colorscheme PaperColor
     set background=light
-    let g:airline_theme='papercolor'
 " Writer mode
     nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -418,6 +417,7 @@ endfunction
 " Airline -------------------------------------------------------------------------------{{{
 
     let g:airline_powerline_fonts=1
+    let g:airline_theme='oceanicnextlight'
 
     " To be used only with Monaco font
     if !exists('g:airline_symbols')
@@ -548,7 +548,7 @@ let g:tagbar_type_vimwiki = {
 
 " Ctags " -------------------------------------------------------------------------------{{{
     " Command to create new ctags file
-    command! CtagsMake !ctags --file-scope=no -R --exclude=.git .
+    command! CtagsMake !ctags -R --exclude=.git .
 
     "Makes ctags visible from subdirectories
     set tags=tags;/
@@ -759,3 +759,12 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
     nnoremap <space>a :FSHere<cr>
     nnoremap <space>al :FSSplitRight<cr>
 "}}}
+
+"" Letsdo bindings ----------------------------------------------------------------------{{{
+
+    nnoremap <leader>ld :!lets do<space>
+    nnoremap <leader>ls :!lets stop<space>
+    nnoremap <leader>lv :!lets see<space>
+    nnoremap <leader>lc :!lets cancel<space>
+    nnoremap <leader>le :!lets edit<space>
+" }}}
