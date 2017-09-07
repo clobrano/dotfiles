@@ -116,7 +116,7 @@ fi
 export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # Golang paths
-export GOPATH=$HOME/workspace/gocode/
+export GOPATH=$HOME/workspace/golang/
 export GOBIN=${GOPATH}bin
 export PATH=$PATH:${GOBIN}
 
@@ -198,3 +198,6 @@ alias node='nodejs'
 
 # Disable terminal freeze shortcut C-s
 stty -ixon
+alias itsmine='sudo chown carlolo:carlolo'
+alias scan-view='PYTHONPATH=/usr/share/clang/scan-view-3.8/share:$PYTHONPATH scan-view-3.8'
+alias scan-build='scan-build-3.8'
