@@ -1,30 +1,35 @@
 #xargs -a <(awk '/^\s*[^#]/' /path/to/this/file) -r -- sudo apt-get install
 
-build-essential
+# linter
+astyle
+apt-file
 autoconf
 autogen
 automake
-vim-gtk
-ctags
+build-essential
+#byobu
+bzr
 checkinstall
-tree
-python-pip
+clang
+cmake
+cppcheck
 cscope
-silversearcher-ag
+ctags
+curl
 exuberant-ctags
-meld
-rar
-unrar
-libappindicator3-1
-git-email
-pkg-config
 git
+git-email
+libappindicator1
+libappindicator3-1
+meld
+pkg-config
+python-pip
+python3-pip
+rar
+silversearcher-ag
 sni-qt
 sni-qt:i386
-cppcheck
-byobu
-libappindicator1
+tree
+unrar
+vim-gtk
 xclip
-# linter
-astyle
-bzr
