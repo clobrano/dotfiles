@@ -196,6 +196,11 @@
 
 " System mappings------------------------------------------------------------------------{{{
     let mapleader=" "
+" Fix weird chars in terminal using arrow keys (INSERT mode)
+    inoremap [1;5A <esc>ki
+    inoremap [1;5C <esc>li 
+    inoremap [1;5B <esc>ji
+    inoremap [1;5D <esc>hi
 " <Esc> is too far away: using two remaps so that one hand is busy (e.g.
 " mouse, cookie, etc.) I can still use the other one.
     inoremap jj <Esc>
