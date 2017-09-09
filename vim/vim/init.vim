@@ -644,15 +644,9 @@ let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 
 " Snippets" -----------------------------------------------------------------------------{{{
 " Generic
-    "iabbr {{ {}<esc>
-    "iabbr (( ()<esc>
-
     " Bash
-    " Getopts
-    autocmd Filetype sh nnoremap <leader>bopt :-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
-    iabbr bopt <esc>:-1read ~/.config/nvim/snippets/bash/getopts.sh<CR>$a
     iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
-    command! Docopts r !docopt.sh -s %
+    command! Optgen r !~/.vim/snippets/bash/optgen.sh -s %
 
     " Auto shebang
     augroup Shebang
