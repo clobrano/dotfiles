@@ -39,6 +39,7 @@
       Plug 'ctrlpvim/ctrlp.vim', {'for': 'go'}
       Plug 'terryma/vim-multiple-cursors'
       Plug 'derekwyatt/vim-fswitch'
+      Plug 'vim-scripts/gtk-vim-syntax'
 
     " Beautify copy/paste on external media
       Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -75,7 +76,7 @@
 
     " GIT helpers
       Plug 'lambdalisue/gina.vim'
-      "Plug 'tpope/vim-fugitive'
+      Plug 'tpope/vim-fugitive'
       Plug 'airblade/vim-gitgutter'
       Plug 'Xuyuanp/nerdtree-git-plugin'
       "Plug 'codeindulgence/vim-tig'
@@ -598,12 +599,11 @@ let g:tagbar_type_vimwiki = {
 " }}}
 
 " Git " ---------------------------------------------------------------------------------{{{
-    nnoremap <leader>gs <esc>:Gstatus<cr>
-    nnoremap <leader>gw <esc>:Gwrite<cr>
-    nnoremap <leader>gr <esc>:Gread<cr>
-    nnoremap <leader>gc <esc>:Gcommit<cr>
-    nnoremap <leader>gph <esc>:Gpush<cr>
-    nnoremap <leader>gpl <esc>:Gpull<cr>
+    nnoremap <leader>gs <esc>:Gina status<cr>
+    nnoremap <leader>gl <esc>:Gina log<cr>
+    nnoremap <leader>gc <esc>:Gina commit<cr>
+    nnoremap <leader>gph <esc>:Gina push<cr>
+    nnoremap <leader>gpl <esc>:Gina pull<cr>
     " Push in review for given branch
     nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 
@@ -623,11 +623,6 @@ let g:tagbar_type_vimwiki = {
         \ 'python': [
         \   'flake8',
         \ ],
-    \}
-
-    let g:ale_linters = {
-        \ 'c': ['cppcheck', 'clang', 'gcc'],
-        \ 'cpp': ['cppcheck', 'clang', 'gcc'],
     \}
 
     let g:ale_cppcheck_options = '--enable=warning --enable=style --enable=performace'
@@ -747,7 +742,16 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
     command! Set4TabSpace :set ts=4 sts=4 sw=4
 
     " Cmake
-    command! Cmake :cd build | make | cd -
+    function! CallCmake()
+        if !empty(glob("./build"))
+            cd build
+        else
+        endif
+        make
+        cd -
+    endfunction
+    command! Cmake :call CallCmake()
+    iabbr cmake Cmake
 
     " Show GTK documentation
     autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>

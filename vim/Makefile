@@ -15,22 +15,19 @@ install:
 ifndef GVIM
 	sudo apt-get install -f vim-gtk
 	sudo apt-get install -f xclip
+	sudo apt-get install -f curl
+	sudo apt-get install -y python3-dev python3-pip
 endif
 
 configure: install
-	@mkdir $(VIM_HOME)
-	@ln -sf $(CWD)/vim/init.vim		$(VIMRC)
-	@ln -sf $(CWD)/vim/config		$(VIM_HOME)/config
-	@ln -sf $(CWD)/vim/colors		$(VIM_HOME)/colors
-	@ln -sf $(CWD)/vim/thesaurus	$(VIM_HOME)/thesaurus
-	@ln -sf $(CWD)/vim/snippets 	$(VIM_HOME)/snippets
+	[ -d $(VIM_HOME) ]					|| mkdir $(VIM_HOME)
+	[ -L $(VIMRC) ]						|| ln -s $(CWD)/vim/init.vim		$(VIMRC)
+	[ -L $(VIM_HOME)/config ]			|| ln -s $(CWD)/vim/config			$(VIM_HOME)/config
+	[ -L $(VIM_HOME)/colors ]			|| ln -s $(CWD)/vim/colors			$(VIM_HOME)/colors
+	[ -L $(VIM_HOME)/thesaurus ]		|| ln -s $(CWD)/vim/thesaurus		$(VIM_HOME)/thesaurus
+	[ -L $(VIM_HOME)/snippets ]			|| ln -s $(CWD)/vim/snippets		$(VIM_HOME)/snippets
+	[ -L $(VIM_HOME)/after/syntax ]		|| mkdir -p $(VIM_HOME)/after && ln -s $(CWD)/vim/syntax $(VIM_HOME)/after/syntax
 
 clean:
 	-sudo rm -r $(VIM_HOME)
 	-rm $(VIMRC)
-ifdef XCLIP
-	-sudo apt-get purge xclip
-endif
-ifdef GVIM
-	-sudo apt-get purge vim-gtk
-endif
