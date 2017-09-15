@@ -619,13 +619,15 @@ let g:tagbar_type_vimwiki = {
     let g:ale_fixers = {
         \ 'c': [
         \   'cppcheck',
+        \   'remove_trailing_lines'
         \ ],
         \ 'python': [
-        \   'flake8',
+        \   'add_blank_lines_for_python_control_statements',
+        \   'yapf',
         \ ],
     \}
 
-    let g:ale_cppcheck_options = '--enable=warning --enable=style --enable=performace'
+    let g:ale_c_cppcheck_options = '--enable=warning --enable=style --enable=performace'
     let g:ale_python_flake8_options = '--ignore=E115,E266,E501,C0301'
     " }}}
 
@@ -753,6 +755,17 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
     command! Cmake :call CallCmake()
     iabbr cmake Cmake
 
+    " Astyle
+    function! Astyle()
+        if !empty(glob("./astyle.options"))
+            execute "!" . "astyle --options=astyle.options %"
+        else
+            echo "could not find astyle.options"
+        endif
+    endfunction
+    au FileType c,cpp command! Astyle :call Astyle()
+
+
     " Show GTK documentation
     autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
 
@@ -776,3 +789,5 @@ command! DoReport :r!grep -i -e ^#.*todo -e ^#.*wait -e ^#.*done ~/Dropbox/Notes
     nnoremap <leader>lc :!lets cancel<space>
     nnoremap <leader>le :!lets edit<space>
 " }}}
+
+
