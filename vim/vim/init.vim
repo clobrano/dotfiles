@@ -674,6 +674,8 @@ au Filetype html,pug iabbr gly glyphicon
 "Canonical bugs
 nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
 
+" GLib
+au FileType c iabbr gprop <esc>:-1<cr>:read ~/.vim/snippets/glib/g_props.txt<cr>
 " GPL license template
 "function! LicenceGPL()
 "python3 << EOF
@@ -772,6 +774,7 @@ function! Astyle()
     endif
 endfunction
 au FileType c,cpp command! Astyle :call Astyle()
+au FileType c,cpp nmap <F10> :call Astyle()
 
 
 " Show GTK documentation
