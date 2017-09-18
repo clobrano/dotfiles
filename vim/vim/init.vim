@@ -40,6 +40,8 @@ call plug#begin()
   Plug 'terryma/vim-multiple-cursors'
   Plug 'derekwyatt/vim-fswitch'
   Plug 'vim-scripts/gtk-vim-syntax'
+  Plug 'Shougo/echodoc.vim'
+  Plug 'w0rp/ale'
 
 " Beautify copy/paste on external media
   Plug 'google/vim-syncopate' | Plug 'google/vim-maktaba'
@@ -59,7 +61,6 @@ call plug#begin()
   Plug 'crusoexia/vim-monokai'
   Plug 'noahfrederick/vim-hemisu'
   Plug 'dikiaap/minimalist'
-  Plug 'w0rp/ale'
 
 " C/C++
   "Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -156,7 +157,7 @@ set wildmode=list:longest,full
 set guioptions-=T
 " Keep the cursor from reaching the last line make it easy to scroll down/up.
 set scrolloff=7
-"set relativenumber
+set relativenumber
 hi clear CursorLine
 set cursorline
 hi CursorLineNR cterm=bold
@@ -206,7 +207,7 @@ inoremap [1;5D <esc>hi
 " mouse, cookie, etc.) I can still use the other one.
 inoremap jj <Esc>
 inoremap fj <Esc>
-inoremap qq <Esc>
+inoremap <c-space> <Esc>
 " No Ex mode
 nnoremap Q <nop>
 " Macro is most of the time on my way and most of the time I don't need it
@@ -348,6 +349,7 @@ noremap <A-Left> <Esc>:bp<CR>
 noremap H <Esc>:bp<CR>
 noremap <A-Right> <Esc>:bnext<CR>
 noremap L <Esc>:bnext<CR>
+nnoremap <c-b> <esc>:b<space>
 
 " New Tab (temporally replaced to make space to command-t)
 "    nnoremap <C-S-t> :tabnew<CR>
@@ -504,6 +506,7 @@ nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 
 nnoremap tb <Esc>:TagbarToggle<CR>
 let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
 let g:tagbar_zoomwidth = 0
 let g:tagbar_ctags_bin = "ctags"
 let g:tagbar_type_vimwiki = {
@@ -624,6 +627,7 @@ let g:ale_fixers = {
     \   'remove_trailing_lines'
     \ ],
     \ 'python': [
+    \   'remove_trailing_lines',
     \   'add_blank_lines_for_python_control_statements',
     \   'yapf',
     \ ],
@@ -667,21 +671,26 @@ iabbr inc #include <><esc><left>
 " include local headers
 iabbr linc #include ""<esc><left>
 
+function! CHeader()
+    let filename = expand('%:t')
+    let headername = toupper(filename)
+    let headername = substitute(headername, "-", "_", "")
+    let headername = substitute(headername, "\\.", "_", "")
+    let headername = "_" . headername . "_"
+    let cur_line = line('.')
+    call setline(cur_line, "#ifndef " . headername)
+    call setline(cur_line + 1, "#define " . headername)
+    call setline(cur_line + 2, "")
+    call setline(cur_line + 3, "#endif //" . headername)
+endfunction
+iabbr cguard <esc>:call CHeader()<CR>
+
 "Bootstrap
 au Filetype html,pug iabbr btnsucc btn-success
 au Filetype html,pug iabbr gly glyphicon
 
 "Canonical bugs
 nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
-
-" GLib
-au FileType c iabbr gprop <esc>:-1<cr>:read ~/.vim/snippets/glib/g_props.txt<cr>
-" GPL license template
-"function! LicenceGPL()
-"python3 << EOF
-"
-"EOF
-"endfunction
 " }}}
 
 " Generic Mappings ----------------------------------------------------------------------{{{
@@ -776,6 +785,17 @@ endfunction
 au FileType c,cpp command! Astyle :call Astyle()
 au FileType c,cpp nmap <F10> :call Astyle()
 
+" Cmake
+function! CallCmake()
+    if !empty(glob("./build"))
+        cd build
+    else
+    endif
+    make
+    cd -
+endfunction
+command! Cmake :call CallCmake()
+cabbr cmake Cmake
 
 " Show GTK documentation
 autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
