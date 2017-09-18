@@ -114,6 +114,7 @@ call plug#begin()
 call plug#end()
 
 set nocompatible
+
 " Let allow buffers to be hidden when not already saved (do I really need this?)
 set hidden
 " }}}
@@ -134,6 +135,7 @@ command! Monokai    colorscheme monokai    | set background=dark  | AirlineTheme
 command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
 colorscheme PaperColor
 set background=light
+
 " Writer mode
 nmap <F1> <Esc>:Goyo<CR>
 " Enable spell check"
@@ -162,6 +164,7 @@ set cursorline
 hi CursorLineNR cterm=bold
 " Let airline show my status
 set noshowmode
+
 " Autosave setup
 set nobackup
 set noswapfile
@@ -504,6 +507,7 @@ nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 
 nnoremap tb <Esc>:TagbarToggle<CR>
 let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
 let g:tagbar_zoomwidth = 0
 let g:tagbar_ctags_bin = "ctags"
 let g:tagbar_type_vimwiki = {
@@ -773,6 +777,17 @@ function! Astyle()
 endfunction
 au FileType c,cpp command! Astyle :call Astyle()
 
+" Cmake
+function! CallCmake()
+    if !empty(glob("./build"))
+        cd build
+    else
+    endif
+    make
+    cd -
+endfunction
+command! Cmake :call CallCmake()
+cabbr cmake Cmake
 
 " Show GTK documentation
 autocmd Filetype c,css nmap <silent> <leader>gdoc :! devhelp -s "<cword>" &<CR><CR>
@@ -806,4 +821,5 @@ nnoremap <leader>lc :!lets cancel<space>
 nnoremap <leader>le :!lets edit<space>
 " }}}
 
-
+set cmdheight=2
+let g:echodoc_enable_at_startup = 1
