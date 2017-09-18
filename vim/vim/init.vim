@@ -604,7 +604,7 @@ let g:go_fmt_command = "goimports"
 " Git " ---------------------------------------------------------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
 nnoremap <leader>gl <esc>:Gina log<cr>
-nnoremap <leader>ga <esc>:Gina add<space>
+nnoremap <leader>ga <esc>:Gina add %
 nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
