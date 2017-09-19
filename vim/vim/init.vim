@@ -174,15 +174,16 @@ set virtualedit=
 set laststatus=2
 set lazyredraw      " the screen will be redraw less often
 " Tabs
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=4
+setlocal expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
 set lcs=trail:·,tab:»· ",eol:¶
+set list
 set wrap linebreak nolist
 set showbreak=└
-set showmatch       " show matching parenthesis
+setlocal showmatch       " show matching parenthesis
 let loaded_matchparen = 0
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " Better whitespace color
@@ -808,6 +809,7 @@ function! SaveSession()
     let cwd = getcwd()
     let session_name = fnamemodify(cwd, ':p:h:t')
     execute "mksession! ~/.vim/sessions/" . session_name
+    echo 'saved session: ' . session_name
 endfunction
 command! SaveSession call SaveSession()
 
