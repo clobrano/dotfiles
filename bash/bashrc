@@ -60,7 +60,7 @@ fi
 export TOOLKIT=$HOME/toolkit
 export DOTFILES=PLACEHOLDER
 export EDITOR="gvim -f"
-export CDPATH=$HOME/workspace
+export CDPATH=$HOME:$HOME/workspace:$HOME/workspace/devel
 
 COLORTERM=gnome-terminal
 TERM=xterm-256color
@@ -68,7 +68,8 @@ function smart_path() {
   echo $(python "$DOTFILES"/bash/bash_prompt.py )
 }
 
-PS1='$(smart_path)$(__git_ps1)❯ '
+date=$(date +%k:%M)
+PS1='${date} $(smart_path)$(__git_ps1)❯ '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -199,5 +200,3 @@ alias node='nodejs'
 # Disable terminal freeze shortcut C-s
 stty -ixon
 alias itsmine='sudo chown carlolo:carlolo'
-alias scan-view='PYTHONPATH=/usr/share/clang/scan-view-3.8/share:$PYTHONPATH scan-view-3.8'
-alias scan-build='scan-build-3.8'
