@@ -6,6 +6,10 @@ BASHRC_BAK=$(HOME)/.bashrc.bak
 
 all: .inputrc set_bashrc
 
+powershell:
+	pip install powerline-shell --user
+	cp powerline-shell.json ${HOME}/.powerline-shell.json
+
 .inputrc:
 	./create_inputrc
 

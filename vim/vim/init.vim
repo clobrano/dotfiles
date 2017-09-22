@@ -33,14 +33,13 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'frioux/vim-lost'
   Plug 'MattesGroeger/vim-bookmarks'
-  Plug 'Yggdroot/indentLine'
+  Plug 'Yggdroot/indentLine', {'for': 'javascript'}
   Plug 'chrisbra/Colorizer'
   Plug 'tpope/vim-surround'
   Plug 'ctrlpvim/ctrlp.vim', {'for': 'go'}
   Plug 'terryma/vim-multiple-cursors'
   Plug 'derekwyatt/vim-fswitch'
   Plug 'vim-scripts/gtk-vim-syntax'
-  Plug 'Shougo/echodoc.vim'
   Plug 'w0rp/ale'
 
 " Beautify copy/paste on external media
@@ -180,9 +179,10 @@ set softtabstop=4
 set expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
 set lcs=trail:·,tab:»· ",eol:¶
+set list
 set wrap linebreak nolist
 set showbreak=└
-set showmatch       " show matching parenthesis
+setlocal showmatch       " show matching parenthesis
 let loaded_matchparen = 0
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " Better whitespace color
@@ -604,7 +604,7 @@ let g:go_fmt_command = "goimports"
 " Git " ---------------------------------------------------------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
 nnoremap <leader>gl <esc>:Gina log<cr>
-nnoremap <leader>ga <esc>:Gina add<space>
+nnoremap <leader>ga <esc>:Gina add %
 nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
@@ -649,7 +649,7 @@ let g:posero_default_mappings = 1
 " Generic
 " Bash
 iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
-command! Optgen r !~/.vim/snippets/bash/optgen.sh -s %
+command! Optgen r !~/.vim/snippets/optgen.sh/optgen.sh -s %
 
 " Auto shebang
 augroup Shebang
@@ -683,7 +683,19 @@ function! CHeader()
     call setline(cur_line + 2, "")
     call setline(cur_line + 3, "#endif //" . headername)
 endfunction
-iabbr cguard <esc>:call CHeader()<CR>
+iabbr cguard <esc>:call CHeader()
+
+function! License(type)
+    let license = '/home/carlolo/.vim/snippets/licenses/' . a:type
+    let filename = expand('%:t')
+    let cur_line = line('.')
+    let i = 0
+    for line in readfile(license)
+        call setline(cur_line + i, substitute(line, 'filename', filename, ''))
+        let i = i + 1
+    endfor
+endfunction
+iabbr gpl <esc>:call License('gpl')
 
 "Bootstrap
 au Filetype html,pug iabbr btnsucc btn-success
@@ -783,6 +795,7 @@ function! Astyle()
     endif
 endfunction
 au FileType c,cpp command! Astyle :call Astyle()
+iabbr astyle Astyle
 au FileType c,cpp nmap <F10> :call Astyle()
 
 " Cmake
@@ -809,6 +822,7 @@ function! SaveSession()
     let cwd = getcwd()
     let session_name = fnamemodify(cwd, ':p:h:t')
     execute "mksession! ~/.vim/sessions/" . session_name
+    echo 'saved session: ' . session_name
 endfunction
 command! SaveSession call SaveSession()
 
@@ -828,5 +842,3 @@ nnoremap <leader>lv :!lets see<space>
 nnoremap <leader>lc :!lets cancel<space>
 nnoremap <leader>le :!lets edit<space>
 " }}}
-
-
