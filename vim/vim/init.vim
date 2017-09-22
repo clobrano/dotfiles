@@ -33,14 +33,13 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'frioux/vim-lost'
   Plug 'MattesGroeger/vim-bookmarks'
-  Plug 'Yggdroot/indentLine'
+  Plug 'Yggdroot/indentLine', {'for': 'javascript'}
   Plug 'chrisbra/Colorizer'
   Plug 'tpope/vim-surround'
   Plug 'ctrlpvim/ctrlp.vim', {'for': 'go'}
   Plug 'terryma/vim-multiple-cursors'
   Plug 'derekwyatt/vim-fswitch'
   Plug 'vim-scripts/gtk-vim-syntax'
-  Plug 'Shougo/echodoc.vim'
   Plug 'w0rp/ale'
 
 " Beautify copy/paste on external media
@@ -174,9 +173,9 @@ set virtualedit=
 set laststatus=2
 set lazyredraw      " the screen will be redraw less often
 " Tabs
-setlocal tabstop=4
-setlocal shiftwidth=4
-setlocal softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 setlocal expandtab
 " Highlight spaces, tabs, end of line chars, wrap and brake lines
 set lcs=trail:·,tab:»· ",eol:¶
@@ -650,7 +649,7 @@ let g:posero_default_mappings = 1
 " Generic
 " Bash
 iabbr bfor  for i in; do<cr>done<esc>1<up>f;i
-command! Optgen r !~/.vim/snippets/bash/optgen.sh -s %
+command! Optgen r !~/.vim/snippets/optgen.sh/optgen.sh -s %
 
 " Auto shebang
 augroup Shebang
@@ -784,6 +783,7 @@ function! Astyle()
     endif
 endfunction
 au FileType c,cpp command! Astyle :call Astyle()
+iabbr astyle Astyle
 
 " Cmake
 function! CallCmake()
@@ -829,6 +829,3 @@ nnoremap <leader>lv :!lets see<space>
 nnoremap <leader>lc :!lets cancel<space>
 nnoremap <leader>le :!lets edit<space>
 " }}}
-
-set cmdheight=2
-let g:echodoc_enable_at_startup = 1
