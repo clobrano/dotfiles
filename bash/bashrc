@@ -64,12 +64,22 @@ export CDPATH=$HOME:$HOME/workspace:$HOME/workspace/devel
 
 COLORTERM=gnome-terminal
 TERM=xterm-256color
-function smart_path() {
-  echo $(python "$DOTFILES"/bash/bash_prompt.py )
+#function smart_path() {
+#  echo $(python "$DOTFILES"/bash/bash_prompt.py )
+#}
+#function time_hm(){
+#    echo $(date +%k:%M)
+#}
+#PS1='$(time_hm) $(smart_path)$(__git_ps1) '
+
+#https://github.com/banga/powerline-shell
+function _update_ps1() {
+    PS1="$(powerline-shell $?)"
 }
 
-date=$(date +%k:%M)
-PS1='${date} $(smart_path)$(__git_ps1)❯ '
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -166,6 +176,7 @@ alias usif1='sudo minicom -D /dev/ttyS1'
 alias pusif0='sudo pynicom --port=/dev/ttyS0'
 alias pusif1='sudo pynicom --port /dev/ttyS1'
 
+alias gvim='gvim -geom 150x40'
 alias nvimg='nvim -c Gruvbox'
 alias nvimm='nvim -c Monokai'
 alias gvimm='gvim -c Monokai'
@@ -179,7 +190,6 @@ if [ ! -z ${letsbin:x} ]; then
     fi
 fi
 
-alias gvim='gvim -geom 800:400'
 
 if [ -f $DOTFILES/bash/modemmanager_aliases.sh ]; then
 	source $DOTFILES/bash/modemmanager_aliases.sh
