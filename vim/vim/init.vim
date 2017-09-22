@@ -683,7 +683,19 @@ function! CHeader()
     call setline(cur_line + 2, "")
     call setline(cur_line + 3, "#endif //" . headername)
 endfunction
-iabbr cguard <esc>:call CHeader()<CR>
+iabbr cguard <esc>:call CHeader()
+
+function! License(type)
+    let license = '/home/carlolo/.vim/snippets/licenses/' . a:type
+    let filename = expand('%:t')
+    let cur_line = line('.')
+    let i = 0
+    for line in readfile(license)
+        call setline(cur_line + i, substitute(line, 'filename', filename, ''))
+        let i = i + 1
+    endfor
+endfunction
+iabbr gpl <esc>:call License('gpl')
 
 "Bootstrap
 au Filetype html,pug iabbr btnsucc btn-success
