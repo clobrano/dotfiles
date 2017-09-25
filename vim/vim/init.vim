@@ -80,17 +80,19 @@ set nocompatible
 set hidden
 " }}}
 
-" BASE CONFIGURATION
+let mapleader = ' '
+
+" BASIC CONFIGURATION
 " Init.vim edit and reload ---------{{{
 command! Einit edit ~/.vimrc
-map <silent> <Leader>v :source ~/.vimrc_light<CR>:exe ":echo 'vimrc reloaded'"<CR>
-map <silent> <Leader>V :source ~/.vimrc_light<CR>:PlugInstall<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <silent> <leader>v :source ~/.vimrc<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <silent> <leader>V :source ~/.vimrc<CR>:PlugInstall<CR>:exe ":echo 'vimrc reloaded'"<CR>
 " }}}
 " Editor ---------------------------{{{
 syntax enable
 filetype on
 set linespace=1
-set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
+set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
 set background=light
 colorscheme PaperColor
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
@@ -101,7 +103,6 @@ command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
 " }}}
 " System settings ------------------{{{
-let mapleader = ' '
 set mouse=a
 set clipboard+=unnamedplus
 set showcmd                    " show last command in the very bottom right of VI
@@ -294,7 +295,8 @@ function! MyFoldText()
 endfunction
 " }}}
 
-" SW DEVELOP
+
+" SW Develop -----------------------{{{
 set number            " Show line numbers
 set colorcolumn=0     " Show a colored line at the Nth column
 set nocursorline      " Disable highlight current line
@@ -321,6 +323,9 @@ nnoremap <leader>session <esc>:source ~/.vim/sessions/
 " Show alternate file (ex. .c/.cpp <-> .h)
 nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
+" }}}
+
+
 " EXTRAS
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
@@ -422,6 +427,8 @@ let g:syntastic_always_populate_loc_list = 1                    "syntastic
 let g:syntastic_auto_loc_list = 0                               "syntastic
 let g:syntastic_check_on_open = 1                               "syntastic
 let g:syntastic_check_on_wq = 0                                 "syntastic
+let g:syntastic_c_checkers=['clang_check', 'cppcheck']
+let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 " }}}
 " Snippets -------------------------{{{
 " Auto shebang
