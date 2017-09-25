@@ -20,13 +20,13 @@ ifndef GVIM
 endif
 
 configure: install
-	[ -d $(VIM_HOME) ]					|| mkdir $(VIM_HOME)
-	[ -L $(VIMRC) ]						|| ln -s $(CWD)/vim/init.vim		$(VIMRC)
-	[ -L $(VIM_HOME)/config ]			|| ln -s $(CWD)/vim/config			$(VIM_HOME)/config
-	[ -L $(VIM_HOME)/colors ]			|| ln -s $(CWD)/vim/colors			$(VIM_HOME)/colors
-	[ -L $(VIM_HOME)/thesaurus ]		|| ln -s $(CWD)/vim/thesaurus		$(VIM_HOME)/thesaurus
-	[ -L $(VIM_HOME)/snippets ]			|| ln -s $(CWD)/vim/snippets		$(VIM_HOME)/snippets
-	[ -L $(VIM_HOME)/after/syntax ]		|| mkdir -p $(VIM_HOME)/after && ln -s $(CWD)/vim/syntax $(VIM_HOME)/after/syntax
+	[ -d $(VIM_HOME) ]				|| mkdir $(VIM_HOME)
+	[ -L $(VIMRC) ]					|| ln -s $(CWD)/vim/init.vim		$(VIMRC)
+	[ -L $(VIM_HOME)/config ]		|| ln -s $(CWD)/vim/config			$(VIM_HOME)/config
+	[ -L $(VIM_HOME)/colors ]		|| ln -s $(CWD)/vim/colors			$(VIM_HOME)/colors
+	[ -L $(VIM_HOME)/thesaurus ]	|| ln -s $(CWD)/vim/thesaurus		$(VIM_HOME)/thesaurus
+	[ -L $(VIM_HOME)/snippets ]		|| ln -s $(CWD)/vim/snippets		$(VIM_HOME)/snippets
+	[ -L $(VIM_HOME)/after ]		|| ln -s $(CWD)/vim/after		    $(VIM_HOME)/after
 
 clean:
 	-sudo rm -r $(VIM_HOME)
