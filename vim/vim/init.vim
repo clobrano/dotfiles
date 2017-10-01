@@ -384,6 +384,8 @@ nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
 " Push in review for given branch
 nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
+" Shortcut for Fugitive vertical diff
+nnoremap <leader>gd <esc>:Gvdiff<space>
 " }}}
 " Golang ---------------------------{{{
 au FileType go nmap <Leader>gdt <Plug>(go-def-tab)
