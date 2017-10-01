@@ -27,6 +27,7 @@ configure: install
 	[ -L $(VIM_HOME)/thesaurus ]	|| ln -s $(CWD)/vim/thesaurus		$(VIM_HOME)/thesaurus
 	[ -L $(VIM_HOME)/snippets ]		|| ln -s $(CWD)/vim/snippets		$(VIM_HOME)/snippets
 	[ -L $(VIM_HOME)/after ]		|| ln -s $(CWD)/vim/after		    $(VIM_HOME)/after
+	ln -sf $(CWD)/ctags.config $(HOME)/.ctags
 
 clean:
 	-sudo rm -r $(VIM_HOME)
