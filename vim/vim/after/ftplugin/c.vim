@@ -22,16 +22,17 @@ function! Astyle()
     endif
 endfunction
 command! Astyle :call Astyle()
-iabbr astyle Astyle
+cabbr astyle Astyle
 
 " Clang-format uses clang-format to fix current file format
 " based on a .clang-format file in project root directory
-function! ClangFormat()
+function! ClangFormat() range
     if !empty(glob("./.clang-format"))
-        execute "!" . "clang-format -i %"
+        execute "!" . "clang-format -lines=" . a:firstline . ":" . a:lastline ." -i %"
     else
         echo "could not find .clang-format file"
     endif
 endfunction
-command! ClangFormat :call ClangFormat()
-iabbr clangformat ClangFormat
+command! -range ClangFormat :call ClangFormat()
+vnoremap <leader>clf :call ClangFormat()<CR>
+cabbr clangformat call ClangFormat()
