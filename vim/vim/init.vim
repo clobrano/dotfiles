@@ -39,6 +39,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
+Plug 'editorconfig/editorconfig-vim'
 
 " C/C++
 Plug 'chazy/cscope_maps',                { 'for': ['c', 'cpp']}
@@ -296,7 +297,7 @@ function! MyFoldText()
 endfunction
 " }}}
 
-
+" EXTRAS
 " SW Develop -----------------------{{{
 set number            " Show line numbers
 set colorcolumn=0     " Show a colored line at the Nth column
@@ -325,9 +326,6 @@ nnoremap <leader>session <esc>:source ~/.vim/sessions/
 nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
 " }}}
-
-
-" EXTRAS
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
 let g:airline_theme='papercolor'
