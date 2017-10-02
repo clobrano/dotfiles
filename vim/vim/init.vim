@@ -5,7 +5,7 @@
 "
 " Vim-plug plugin manager ----------{{{
 if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall | source ~/.vimrc
 endif
 call plug#begin()
@@ -29,7 +29,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'   
+Plug 'vim-airline/vim-airline-themes'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine', {'for': 'javascript'}
@@ -60,7 +60,7 @@ Plug 'fatih/vim-go',            { 'for': 'go'}
 
 " GTD
 Plug 'vimwiki/vimwiki'
-Plug 'junegunn/goyo.vim',       { 'on': 'Goyo'}        
+Plug 'junegunn/goyo.vim',       { 'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
 
 " NodeJS
@@ -125,12 +125,12 @@ set autowrite
 " ------------------------------------------ Autocomplete setaway fromset completeopt=longest,menu,preview
 " Block select not limited to shortest line
 set virtualedit=
-set laststatus=2 lazyredraw 
+set laststatus=2 lazyredraw
 set tabstop=4 shiftwidth=4 softtabstop=4
-setlocal expandtab
+set expandtab
 set lcs=trail:·,tab:»· " Highlight spaces, tabs, end of line chars, wrap and brake lines
-set list
 set wrap linebreak nolist
+set list
 set showbreak=└
 set showmatch
 highlight ExtraWhitespace ctermbg=Yellow
@@ -152,7 +152,7 @@ inoremap [1;5D <esc>hi
 inoremap jj <Esc>
 inoremap <c-space> <Esc>
 nnoremap Q <nop>
-" ------------------------------------------ Navigation 
+" ------------------------------------------ Navigation
 noremap <silent> <Up> gk
 noremap <silent> <Down> gj
 noremap <silent> k gk
@@ -249,7 +249,7 @@ let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " tree-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
 let g:netrw_browse_split = 3          " open file in a new tab
-nnoremap <leader>t <esc>:Lexplore<cr>
+nnoremap <leader>tt <esc>:Lexplore<cr>
 nnoremap <leader>ff <esc>:FZF<cr>
 command! Sethere lcd %:p:h
 nnoremap sth <Esc>:Sethere<CR>
@@ -380,7 +380,25 @@ nnoremap <leader>ga <esc>:Gina add %
 nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
-" Push in review for given branch
+
+function! GerritReview(branch)
+	exec 'Git push origin HEAD:refs/for/' . a:branch
+endfunction
+command! -nargs=1 GerritReview :call GerritReview(<f-args>)
+cabbr gerritreview GerritReview
+
+function! GerritWip(branch)
+	exec 'Git push origin HEAD:refs/for/' . a:branch. '\%wip'
+endfunction
+command! -nargs=1 GerritWip :call GerritWip(<f-args>)
+cabbr gerritwip GerritWip
+
+function! GerritReady(branch)
+	exec 'Git push origin HEAD:refs/for/'. a:branch . '%Ready'
+endfunction
+command! -nargs=1 GerritReady :call GerritReady(<f-args>)
+cabbr gerritready GerritReady
+
 nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 " Shortcut for Fugitive vertical diff
 nnoremap <leader>gd <esc>:Gvdiff<space>
@@ -415,7 +433,7 @@ nnoremap <leader>lv :!lets see<space>
 nnoremap <leader>lc :!lets cancel<space>
 nnoremap <leader>le :!lets edit<space>
 " }}}
-" Mark " ---------------------------{{{
+" Mark -----------------------------{{{
 vnoremap {Leader}/  n
 nnoremap <leader>n <Plug>Mark
 set nocscopeverbose
@@ -519,4 +537,33 @@ nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 " }}}
-"
+
+" EXTRAS
+" SW Develop -----------------------{{{
+set number            " Show line numbers
+set colorcolumn=0     " Show a colored line at the Nth column
+set nocursorline      " Disable highlight current line
+" Auto add closing bracket
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {<Tab>  {}<Left>
+" Align function arguments
+set cino+=(0
+" Make install
+nnoremap <leader>i <esc>:!sudo make install<cr>
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+" Shortcut to save current session in ~/.vim/session
+function! SaveSession()
+    let cwd = getcwd()
+    let session_name = fnamemodify(cwd, ':p:h:t')
+    execute "mksession! ~/.vim/sessions/" . session_name
+    echo 'saved session: ' . session_name
+endfunction
+command! SaveSession call SaveSession()
+
+" Shortcut to restore session from  ~/.vim/session
+nnoremap <leader>session <esc>:source ~/.vim/sessions/
+" Show alternate file (ex. .c/.cpp <-> .h)
+nnoremap <space>a :FSHere<cr>
+nnoremap <space>al :FSSplitRight<cr>
+" }}}

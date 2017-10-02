@@ -6,9 +6,9 @@ let gdkpixbuf_deprecated_errors = 1
 let glib_deprecated_errors = 1
 let gtk3_deprecated_errors = 1
 
-runtime!  ../plugged/gtk-vim-syntax/syntax/glib.vim
-runtime!  ../plugged/gtk-vim-syntax/syntax/gtk2.vim
-runtime!  ../plugged/gtk-vim-syntax/syntax/gtk3.vim
+runtime!  /home/carlolo/.vim/plugged/gtk-vim-syntax/syntax/glib.vim
+runtime!  /home/carlolo/.vim/plugged/gtk-vim-syntax/syntax/gtk2.vim
+runtime!  /home/carlolo/.vim/plugged/gtk-vim-syntax/syntax/gtk3.vim
 
 syn match defined "\v\w@<!(\u|_+[A-Z0-9])[A-Z0-9_]*\w@!"
 hi def link defined Macro
