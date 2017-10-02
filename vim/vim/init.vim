@@ -190,6 +190,7 @@ let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
 let g:ackhighlight = 1
 " Highlight current word
 nnoremap * *<C-o>
+highlight Search guibg=green guifg=black gui=underline
 nnoremap <leader><space> :nohlsearch<CR>
 " Look for text in current buffer
 nnoremap fb <Esc>:g//#<left><left>
@@ -325,6 +326,9 @@ nnoremap <leader>session <esc>:source ~/.vim/sessions/
 " Show alternate file (ex. .c/.cpp <-> .h)
 nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
+
+" Zeal offline documentation browser
+:nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
 " }}}
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
@@ -536,34 +540,4 @@ nnoremap tn dd?^#.*Todo<esc>p^a<esc>
 nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
-" }}}
-
-" EXTRAS
-" SW Develop -----------------------{{{
-set number            " Show line numbers
-set colorcolumn=0     " Show a colored line at the Nth column
-set nocursorline      " Disable highlight current line
-" Auto add closing bracket
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {<Tab>  {}<Left>
-" Align function arguments
-set cino+=(0
-" Make install
-nnoremap <leader>i <esc>:!sudo make install<cr>
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-" Shortcut to save current session in ~/.vim/session
-function! SaveSession()
-    let cwd = getcwd()
-    let session_name = fnamemodify(cwd, ':p:h:t')
-    execute "mksession! ~/.vim/sessions/" . session_name
-    echo 'saved session: ' . session_name
-endfunction
-command! SaveSession call SaveSession()
-
-" Shortcut to restore session from  ~/.vim/session
-nnoremap <leader>session <esc>:source ~/.vim/sessions/
-" Show alternate file (ex. .c/.cpp <-> .h)
-nnoremap <space>a :FSHere<cr>
-nnoremap <space>al :FSSplitRight<cr>
 " }}}
