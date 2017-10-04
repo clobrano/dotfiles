@@ -188,6 +188,7 @@ if executable('ag')
 endif
 let g:ack_default_options = " -s -H --nogroup --column --smart-case --follow"
 let g:ackhighlight = 1
+noremap rep <Esc>:%s//gc<Left><Left><Left>
 " Highlight current word
 nnoremap * *<C-o>
 highlight Search guibg=green guifg=black gui=underline
@@ -203,11 +204,12 @@ vnoremap fp y?<C-r>"<cr>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap } }zz
-" Fzf fuzzy searcher (ff = find file)
+" ------------------------------------------ Fzf fuzzy searcher (ff = find file)
 nnoremap ff <esc>:FZF<cr>
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
-noremap rep <Esc>:%s//gc<Left><Left><Left>
+" Sudo write
+command! Swrite w !gksu tee %
 " }}}
 " Buffers --------------------------{{{
 " ------------------------------------------ Save, Close and Force close current buffer
