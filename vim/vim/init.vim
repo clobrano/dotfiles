@@ -208,8 +208,8 @@ nnoremap } }zz
 nnoremap ff <esc>:FZF<cr>
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
-" Sudo write
-command! Swrite w !gksu tee %
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 " }}}
 " Buffers --------------------------{{{
 " ------------------------------------------ Save, Close and Force close current buffer
