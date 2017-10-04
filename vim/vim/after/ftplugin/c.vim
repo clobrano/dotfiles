@@ -28,7 +28,11 @@ cabbr astyle Astyle
 " based on a .clang-format file in project root directory
 function! ClangFormat() range
     if !empty(glob("./.clang-format"))
-        execute "!" . "clang-format -lines=" . a:firstline . ":" . a:lastline ." -i %"
+        if a:firstline != a:lastline
+            execute "!" . "clang-format -lines=" . a:firstline . ":" . a:lastline ." -i %"
+        else
+            execute "!" . "clang-format -i %"
+        endif
     else
         echo "could not find .clang-format file"
     endif
