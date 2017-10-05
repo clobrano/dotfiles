@@ -329,8 +329,13 @@ function! SaveSession()
 endfunction
 command! SaveSession call SaveSession()
 
+" Show the value of basic configuration options
+function! CheckSession()
+    exec "set list?|set expandtab?|set shiftwidth?|set tabstop?"
+endfunc
 " Shortcut to restore session from  ~/.vim/session
 nnoremap <leader>session <esc>:source ~/.vim/sessions/
+autocmd SessionLoadPost * call CheckSession()
 " Show alternate file (ex. .c/.cpp <-> .h)
 nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
