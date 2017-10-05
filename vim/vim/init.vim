@@ -25,6 +25,7 @@ Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/Mark--Karkat',    { 'on': 'Mark'}
 Plug 'szw/vim-g'                    " Quick Google lookup
+Plug 'ludovicchabant/vim-gutentags'
 
 " Look & Feel
 Plug 'NLKNguyen/papercolor-theme'
