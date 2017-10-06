@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -62,15 +62,12 @@ export DOTFILES=PLACEHOLDER
 export EDITOR="gvim -f"
 export CDPATH=$HOME:$HOME/workspace:$HOME/workspace/devel
 
+if [ -e /etc/profile.d/vte-2.91.sh ]; then
+        source /etc/profile.d/vte-2.91.sh
+fi
+
 COLORTERM=gnome-terminal
 TERM=xterm-256color
-#function smart_path() {
-#  echo $(python "$DOTFILES"/bash/bash_prompt.py )
-#}
-#function time_hm(){
-#    echo $(date +%k:%M)
-#}
-#PS1='$(time_hm) $(smart_path)$(__git_ps1) '
 
 #https://github.com/banga/powerline-shell
 function _update_ps1() {
@@ -115,11 +112,11 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 
@@ -162,44 +159,34 @@ alias psaux='ps aux | grep'
 alias soundindicatorback='gsettings set com.canonical.indicator.sound visible true'
 alias xcopy='xclip'
 alias xpaste='xclip -o'
-alias nvimd='nvim -c Dark'
 
-source $DOTFILES/bash/modemmanager_aliases.sh
-source $DOTFILES/bash/networkmanager_aliases.sh
-alias altair-connet='telnet 10.0.0.1'
-alias ALTgdb-glibc='/opt/altair/cs_mips-2014.05/usr/bin/mips-linux-gnu-gdb'
-alias kill-linux-app='ssh root@10.0.0.1 kill'
-alias linux-app-pid='ssh root@10.0.0.1 pidof LE866A1_KK.sct'
-alias linux-app-kill='ssh root@10.0.0.1 kill'
 alias usif0='sudo minicom -D /dev/ttyS0'
 alias usif1='sudo minicom -D /dev/ttyS1'
 alias pusif0='sudo pynicom --port=/dev/ttyS0'
 alias pusif1='sudo pynicom --port /dev/ttyS1'
 
-alias gvim='gvim -geom 150x40'
-alias nvimg='nvim -c Gruvbox'
-alias nvimm='nvim -c Monokai'
+alias gvim='gvim -geom 190x40'
 alias gvimm='gvim -c Monokai'
+alias nvimm='nvim -c Monokai'
 
 # Let's do configuration
 letsbin=$(which lets)
 if [ ! -z ${letsbin:x} ]; then
     export LETSDO_COLOR=1
     if [ -f $HOME/.letsdo_completion ]; then
-	source $HOME/.letsdo_completion
+        source $HOME/.letsdo_completion
     fi
 fi
 
-
 if [ -f $DOTFILES/bash/modemmanager_aliases.sh ]; then
-	source $DOTFILES/bash/modemmanager_aliases.sh
+    source $DOTFILES/bash/modemmanager_aliases.sh
 fi
 if [ -f $DOTFILES/bash/networkmanager_aliases.sh ]; then
-	source $DOTFILES/bash/networkmanager_aliases.sh
+    source $DOTFILES/bash/networkmanager_aliases.sh
 fi
 
 if [ -f $DOTFILES/git/aliases.sh ]; then
-	source $DOTFILES/git/aliases.sh
+    source $DOTFILES/git/aliases.sh
 fi
 PATH=~/.local/bin:$PATH
 
