@@ -258,7 +258,7 @@ set splitbelow
 let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " tree-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
-let g:netrw_browse_split = 3          " open file in a new tab
+let g:netrw_preveiw = 1
 nnoremap <leader>tt <esc>:Lexplore<cr>
 nnoremap <leader>ff <esc>:FZF<cr>
 command! Sethere lcd %:p:h
@@ -512,7 +512,34 @@ function! License(type)
 endfunction
 iabbr gpl <esc>:call License('gpl')
 " ------------------------------------------ Canonical bugs
-nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
+function! LpBugTitle(buglink)
+if !has('python')
+    echo 'LpBugTitle requires python'
+    finish
+endif
+
+python << EOF
+import os
+import vim
+
+from launchpadlib.launchpad import Launchpad
+
+buglink = vim.eval('a:buglink')
+bugno = buglink.split('/')[-1]
+vim.command('let bugno = "%s"' % bugno)
+
+cachedir = os.path.join(os.path.expanduser('~'), '.launchpadlib', 'cache')
+launchpad = Launchpad.login_anonymously('getting bug data', 'production', cachedir, version='devel')
+vim.command('let title = "%s"' % launchpad.bugs[bugno].title)
+
+EOF
+
+echo title
+let curline = line('.')
+call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](bug' . bugno. ')')
+endfunction
+nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
+"nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
