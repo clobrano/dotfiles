@@ -28,6 +28,7 @@ configure: install
 	[ -L $(VIM_HOME)/snippets ]		|| ln -s $(CWD)/vim/snippets		$(VIM_HOME)/snippets
 	[ -L $(VIM_HOME)/after ]		|| ln -s $(CWD)/vim/after		    $(VIM_HOME)/after
 	ln -sf $(CWD)/ctags.config $(HOME)/.ctags
+	[ ! -f $(VIM_HOME)/autoload/plug.vim ] && curl -fLo $(VIM_HOME)/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 clean:
 	-sudo rm -r $(VIM_HOME)
