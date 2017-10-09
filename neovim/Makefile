@@ -2,9 +2,11 @@
 NVIM  := $(shell command -v nvim 2> /dev/null)
 XCLIP := $(shell command -v xclip 2> /dev/null)
 
-CWD       = $(shell pwd)
-NVIM_HOME = $(HOME)/.config/nvim
-INIT      = $(NVIM_HOME)/init.vim
+CWD			= $(shell pwd)
+SRC			= $(CWD)/../vim/vim
+
+NVIM_HOME	= $(HOME)/.config/nvim
+INIT		= $(NVIM_HOME)/init.vim
 
 .PHONY: install
 
@@ -27,19 +29,17 @@ ifndef XCLIP
 endif
 
 configure:
-	[ -d $(NVIM_HOME) ] 			  || mkdir $(NVIM_HOME)
-	[ -L $(INIT) ] 					  || ln -s $(CWD)/nvim/init.vim  	$(INIT)
-	[ -L $(NVIM_HOME)/config ] 		  || ln -s $(CWD)/nvim/config 	 	$(NVIM_HOME)/config
-	[ -L $(NVIM_HOME)/colors ] 		  || ln -s $(CWD)/nvim/colors 	 	$(NVIM_HOME)/colors
-	[ -L $(NVIM_HOME)/thesaurus ] 	  || ln -s $(CWD)/nvim/thesaurus 	$(NVIM_HOME)/thesaurus
-	[ -L $(NVIM_HOME)/snippets ] 	  || ln -s $(CWD)/nvim/snippets  	$(NVIM_HOME)/snippets
-	[ -L $(NVIM_HOME)/after/syntax ]  || mkdir -p $(NVIM_HOME)/after && ln -s $(CWD)/nvim/syntax 		$(NVIM_HOME)/after/syntax
+	[ -d $(NVIM_HOME) ]				|| mkdir $(NVIM_HOME)
+	[ -L $(INIT) ]					|| ln -s $(SRC)/init.vim	$(INIT)
+	[ -L $(NVIM_HOME)/config ]		|| ln -s $(SRC)/config		$(NVIM_HOME)/config
+	[ -L $(NVIM_HOME)/colors ]		|| ln -s $(SRC)/colors		$(NVIM_HOME)/colors
+	[ -L $(NVIM_HOME)/thesaurus ]	|| ln -s $(SRC)/thesaurus	$(NVIM_HOME)/thesaurus
+	[ -L $(NVIM_HOME)/snippets ]	|| ln -s $(SRC)/snippets	$(NVIM_HOME)/snippets
+	[ -L $(NVIM_HOME)/after ]		|| ln -s $(SRC)/after		$(NVIM_HOME)/after
+	[ ! -f $(NVIM_HOME)/autoload/plug.vim ] && curl -fLo $(NVIM_HOME)/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 clean:
 ifdef NVIM
 	-sudo apt-get purge neovim
-endif
-ifdef XCLIP
-	-sudo apt-get purge xclip
 endif
 	-sudo rm -r $(NVIM_HOME)
