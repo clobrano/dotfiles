@@ -503,12 +503,14 @@ au Filetype html,pug iabbr gly glyphicon
 function! License(type)
     let license = '/home/carlolo/.vim/snippets/licenses/' . a:type
     let filename = expand('%:t')
-    let cur_line = line('.')
-    let i = 0
-    for line in readfile(license)
-        call setline(cur_line + i, substitute(line, 'filename', filename, ''))
-        let i = i + 1
-    endfor
+    let owner = "Carlo Lobrano"
+    let email = "c.lobrano@gmail.com"
+    let date = strftime('%Y')
+    exec '-1r' . license
+    exec ':%s/owner/' . owner .'/g'
+    exec ':%s/email/' . email . '/g'
+    exec ':%s/date/' . date . '/g'
+    exec ':%s/filename/' . filename . '/g'
 endfunction
 iabbr gpl <esc>:call License('gpl')
 " ------------------------------------------ Canonical bugs
@@ -539,7 +541,8 @@ let curline = line('.')
 call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](bug' . bugno. ')')
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
-"nnoremap <leader>cb i+bug<space><esc>EvT/yea)<esc>Bi[bug#<esc>pa](<esc>A<space>[notes](<esc>abug-<esc>pa)
+" ------------------------------------------ Vimwiki syntax
+autocmd BufNewFile,BufRead,BufEnter *.md set ft=markdown
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
@@ -582,3 +585,7 @@ nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 " }}}
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
