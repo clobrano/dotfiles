@@ -102,14 +102,15 @@ syntax enable
 filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-set background=light
+"set background=light
 colorscheme PaperColor
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-command! Monokai    colorscheme monokai    | set background=dark  | AirlineTheme bubblegum
-command! Papercolor colorscheme PaperColor | set background=light | AirlineTheme oceanicnextlight
+command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
+command! Papercolor colorscheme PaperColor | AirlineTheme oceanicnextlight
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
+
 " }}}
 " System settings ------------------{{{
 set mouse=a
