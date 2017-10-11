@@ -466,6 +466,7 @@ let g:syntastic_check_on_open = 1                               "syntastic
 let g:syntastic_check_on_wq = 0                                 "syntastic
 let g:syntastic_c_checkers=['clang_check', 'cppcheck']
 let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
+let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
 " Auto shebang
