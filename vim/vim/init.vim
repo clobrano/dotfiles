@@ -548,7 +548,6 @@ call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](b
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 " ------------------------------------------ Vimwiki syntax
-autocmd BufNewFile,BufRead,BufEnter *.md set ft=markdown
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
