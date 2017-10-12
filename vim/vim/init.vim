@@ -366,6 +366,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#left_sep = ''
 "let g:airline#extensions#tabline#right_sep = ''
 let g:airline_section_c = '%<%.40F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+let g:airline#extensions#whitespace#show_message = 0
+let g:airline#extensions#whitespace#enabled = 0
+let airline#extensions#syntastic#stl_format_err = '%E{%e}'
+let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
 " }}}
 " Cscope ---------------------------{{{
 set cscopetag nocscopeverbose
@@ -534,7 +538,7 @@ vim.command('let bugno = "%s"' % bugno)
 
 cachedir = os.path.join(os.path.expanduser('~'), '.launchpadlib', 'cache')
 launchpad = Launchpad.login_anonymously('getting bug data', 'production', cachedir, version='devel')
-vim.command('let title = "%s"' % launchpad.bugs[bugno].title)
+vim.command('let title = "%s"' % launchpad.bugs[bugno].title.replace('"', "'"))
 
 EOF
 
