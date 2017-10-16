@@ -487,8 +487,8 @@ command! Optgen r !~/.vim/snippets/optgen.sh/optgen.sh -s %
 " Redirect to syslog
 iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
 " ------------------------------------------ C-C++
-iabbr inc #include <><esc><left>
-iabbr linc #include ""<esc><left>
+iabbr #i #include
+iabbr #d #define
 function! CHeader()
     let filename = expand('%:t')
     let headername = toupper(filename)
@@ -505,6 +505,8 @@ iabbr cguard <esc>:call CHeader()
 " ------------------------------------------ Bootstrap
 au Filetype html,pug iabbr btnsucc btn-success
 au Filetype html,pug iabbr gly glyphicon
+" ------------------------------------------ CSS
+au FileType css source ~/dotfiles/vim/vim/snippets/frontend/css.vim
 " ------------------------------------------ Licenses
 function! License(type)
     let license = '/home/carlolo/.vim/snippets/licenses/' . a:type
