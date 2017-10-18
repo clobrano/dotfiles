@@ -37,6 +37,7 @@ Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'zeis/vim-kolor'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine', {'for': 'javascript'}
@@ -102,7 +103,6 @@ syntax enable
 filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-"set background=light
 colorscheme PaperColor
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
 command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
@@ -146,8 +146,8 @@ nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
 inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
 map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-inoremap <A-d> <C-R>=strftime("%y/%j")<CR>
-map <A-d> a<C-R>=strftime("%y/%j")<CR><Esc>
+inoremap <A-d> <C-R>=strftime("%y/%U%u")<CR>
+map <A-d> a<C-R>=strftime("%y/%U%u")<CR><Esc>
 "}}}
 " System mappings ------------------{{{
 
@@ -225,7 +225,10 @@ inoremap <C-s> <Esc>:w<CR>
 noremap <C-s> <Esc>:w<CR>
 noremap x <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
+" Keep only current window
 nnoremap <leader>o <C-w>o
+" Close quickfix window only
+nnoremap <leader>x :cclose<cr>
 function! CleanClose(tosave)
 if (a:tosave == 1)
     w!
@@ -347,7 +350,6 @@ nnoremap <space>al :FSSplitRight<cr>
 " }}}
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
-let g:airline_theme='papercolor'
 " To be used only with Monaco font
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
