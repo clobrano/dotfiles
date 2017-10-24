@@ -104,13 +104,13 @@ filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
 colorscheme PaperColor
+command Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
 command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
 command! Papercolor colorscheme PaperColor | AirlineTheme oceanicnextlight
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
-
 " }}}
 " System settings ------------------{{{
 set mouse=a
@@ -223,7 +223,8 @@ cmap w!! w !sudo tee > /dev/null %
 " ------------------------------------------ Save, Close and Force close current buffer
 inoremap <C-s> <Esc>:w<CR>
 noremap <C-s> <Esc>:w<CR>
-noremap x <Esc>:bd<CR>
+nnoremap x <Esc>:bd
+nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
 " Keep only current window
 nnoremap <leader>o <C-w>o
@@ -594,6 +595,7 @@ nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 " }}}
+
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
