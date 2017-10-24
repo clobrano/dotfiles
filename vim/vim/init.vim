@@ -586,9 +586,9 @@ nnoremap dn :VimwikiDiaryNextDay<cr>
 nnoremap dp :VimwikiDiaryPrevDay<cr>
 
 " Task Done, Up, Later, Next, change Prio
-nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
 nnoremap tu dd?^#<cr>p<leader><space>
-nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%j")<CR><esc>
+nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
 nnoremap tn dd?^#.*Todo<esc>p^a<esc>
 nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
