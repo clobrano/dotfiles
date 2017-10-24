@@ -132,6 +132,7 @@ export PATH=$PATH:${GOBIN}
 # Export paths
 ANDROID_REPO=$HOME/external/bin/
 PATH=$PATH:$HOME/workspace/scripts
+PATH=$PATH:$HOME/workspace/script-fu
 PATH=$PATH:$DOTFILES
 PATH=$PATH:$ANDROID_REPO
 
@@ -167,7 +168,8 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias gvim='gvim -geom 190x40'
 alias gvimm='gvim -c Monokai'
-alias nvimm='nvim -c Monokai'
+alias nvimm='nvim -c "colorscheme monokai"'
+alias nvimk='nvim -c "colorscheme kolor"'
 
 # Let's do configuration
 letsbin=$(which lets)
