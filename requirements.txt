@@ -1,7 +1,7 @@
 #xargs -a <(awk '/^\s*[^#]/' /path/to/this/file) -r -- sudo apt-get install
 
 # linter
-astyle
+#astyle
 apt-file
 autoconf
 autogen
@@ -9,7 +9,7 @@ automake
 build-essential
 #byobu
 bzr
-checkinstall
+#checkinstall
 clang
 cmake
 cppcheck
@@ -17,19 +17,20 @@ cscope
 ctags
 curl
 exuberant-ctags
-git
+#git
 git-email
-libappindicator1
-libappindicator3-1
-meld
+#libappindicator1
+#libappindicator3-1
+#meld
 pkg-config
 python-pip
 python3-pip
 rar
 silversearcher-ag
-sni-qt
-sni-qt:i386
+#sni-qt
+#sni-qt:i386
 tree
 unrar
 vim-gtk
 xclip
+zeal
