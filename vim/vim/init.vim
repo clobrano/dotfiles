@@ -104,7 +104,7 @@ filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
 colorscheme PaperColor
-command Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
+command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
 command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
 command! Papercolor colorscheme PaperColor | AirlineTheme oceanicnextlight
@@ -447,7 +447,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 " }}}
 " Jedi-vim -------------------------{{{
-let g:jedi#force_py_version=3
+"let g:jedi#force_py_version=3
 let g:jedi#completions_command = "<C-n>"
 let g:jedi#completions_enabled = 0
 " }}}
