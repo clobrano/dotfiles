@@ -4,7 +4,7 @@ DOTFILE_DIR=$(shell dirname ${PWD})
 BASHRC=$(HOME)/.bashrc
 BASHRC_BAK=$(HOME)/.bashrc.bak
 
-all: .inputrc set_bashrc
+all: .inputrc set_bashrc gitconfigure
 
 powershell:
 	pip install powerline-shell --user
@@ -17,6 +17,9 @@ set_bashrc: bashrc bash_prompt.py
 	-mv $(BASHRC) $(BASHRC_BAK)
 	cp $(PWD)/bashrc $(BASHRC)
 	sed -i 's_PLACEHOLDER_$(DOTFILE_DIR)_g' $(BASHRC)
+
+gitconfigure:
+	./git_configuration.sh
 
 clean:
 	-[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"
