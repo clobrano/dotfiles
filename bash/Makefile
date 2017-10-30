@@ -4,7 +4,7 @@ DOTFILE_DIR=$(shell dirname ${PWD})
 BASHRC=$(HOME)/.bashrc
 BASHRC_BAK=$(HOME)/.bashrc.bak
 
-all: .inputrc set_bashrc gitconfigure
+all: .inputrc set_bashrc gitconfigure tilixconfigure
 
 powershell:
 	pip install powerline-shell --user
@@ -20,6 +20,9 @@ set_bashrc: bashrc bash_prompt.py
 
 gitconfigure:
 	./git_configuration.sh
+
+tilixconfigure:
+	./tilix.configure.sh
 
 clean:
 	-[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"
