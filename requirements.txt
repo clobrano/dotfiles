@@ -34,3 +34,4 @@ unrar
 vim-gtk
 xclip
 zeal
+tig
