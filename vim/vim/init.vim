@@ -40,7 +40,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 
 " Text and Code Checking/Linting
-Plug 'Yggdroot/indentLine', {'for': 'javascript'}
+Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
 Plug 'chrisbra/Colorizer'
 Plug 'godlygeek/tabular'
 Plug 'ntpeters/vim-better-whitespace'
@@ -50,12 +50,12 @@ Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
 
 " C/C++
-Plug 'chazy/cscope_maps',                { 'for': ['c', 'cpp']}
-Plug 'hari-rangarajan/CCTree',           { 'for': ['c', 'cpp']}
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp']}
-Plug 'vim-scripts/glib.vim',             { 'for': ['c', 'cpp']}
-Plug 'vim-scripts/valgrind.vim',         { 'for': ['c', 'cpp']}
-Plug 'vim-utils/vim-man',                { 'for': ['c', 'cpp']}
+Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
+Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
+Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
+Plug 'vim-utils/vim-man',                {'for': ['c', 'cpp']}
 
 " GIT helpers
 Plug 'lambdalisue/gina.vim'
@@ -64,24 +64,25 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Go
-Plug 'fatih/vim-go',            { 'for': 'go'}
+Plug 'fatih/vim-go',            {'for': 'go'}
 
 " GTD
 Plug 'vimwiki/vimwiki'
-Plug 'junegunn/goyo.vim',       { 'on': 'Goyo'}
+Plug 'junegunn/goyo.vim',       {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
+Plug 'freitass/todo.txt-vim',   {'for': 'text'}
 
 " NodeJS
-Plug 'moll/vim-node',           { 'for': 'javascript'}
+Plug 'moll/vim-node',           {'for': 'javascript'}
 Plug 'guileen/vim-node-dict'
 
 " Javascript
-Plug 'pangloss/vim-javascript', { 'for': 'javascript'}
-Plug 'digitaltoad/vim-pug',     { 'for': 'pug'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'digitaltoad/vim-pug',     {'for': 'pug'}
 
 " Python
-Plug 'davidhalter/jedi',        { 'for': 'python'}
-Plug 'davidhalter/jedi-vim',    { 'for': 'python'}
+Plug 'davidhalter/jedi',        {'for': 'python'}
+Plug 'davidhalter/jedi-vim',    {'for': 'python'}
 
 call plug#end()
 
@@ -399,6 +400,16 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " FZF ------------------------------{{{
 let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 " }}}
+" Getting Things Done --------------{{{
+" Task Done, Up, Later, Next, change Prio
+nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
+nnoremap tu dd?^#<cr>p<leader><space>
+nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
+nnoremap tn dd?^#.*Todo<esc>p^a<esc>
+nnoremap tpa v$:s/([A-C])/(A)/g<CR>
+nnoremap tpb v$:s/([A-C])/(B)/g<CR>
+nnoremap tpc v$:s/([A-C])/(C)/g<CR>
+"}}}
 " Git ------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
 nnoremap <leader>gl <esc>:Gina log<cr>
@@ -477,6 +488,7 @@ let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
+command! MakeExec !chmod +x %
 " Auto shebang
 augroup Shebang
   autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
@@ -489,6 +501,11 @@ augroup END
 command! Optgen r !~/.vim/snippets/optgen.sh/optgen.sh -s %
 " Redirect to syslog
 iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
+" ------------------------------------------ Bootstrap
+au Filetype html,pug iabbr btnsucc btn-success
+au Filetype html,pug iabbr gly glyphicon
+" ------------------------------------------ Browser
+nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
 " ------------------------------------------ C-C++
 iabbr #i #include
 iabbr #d #define
@@ -505,9 +522,6 @@ function! CHeader()
     call setline(cur_line + 3, "#endif //" . headername)
 endfunction
 iabbr cguard <esc>:call CHeader()
-" ------------------------------------------ Bootstrap
-au Filetype html,pug iabbr btnsucc btn-success
-au Filetype html,pug iabbr gly glyphicon
 " ------------------------------------------ CSS
 au FileType css source ~/dotfiles/vim/vim/snippets/frontend/css.vim
 " ------------------------------------------ Licenses
@@ -524,7 +538,7 @@ function! License(type)
     exec ':%s/filename/' . filename . '/g'
 endfunction
 iabbr gpl <esc>:call License('gpl')
-" ------------------------------------------ Canonical bugs
+" ------------------------------------------ Canonical
 function! LpBugTitle(buglink)
 if !has('python')
     echo 'LpBugTitle requires python'
@@ -552,7 +566,6 @@ let curline = line('.')
 call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](bug' . bugno. ')')
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
-" ------------------------------------------ Vimwiki syntax
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
@@ -585,17 +598,10 @@ let g:vimwiki_folding='list'
 
 nnoremap dn :VimwikiDiaryNextDay<cr>
 nnoremap dp :VimwikiDiaryPrevDay<cr>
-
-" Task Done, Up, Later, Next, change Prio
-nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
-nnoremap tu dd?^#<cr>p<leader><space>
-nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
-nnoremap tn dd?^#.*Todo<esc>p^a<esc>
-nnoremap tpa v$:s/([A-C])/(A)/g<CR>
-nnoremap tpb v$:s/([A-C])/(B)/g<CR>
-nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 " }}}
-
+" Notes ----------------------------{{{
+nnoremap <leader>nn <esc>:e ~/Dropbox/todo/todo.txt
+" }}}
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
