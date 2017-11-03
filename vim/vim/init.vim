@@ -509,6 +509,7 @@ nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><C
 " ------------------------------------------ C-C++
 iabbr #i #include
 iabbr #d #define
+
 function! CHeader()
     let filename = expand('%:t')
     let headername = toupper(filename)
@@ -522,8 +523,16 @@ function! CHeader()
     call setline(cur_line + 3, "#endif //" . headername)
 endfunction
 iabbr cguard <esc>:call CHeader()
+
+iabbr cpputest <esc>:-1r~/dotfiles/vim/vim/snippets/cpp/cpputest.template
+au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
+" ------------------------------------------ Bootstrap
+au Filetype html,pug iabbr btnsucc btn-success
+au Filetype html,pug iabbr gly glyphicon
 " ------------------------------------------ CSS
 au FileType css source ~/dotfiles/vim/vim/snippets/frontend/css.vim
+" ------------------------------------------ Editorconfig
+iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
 " ------------------------------------------ Licenses
 function! License(type)
     let license = '/home/carlolo/.vim/snippets/licenses/' . a:type

@@ -1,0 +1,28 @@
+#include "CppUTest/TestHarness.h"
+
+extern "C"
+{
+}
+
+TEST_GROUP(testgroup)
+{
+    void setup()
+    {
+    }
+
+    void teardown()
+    {
+    }
+
+    void expect(const char *s)
+    {
+    }
+
+    void given(int chars_written)
+    {
+    }
+};
+
+TEST(testgroup, testcase)
+{
+}
