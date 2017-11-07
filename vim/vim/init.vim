@@ -227,6 +227,7 @@ noremap <C-s> <Esc>:w<CR>
 nnoremap x <Esc>:bd
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
+nnoremap qa <esc>:qa
 " Keep only current window
 nnoremap <leader>o <C-w>o
 " Close quickfix window only
@@ -488,8 +489,6 @@ let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
-command! MakeExec !chmod +x %
-" Auto shebang
 augroup Shebang
   autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
   autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
@@ -497,84 +496,14 @@ augroup Shebang
   autocmd BufNewFile *.tex 0put =\"%&plain\<nl>\"|$
   autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
 augroup END
-" ------------------------------------------ Bash
-command! Optgen r !~/.vim/snippets/optgen.sh/optgen.sh -s %
-" Redirect to syslog
-iabbr redsys exec 1> >(logger -s -t $(basename $0)) 2>&1
-" ------------------------------------------ Bootstrap
-au Filetype html,pug iabbr btnsucc btn-success
-au Filetype html,pug iabbr gly glyphicon
-" ------------------------------------------ Browser
-nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
-" ------------------------------------------ C-C++
-iabbr #i #include
-iabbr #d #define
 
-function! CHeader()
-    let filename = expand('%:t')
-    let headername = toupper(filename)
-    let headername = substitute(headername, "-", "_", "")
-    let headername = substitute(headername, "\\.", "_", "")
-    let headername = "_" . headername . "_"
-    let cur_line = line('.')
-    call setline(cur_line, "#ifndef " . headername)
-    call setline(cur_line + 1, "#define " . headername)
-    call setline(cur_line + 2, "")
-    call setline(cur_line + 3, "#endif //" . headername)
-endfunction
-iabbr cguard <esc>:call CHeader()
-
-iabbr cpputest <esc>:-1r~/dotfiles/vim/vim/snippets/cpp/cpputest.template
-au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
-" ------------------------------------------ Bootstrap
-au Filetype html,pug iabbr btnsucc btn-success
-au Filetype html,pug iabbr gly glyphicon
-" ------------------------------------------ CSS
-au FileType css source ~/dotfiles/vim/vim/snippets/frontend/css.vim
-" ------------------------------------------ Editorconfig
 iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
-" ------------------------------------------ Licenses
-function! License(type)
-    let license = '/home/carlolo/.vim/snippets/licenses/' . a:type
-    let filename = expand('%:t')
-    let owner = "Carlo Lobrano"
-    let email = "c.lobrano@gmail.com"
-    let date = strftime('%Y')
-    exec '-1r' . license
-    exec ':%s/owner/' . owner .'/g'
-    exec ':%s/email/' . email . '/g'
-    exec ':%s/date/' . date . '/g'
-    exec ':%s/filename/' . filename . '/g'
-endfunction
-iabbr gpl <esc>:call License('gpl')
-" ------------------------------------------ Canonical
-function! LpBugTitle(buglink)
-if !has('python')
-    echo 'LpBugTitle requires python'
-    finish
-endif
-
-python << EOF
-import os
-import vim
-
-from launchpadlib.launchpad import Launchpad
-
-buglink = vim.eval('a:buglink')
-bugno = buglink.split('/')[-1]
-vim.command('let bugno = "%s"' % bugno)
-
-cachedir = os.path.join(os.path.expanduser('~'), '.launchpadlib', 'cache')
-launchpad = Launchpad.login_anonymously('getting bug data', 'production', cachedir, version='devel')
-vim.command('let title = "%s"' % launchpad.bugs[bugno].title.replace('"', "'"))
-
-EOF
-
-echo title
-let curline = line('.')
-call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](bug' . bugno. ')')
-endfunction
-nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
+source ~/dotfiles/vim/vim/snippets/bootstrap.config.vim
+source ~/dotfiles/vim/vim/snippets/browser.config.vim
+source ~/dotfiles/vim/vim/snippets/c_cpp.config.vim
+source ~/dotfiles/vim/vim/snippets/canonical.config.vim
+source ~/dotfiles/vim/vim/snippets/licenses.config.vim
+source ~/dotfiles/vim/vim/snippets/shell.config.vim
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
