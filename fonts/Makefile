@@ -1,10 +1,16 @@
 PWD=$(pwd)
-all: dependencies cache
 
-dependencies:
-	-mkdir ${HOME}/.fonts
-	cp "${CWD}/Monaco_Linux-Powerline.ttf" ${HOME}/.fonts
-	cp "${PWD}/Ubuntu Mono for Powerline Nerd Font Complete.ttf" ${HOME}/.fonts
+all: clone install cleanup
+
+
+clone:
+	git clone https://github.com/powerline/fonts.git --depth=1 powerline-fonts
+
+install:
+	./powerline-fonts/install.sh
+
+cleanup:
+	rm -rf ./powerline-fonts
 
 cache:
 	fc-cache -vf
