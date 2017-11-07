@@ -105,8 +105,8 @@ filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
 colorscheme PaperColor
-command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
 command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
 command! Papercolor colorscheme PaperColor | AirlineTheme oceanicnextlight
 command! SpellEn set spell spelllang=en
@@ -353,16 +353,16 @@ nnoremap <space>al :FSSplitRight<cr>
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
 " To be used only with Monaco font
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
+"let g:airline_left_sep = '⮀'
+"let g:airline_left_alt_sep = '⮁'
+"let g:airline_right_sep = '⮂'
+"let g:airline_right_alt_sep = '⮃'
+"let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.readonly = '⭤'
+"let g:airline_symbols.linenr = '⭡'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
