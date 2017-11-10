@@ -133,6 +133,7 @@ export PATH=$PATH:${GOBIN}
 ANDROID_REPO=$HOME/external/bin/
 PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$HOME/workspace/script-fu
+PATH=$PATH:$HOME/toolkit
 PATH=$PATH:$DOTFILES
 PATH=$PATH:$ANDROID_REPO
 
