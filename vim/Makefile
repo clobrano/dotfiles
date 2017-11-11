@@ -9,7 +9,7 @@ VIMRC    = $(HOME)/.vimrc
 
 .PHONY: install
 
-all: install configure
+all: install configure dependencies
 
 install:
 ifndef GVIM
@@ -29,6 +29,9 @@ configure: install
 	[ -L $(VIM_HOME)/after ]		|| ln -s $(CWD)/vim/after		    $(VIM_HOME)/after
 	ln -sf $(CWD)/ctags.config $(HOME)/.ctags
 	[ ! -f $(VIM_HOME)/autoload/plug.vim ] && curl -fLo $(VIM_HOME)/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+dependencies:
+	git clone https://github.com/clobrano/optgen.sh.git $(CWD)/vim/snippets/optgen.sh
 
 clean:
 	-sudo rm -r $(VIM_HOME)
