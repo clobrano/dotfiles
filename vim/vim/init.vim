@@ -67,7 +67,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'fatih/vim-go',            {'for': 'go'}
 
 " GTD
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'junegunn/goyo.vim',       {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
 Plug 'freitass/todo.txt-vim',   {'for': 'text'}
@@ -145,8 +146,7 @@ set showmatch
 highlight ExtraWhitespace ctermbg=Yellow
 nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
-inoremap <A-D> <C-R>=strftime("%Y-%m-%d")<CR>
-map <A-D> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+map <leader>d a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 inoremap <A-d> <C-R>=strftime("%y/%U%u")<CR>
 map <A-d> a<C-R>=strftime("%y/%U%u")<CR><Esc>
 "}}}
@@ -219,6 +219,8 @@ nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.*
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+" ------------------------------------------ Make
+nnoremap <F5> <esc>:make<cr>
 " }}}
 " Buffers --------------------------{{{
 " ------------------------------------------ Save, Close and Force close current buffer
@@ -476,6 +478,11 @@ vnoremap {Leader}/  n
 nnoremap <leader>n <Plug>Mark
 set nocscopeverbose
 " }}}
+" Markdown -------------------------{{{
+autocmd FileType markdown set conceallevel=2
+autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
+let g:vim_markdown_no_extensions_in_markdown = 1
+" }}}
 " Syntastic ------------------------{{{
 set statusline+=%#warningmsg#                                   "syntastic
 set statusline+=%{SyntasticStatuslineFlag()}                    "syntastic
@@ -538,7 +545,8 @@ nnoremap dn :VimwikiDiaryNextDay<cr>
 nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 " Notes ----------------------------{{{
-nnoremap <leader>nn <esc>:e ~/Dropbox/todo/todo.txt
+nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
+nnoremap <leader>nn <esc>:e ~/Dropbox/todo/todo.txt<cr>
 " }}}
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
