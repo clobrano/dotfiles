@@ -39,6 +39,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 
+
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
 Plug 'chrisbra/Colorizer'
@@ -167,11 +168,13 @@ noremap <silent> <Down> gj
 noremap <silent> k gk
 noremap <silent> j gj
 " Remap fast moves
-nnoremap <C-l> g_
-nnoremap <C-h> ^
+nnoremap <C-l> 20l
+nnoremap <C-h> 20h
 nnoremap <C-k> 10k
 nnoremap <C-j> 10j
+nnoremap E g_
 vnoremap E g_
+nnoremap B ^
 vnoremap B ^
 " ------------------------------------------ Copy & Paste as normal people (in progress)
 vnoremap <C-c> "+y<CR>
@@ -480,7 +483,7 @@ set nocscopeverbose
 " }}}
 " Markdown -------------------------{{{
 autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
+"autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
 let g:vim_markdown_no_extensions_in_markdown = 1
 " }}}
 " Syntastic ------------------------{{{
