@@ -260,6 +260,9 @@ noremap H <Esc>:bp<CR>
 noremap <A-Right> <Esc>:bnext<CR>
 noremap L <Esc>:bnext<CR>
 nnoremap <c-b> <esc>:b<space>
+" Convert horizontal splits to vertical and vice versa
+nnoremap <leader>htv <C-w>t<C-w>H
+nnoremap <leader>vth <C-w>t<C-w>K
 " ------------------------------------------ Tabs
 nnoremap <C-S-t> :tabnew<CR>
 inoremap <C-S-t> <Esc>:tabnew<CR>
