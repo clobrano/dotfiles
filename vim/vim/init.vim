@@ -69,10 +69,11 @@ Plug 'fatih/vim-go',            {'for': 'go'}
 
 " GTD
 "Plug 'vimwiki/vimwiki'
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'junegunn/goyo.vim',       {'on': 'Goyo'}
+Plug 'plasticboy/vim-markdown',  {'for': 'markdown'}
+Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
+Plug 'junegunn/goyo.vim',        {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
-Plug 'freitass/todo.txt-vim',   {'for': 'text'}
+Plug 'freitass/todo.txt-vim',    {'for': 'text'}
 
 " NodeJS
 Plug 'moll/vim-node',           {'for': 'javascript'}
@@ -233,6 +234,8 @@ nnoremap x <Esc>:bd
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
 nnoremap qa <esc>:qa
+" Maximize current window
+nnoremap <C-w>m <C-w>\|<C-w>_
 " Keep only current window
 nnoremap <leader>o <C-w>o
 " Close quickfix window only
