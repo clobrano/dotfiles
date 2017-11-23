@@ -39,6 +39,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 
+
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
 Plug 'chrisbra/Colorizer'
@@ -168,11 +169,13 @@ noremap <silent> <Down> gj
 noremap <silent> k gk
 noremap <silent> j gj
 " Remap fast moves
-nnoremap <C-l> g_
-nnoremap <C-h> ^
+nnoremap <C-l> 20l
+nnoremap <C-h> 20h
 nnoremap <C-k> 10k
 nnoremap <C-j> 10j
+nnoremap E g_
 vnoremap E g_
+nnoremap B ^
 vnoremap B ^
 " ------------------------------------------ Copy & Paste as normal people (in progress)
 vnoremap <C-c> "+y<CR>
@@ -231,6 +234,8 @@ nnoremap x <Esc>:bd
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
 nnoremap qa <esc>:qa
+" Maximize current window
+nnoremap <C-w>m <C-w>\|<C-w>_
 " Keep only current window
 nnoremap <leader>o <C-w>o
 " Close quickfix window only
@@ -258,6 +263,9 @@ noremap H <Esc>:bp<CR>
 noremap <A-Right> <Esc>:bnext<CR>
 noremap L <Esc>:bnext<CR>
 nnoremap <c-b> <esc>:b<space>
+" Convert horizontal splits to vertical and vice versa
+nnoremap <leader>htv <C-w>t<C-w>H
+nnoremap <leader>vth <C-w>t<C-w>K
 " ------------------------------------------ Tabs
 nnoremap <C-S-t> :tabnew<CR>
 inoremap <C-S-t> <Esc>:tabnew<CR>

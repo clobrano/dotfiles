@@ -1,13 +1,13 @@
 {
   "segments": [
-    "virtual_env",
     "ssh",
     "cwd",
     "bzr",
     "git",
-    "hg",
+    "virtual_env",
     "root"
   ],
+  "mode": "flat",
   "cwd": {
       "mode": "dironly"
   }
