@@ -68,10 +68,11 @@ Plug 'fatih/vim-go',            {'for': 'go'}
 
 " GTD
 "Plug 'vimwiki/vimwiki'
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'junegunn/goyo.vim',       {'on': 'Goyo'}
+Plug 'plasticboy/vim-markdown',  {'for': 'markdown'}
+Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
+Plug 'junegunn/goyo.vim',        {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
-Plug 'freitass/todo.txt-vim',   {'for': 'text'}
+Plug 'freitass/todo.txt-vim',    {'for': 'text'}
 
 " NodeJS
 Plug 'moll/vim-node',           {'for': 'javascript'}
@@ -147,8 +148,8 @@ highlight ExtraWhitespace ctermbg=Yellow
 nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
 map <leader>d a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-inoremap <A-d> <C-R>=strftime("%y/%U%u")<CR>
-map <A-d> a<C-R>=strftime("%y/%U%u")<CR><Esc>
+inoremap <A-d> <C-R>=strftime("%y/%W%u")<CR>
+map <A-d> a<C-R>=strftime("%y/%W%u")<CR><Esc>
 "}}}
 " System mappings ------------------{{{
 
@@ -405,9 +406,9 @@ let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 " }}}
 " Getting Things Done --------------{{{
 " Task Done, Up, Later, Next, change Prio
-nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
+nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%W%u")<CR><esc>
 nnoremap tu dd?^#<cr>p<leader><space>
-nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%U%u")<CR><esc>
+nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%W%u")<CR><esc>
 nnoremap tn dd?^#.*Todo<esc>p^a<esc>
 nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
@@ -480,7 +481,7 @@ set nocscopeverbose
 " }}}
 " Markdown -------------------------{{{
 autocmd FileType markdown set conceallevel=2
-autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
+"autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
 let g:vim_markdown_no_extensions_in_markdown = 1
 " }}}
 " Syntastic ------------------------{{{
