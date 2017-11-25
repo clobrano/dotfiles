@@ -38,6 +38,7 @@ Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
+Plug 'tomasiser/vim-code-dark'
 
 
 " Text and Code Checking/Linting
@@ -360,7 +361,7 @@ nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
 
 " Zeal offline documentation browser
-:nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
+nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
 " }}}
 " Airline --------------------------{{{
 let g:airline_powerline_fonts=1
