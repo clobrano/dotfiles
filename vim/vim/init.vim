@@ -39,7 +39,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 
-
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
 Plug 'chrisbra/Colorizer'
@@ -557,6 +556,13 @@ nnoremap dp :VimwikiDiaryPrevDay<cr>
 nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
 nnoremap <leader>nn <esc>:e ~/Dropbox/todo/todo.txt<cr>
 " }}}
+
+" Test iabbr for blobmsg
+iabbr blobu8   blobmsg_add_u8(&(status[req->status_buf_index]),
+iabbr blobu16  blobmsg_add_u16(&(status[req->status_buf_index]),
+iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
+iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
+iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
