@@ -38,6 +38,8 @@ Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
+Plug 'tomasiser/vim-code-dark'
+Plug 'rakr/vim-one'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
@@ -106,11 +108,11 @@ syntax enable
 filetype on
 set linespace=1
 set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-colorscheme PaperColor
+"colorscheme PaperColor
 nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+command! Monokai :colorscheme monokai | AirlineTheme codedark | Parens
+command! Kolor :colorscheme kolor | Parens
 command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
-command! Monokai    colorscheme monokai    | AirlineTheme bubblegum
-command! Papercolor colorscheme PaperColor | AirlineTheme oceanicnextlight
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
@@ -564,6 +566,3 @@ iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
 iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
