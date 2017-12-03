@@ -25,3 +25,11 @@ let curline = line('.')
 call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](bug' . bugno. ')')
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
+
+function! CommunithemeBuild(project)
+    execute ':!python3 ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
+endfunction
+command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
+nnoremap <leader>gtk :CBuildGtk<cr>
+command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
+nnoremap <leader>shell :CBuildShell<cr>
