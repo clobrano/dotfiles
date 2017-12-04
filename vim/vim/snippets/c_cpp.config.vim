@@ -11,7 +11,7 @@ function! CHeader()
     call setline(cur_line, "#ifndef " . headername)
     call setline(cur_line + 1, "#define " . headername)
     call setline(cur_line + 2, "")
-    call setline(cur_line + 3, "#endif //" . headername)
+    call setline(cur_line + 3, "#endif /* " . headername . " */")
 endfunction
 iabbr cguard <esc>:call CHeader()
 
