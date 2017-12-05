@@ -71,6 +71,7 @@ Plug 'fatih/vim-go',            {'for': 'go'}
 "Plug 'vimwiki/vimwiki'
 Plug 'plasticboy/vim-markdown',  {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
+Plug 'SidOfc/mkdx'
 Plug 'junegunn/goyo.vim',        {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
 Plug 'freitass/todo.txt-vim',    {'for': 'text'}
