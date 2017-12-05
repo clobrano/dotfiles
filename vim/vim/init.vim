@@ -39,6 +39,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 Plug 'tomasiser/vim-code-dark'
+Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
@@ -259,6 +261,7 @@ endif
 exe "bd".todelbufNr
 endfunction
 " ------------------------------------------ Move among buffers
+nnoremap <A-w> <C-w>
 noremap <A-Left> <Esc>:bp<CR>
 noremap H <Esc>:bp<CR>
 noremap <A-Right> <Esc>:bnext<CR>
@@ -542,6 +545,14 @@ let g:tagbar_type_vimwiki = {
       \ , 'ctagsbin':'~/.vim/config/vwtags.py'
       \ , 'ctagsargs': 'all'
       \ }
+" }}}
+" Terminal -------------------------{{{
+tnoremap <esc> <C-\><C-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+command! TerminalH :new  | resize 10 | terminal
+command! TerminalV :vnew | terminal
+nnoremap <leader>to :TerminalH<cr>
+nnoremap <leader>tv :TerminalV<cr>
 " }}}
 " Vimwiki --------------------------{{{
 let wiki	= {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
