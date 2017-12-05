@@ -19,6 +19,6 @@ alias pusif1='sudo pynicom --port /dev/ttyS1'
 
 alias gvim='gvim -geom 190x40'
 alias gvimm='gvim -c Monokai'
-alias nvimm='nvim -c "colorscheme monokai"'
-alias nvimk='nvim -c "colorscheme kolor"'
+alias nvimm='nvim -c "Monokai"'
+alias nvimk='nvim -c "Kolor"'
 alias pw='pwd'
