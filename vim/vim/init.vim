@@ -39,7 +39,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 Plug 'tomasiser/vim-code-dark'
-Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 
 " Text and Code Checking/Linting
