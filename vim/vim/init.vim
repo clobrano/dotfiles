@@ -151,8 +151,8 @@ highlight ExtraWhitespace ctermbg=Yellow
 nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
 map <leader>d a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-inoremap <A-d> <C-R>=strftime("%y/%W%u")<CR>
-map <A-d> a<C-R>=strftime("%y/%W%u")<CR><Esc>
+inoremap <A-d> <C-R>=strftime("%y%W%u")<CR>
+map <A-d> a<C-R>=strftime("%y%W%u")<CR><Esc>
 "}}}
 " System mappings ------------------{{{
 
@@ -280,7 +280,7 @@ let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " tree-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
 let g:netrw_preveiw = 1
-nnoremap <leader>tt <esc>:Lexplore<cr>
+nnoremap <leader>fe <esc>:Lexplore<cr>
 nnoremap <leader>ff <esc>:FZF<cr>
 command! Sethere lcd %:p:h
 nnoremap sth <Esc>:Sethere<CR>
@@ -550,7 +550,7 @@ tnoremap <esc> <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 command! TerminalH :new  | resize 10 | terminal
 command! TerminalV :vnew | terminal
-nnoremap <leader>to :TerminalH<cr>
+nnoremap <leader>th :TerminalH<cr>
 nnoremap <leader>tv :TerminalV<cr>
 " }}}
 " Vimwiki --------------------------{{{
@@ -576,3 +576,4 @@ iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
 iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
+cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
