@@ -28,6 +28,7 @@ nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 
 function! CommunithemeBuild(project)
     execute ':!python3 ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
+    execute ':!~/workspace/script-fu/gnome-toggle-communitheme.sh'
 endfunction
 command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
 nnoremap <leader>gtk :CBuildGtk<cr>
