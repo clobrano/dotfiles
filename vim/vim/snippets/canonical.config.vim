@@ -34,3 +34,6 @@ command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
 nnoremap <leader>gtk :CBuildGtk<cr>
 command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
 nnoremap <leader>shell :CBuildShell<cr>
+
+" use gnome-screenshoot to take a pic
+cabbr shot !gnome-screenshot -a -p -f ~/Pictures/.png
