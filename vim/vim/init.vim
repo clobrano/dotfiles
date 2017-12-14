@@ -417,9 +417,9 @@ let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 " }}}
 " Getting Things Done --------------{{{
 " Task Done, Up, Later, Next, change Prio
-nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y/%W%u")<CR><esc>
+nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y%W%u")<CR><esc>
 nnoremap tu dd?^#<cr>p<leader><space>
-nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y/%W%u")<CR><esc>
+nnoremap tl dd/^#.*Later<esc>p^a <C-R>=strftime("%y%W%u")<CR><esc>
 nnoremap tn dd?^#.*Todo<esc>p^a<esc>
 nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
@@ -546,7 +546,7 @@ let g:tagbar_type_vimwiki = {
       \ }
 " }}}
 " Terminal -------------------------{{{
-tnoremap <esc> <C-\><C-n>
+tnoremap qq <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 command! TerminalH :new  | resize 10 | terminal
 command! TerminalV :vnew | terminal
