@@ -36,4 +36,5 @@ command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
 nnoremap <leader>shell :CBuildShell<cr>
 
 " use gnome-screenshoot to take a pic
-cabbr shot !gnome-screenshot -a -p -f ~/Pictures/.png
+cabbr shot !gnome-screenshot -a -p -f ~/Pictures/tmp.png
+command! -nargs=1 Shot  :!gnome-screenshot -apf <f-args>
