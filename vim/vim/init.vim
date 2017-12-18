@@ -109,7 +109,10 @@ nnoremap <silent> <leader>V :source ~/.vimrc<CR>:PlugInstall<CR>:exe ":echo 'vim
 syntax enable
 filetype on
 set linespace=1
-if !has('nvim')
+if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  set termguicolors
+else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
 endif
