@@ -40,6 +40,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'zeis/vim-kolor'
 Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
+Plug 'reedes/vim-colors-pencil'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
@@ -220,7 +221,11 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap } }zz
 " ------------------------------------------ Fzf fuzzy searcher (ff = find file)
-nnoremap ff <esc>:FZF<cr>
+if has('nvim')
+    nnoremap ff <esc>:FZF<cr>
+else
+    nnoremap ff <esc>:n **/*
+endif
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
@@ -413,7 +418,9 @@ noremap <C-[> <C-o>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 " FZF ------------------------------{{{
-let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
+if has('nvim')
+    let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
+endif
 " }}}
 " Getting Things Done --------------{{{
 " Task Done, Up, Later, Next, change Prio
@@ -546,12 +553,14 @@ let g:tagbar_type_vimwiki = {
       \ }
 " }}}
 " Terminal -------------------------{{{
+if has("nvim")
 tnoremap qq <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 command! TerminalH :new  | resize 10 | terminal
 command! TerminalV :vnew | terminal
 nnoremap <leader>th :TerminalH<cr>
 nnoremap <leader>tv :TerminalV<cr>
+endif
 " }}}
 " Vimwiki --------------------------{{{
 let wiki	= {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
