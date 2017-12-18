@@ -109,9 +109,10 @@ nnoremap <silent> <leader>V :source ~/.vimrc<CR>:PlugInstall<CR>:exe ":echo 'vim
 syntax enable
 filetype on
 set linespace=1
-set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-"colorscheme PaperColor
-nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+if !has('nvim')
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
+  nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+endif
 command! Monokai :colorscheme monokai | AirlineTheme codedark | Parens
 command! Kolor :colorscheme kolor | Parens
 command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
