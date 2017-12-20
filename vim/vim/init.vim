@@ -115,10 +115,11 @@ if has('nvim')
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+  colorscheme pencil
 endif
-command! Monokai :colorscheme monokai | AirlineTheme codedark | Parens
+command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
-command! Parens highlight MatchParen cterm=bold ctermbg=none ctermfg=magenta
+command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
