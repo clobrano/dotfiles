@@ -162,6 +162,9 @@ map <A-d> a<C-R>=strftime("%y%W%u")<CR><Esc>
 "}}}
 " System mappings ------------------{{{
 
+" redo last command
+nnoremap <leader>r :<Up>
+
 " Fix weird chars in terminal using arrow keys (INSERT mode)
 inoremap [1;5A <esc>ki
 inoremap [1;5C <esc>li
