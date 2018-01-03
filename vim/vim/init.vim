@@ -521,7 +521,7 @@ let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
-nnoremap <leader>sass :silent !xdg-open https://sass-cheatsheet.brunoscopelliti.com
+nnoremap <leader>sass :silent !xdg-open http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 
 augroup Shebang
   autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
