@@ -70,10 +70,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'fatih/vim-go',            {'for': 'go'}
 
 " GTD
-"Plug 'vimwiki/vimwiki'
 Plug 'plasticboy/vim-markdown',  {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
-Plug 'SidOfc/mkdx'
 Plug 'junegunn/goyo.vim',        {'on': 'Goyo'}
 Plug 'vim-jp/vital.vim'
 Plug 'freitass/todo.txt-vim',    {'for': 'text'}
@@ -583,7 +581,10 @@ nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 " Notes ----------------------------{{{
 nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
-nnoremap <leader>nn <esc>:e ~/Dropbox/todo/todo.txt<cr>
+nnoremap <leader>sam <esc>:e ~/Dropbox/Notes/sam2018.md<cr>
+nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
+nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
+nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
 " }}}
 
 " Test iabbr for blobmsg
