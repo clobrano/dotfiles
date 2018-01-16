@@ -118,6 +118,7 @@ else
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
+command! Papercolor :colorscheme PaperColor
 command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
@@ -195,6 +196,7 @@ xnoremap <silent> p p:let @+=@0<CR>
 vnoremap <m-c> "+y<CR>
 inoremap <m-v> <esc>"+p
 noremap  <m-v> "+p
+nnoremap <leader>va ggvGE
 " ------------------------------------------ Align blocks of text
 vmap < <gv
 vmap > >gv
@@ -296,7 +298,7 @@ let g:netrw_preveiw = 1
 nnoremap <leader>fe <esc>:Lexplore<cr>
 nnoremap <leader>ff <esc>:FZF<cr>
 command! Sethere lcd %:p:h
-nnoremap sth <Esc>:Sethere<CR>
+nnoremap <leader>h <Esc>:Sethere<CR>
 " }}}
 " Folding --------------------------{{{
 set foldenable
@@ -352,7 +354,6 @@ inoremap {<Tab>  {}<Left>
 " Align function arguments
 set cino+=(0
 " Make install
-nnoremap <leader>i <esc>:!sudo make install<cr>
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 " Shortcut to save current session in ~/.vim/session
@@ -523,6 +524,7 @@ let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
+nnoremap <leader>mbox :silent !xdg-open https://takeout.google.com/settings/takeout
 nnoremap <leader>sass :silent !xdg-open http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 
 augroup Shebang
@@ -585,10 +587,11 @@ nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 " Notes ----------------------------{{{
 nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
-nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
 nnoremap <leader>sam <esc>:e ~/Dropbox/Notes/sam/2018.md<cr>
-nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
 nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
+nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
+
+nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
 " }}}
 
 " Test iabbr for blobmsg

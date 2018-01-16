@@ -4,7 +4,7 @@ DOTFILE_DIR=$(shell dirname ${PWD})
 BASHRC=$(HOME)/.bashrc
 BASHRC_BAK=$(HOME)/.bashrc.bak
 
-all: .inputrc set_bashrc gitconfigure tilixconfigure
+all: .inputrc set_bashrc gitconfigure tilixconfigure powershell
 
 powershell:
 	pip install powerline-shell --user
