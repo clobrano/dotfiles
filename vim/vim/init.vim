@@ -115,9 +115,10 @@ else
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
   colorscheme pencil
 endif
+command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
+command! Pencil :colorscheme pencil | set background=light
 command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
-command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
@@ -243,7 +244,7 @@ nnoremap <F5> <esc>:make<cr>
 " ------------------------------------------ Save, Close and Force close current buffer
 inoremap <C-s> <Esc>:w<CR>
 noremap <C-s> <Esc>:w<CR>
-nnoremap x <Esc>:bd
+nnoremap x <Esc>:bd<space>
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
 nnoremap qa <esc>:qa
@@ -583,10 +584,10 @@ nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 " Notes ----------------------------{{{
 nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
-nnoremap <leader>sam <esc>:e ~/Dropbox/Notes/sam2018.md<cr>
-nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
-nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
 nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
+nnoremap <leader>sam <esc>:e ~/Dropbox/Notes/sam/2018.md<cr>
+nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
+nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
 " }}}
 
 " Test iabbr for blobmsg
