@@ -51,6 +51,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'DougBeney/pickachu'
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
