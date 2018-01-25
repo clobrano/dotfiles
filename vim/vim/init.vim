@@ -436,6 +436,10 @@ nnoremap tn dd?^#.*Todo<esc>p^a<esc>
 nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
+
+cabbr SortPj sort '+[a-zA-z]*' r
+cabbr SortPr sort '([A-Z])' r
+cabbr SortCx sort '@[a-zA-z]*' r
 "}}}
 " Git ------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
