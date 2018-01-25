@@ -25,11 +25,10 @@ Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/Mark--Karkat',    { 'on': 'Mark'}
 Plug 'szw/vim-g'                    " Quick Google lookup
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 " Look & Feel
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'altercation/vim-colors-solarized'
 Plug 'crusoexia/vim-monokai'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ryanoasis/vim-devicons'
@@ -37,35 +36,32 @@ Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'zeis/vim-kolor'
-Plug 'tomasiser/vim-code-dark'
 Plug 'joshdick/onedark.vim'
 Plug 'reedes/vim-colors-pencil'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
-Plug 'chrisbra/Colorizer'
+Plug 'chrisbra/Colorizer',               {'for': ['css', 'sass', 'scss']}
 Plug 'godlygeek/tabular'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'DougBeney/pickachu'
+Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
-Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
+"Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
-Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
+"Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
+"Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
 Plug 'vim-utils/vim-man',                {'for': ['c', 'cpp']}
 
 " GIT helpers
 Plug 'lambdalisue/gina.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Go
 Plug 'fatih/vim-go',            {'for': 'go'}
@@ -79,7 +75,7 @@ Plug 'freitass/todo.txt-vim',    {'for': 'text'}
 
 " NodeJS
 Plug 'moll/vim-node',           {'for': 'javascript'}
-Plug 'guileen/vim-node-dict'
+Plug 'guileen/vim-node-dict',   {'for': 'javascript'}
 
 " Javascript
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
@@ -573,17 +569,6 @@ command! TerminalV :vnew | terminal
 nnoremap <leader>th :TerminalH<cr>
 nnoremap <leader>tv :TerminalV<cr>
 endif
-" }}}
-" Vimwiki --------------------------{{{
-let wiki	= {'path': '~/Dropbox/Wiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
-let telit	= {'path': '~/Dropbox/Work/Telit/TelitWiki/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
-let tracker = {'path': '~/Dropbox/Work/Telit/Tracker/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
-let notes	= {'path': '~/Dropbox/Notes/', 'auto_toc': 1, 'ext': '.md', 'syntax': 'markdown'}
-let g:vimwiki_list = [notes, telit, tracker, wiki]
-let g:vimwiki_folding='list'
-
-nnoremap dn :VimwikiDiaryNextDay<cr>
-nnoremap dp :VimwikiDiaryPrevDay<cr>
 " }}}
 " Notes ----------------------------{{{
 nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
