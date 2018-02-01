@@ -510,6 +510,7 @@ set nocscopeverbose
 autocmd FileType markdown set conceallevel=2
 "autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
 let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_follow_anchor = 1
 " }}}
 " Syntastic ------------------------{{{
 set statusline+=%#warningmsg#                                   "syntastic
@@ -581,6 +582,11 @@ nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
 nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
 
 nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
+" Make a link with macro
+let @l='S]f]a()jjh'
+" Make selection bold
+let @b='S*a*jjf*i*'
+
 " }}}
 
 " Test iabbr for blobmsg
