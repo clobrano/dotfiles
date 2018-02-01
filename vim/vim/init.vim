@@ -179,12 +179,14 @@ noremap <silent> j gj
 " Remap fast moves
 nnoremap <C-l> 20l
 nnoremap <C-h> 20h
-nnoremap <C-k> 10k
-nnoremap <C-j> 10j
+nnoremap <C-k> 20k
+nnoremap <C-j> 20j
 nnoremap E g_
 vnoremap E g_
 nnoremap B ^
 vnoremap B ^
+" Open previous buffer
+nnoremap <leader>p <C-^>
 " ------------------------------------------ Copy & Paste as normal people (in progress)
 vnoremap <C-c> "+y<CR>
 nnoremap <C-p> "+p
@@ -193,6 +195,8 @@ vnoremap <m-c> "+y<CR>
 inoremap <m-v> <esc>"+p
 noremap  <m-v> "+p
 nnoremap <leader>va ggvGE
+" select all
+let @a='ggvGE'
 " ------------------------------------------ Align blocks of text
 vmap < <gv
 vmap > >gv
@@ -449,6 +453,7 @@ nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
 
+cabbr gamend !git commit --amend
 function! GerritReview(branch)
 	exec 'Git push origin HEAD:refs/for/' . a:branch
 endfunction
