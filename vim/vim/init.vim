@@ -592,6 +592,8 @@ let @l='S]f]a()jjh'
 " Make selection bold
 let @b='S*a*jjf*i*'
 
+iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
+command! Journal :-1r~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
 " Test iabbr for blobmsg
