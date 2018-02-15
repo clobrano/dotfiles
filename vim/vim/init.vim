@@ -604,3 +604,4 @@ iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
 cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
+cabbr email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to $TO --from $FROM %
