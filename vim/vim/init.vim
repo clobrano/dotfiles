@@ -179,8 +179,8 @@ noremap <silent> j gj
 " Remap fast moves
 nnoremap <C-l> 20l
 nnoremap <C-h> 20h
-nnoremap <C-k> 20k
-nnoremap <C-j> 20j
+nnoremap <C-k> 10k
+nnoremap <C-j> 10j
 nnoremap E g_
 vnoremap E g_
 nnoremap B ^
@@ -287,6 +287,8 @@ nnoremap <leader>vth <C-w>t<C-w>K
 " ------------------------------------------ Tabs
 nnoremap <C-S-t> :tabnew<CR>
 inoremap <C-S-t> <Esc>:tabnew<CR>
+nnoremap <C-S-l> :tabnext<cr>
+nnoremap <C-S-h> :tabprevious<cr>
 set splitright " Style open split on the right
 set splitbelow
 " }}}
@@ -453,7 +455,8 @@ nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
 
-cabbr gamend !git commit --amend
+cabbr gam !git commit --amend
+cabbr gamn !git commit --amend --no-edit
 function! GerritReview(branch)
 	exec 'Git push origin HEAD:refs/for/' . a:branch
 endfunction
@@ -596,11 +599,15 @@ iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vi
 command! Journal :-1r~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
-" Test iabbr for blobmsg
+cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
+
 iabbr blobu8   blobmsg_add_u8(&(status[req->status_buf_index]),
 iabbr blobu16  blobmsg_add_u16(&(status[req->status_buf_index]),
 iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
 iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
-cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
+
+iabbr uqmi_prepare static enum qmi_cmd_result cmd_SERVICE_FNAME_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+iabbr uqmi_no_cb #define cmd_SERVICE_FNAME_cb no_cb
+iabbr uqmi_cb static void cmd_SERVICE_FNAME_cb(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg)
