@@ -434,6 +434,7 @@ if has('nvim')
 endif
 " }}}
 " Getting Things Done --------------{{{
+command! Todo :-1r~/dotfiles/vim/vim/snippets/todo.md
 " Task Done, Up, Later, Next, change Prio
 nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y%W%u")<CR><esc>
 nnoremap tu dd?^#<cr>p<leader><space>
