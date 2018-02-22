@@ -52,7 +52,7 @@ Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
-"Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
+Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 "Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
 "Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
@@ -110,7 +110,7 @@ if has('nvim')
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme pencil
+  colorscheme PaperColor
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
@@ -407,16 +407,29 @@ let airline#extensions#syntastic#stl_format_err = '%E{%e}'
 let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
 " }}}
 " Cscope ---------------------------{{{
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=0
+    set cst
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+        " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
 set cscopetag nocscopeverbose
-nnoremap csl <Esc>:cs add cscope.out<CR>
-command! -nargs=1 Csdef  :cs find g <f-args>
-command! -nargs=1 Cscall :cs find c <f-args>
-command! -nargs=1 Cssym  :cs find s <f-args>
-command! -nargs=1 Csincl :cs find i <f-args>
 " Quickfix window for cscope in place of interactive window
 if has('quickfix')
     set cscopequickfix=c-,d-,e-,f-,g-,i-,t-,s-
 endif
+nnoremap <leader>fc :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fs :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fd :cs find g <C-R>=expand("<cword>")<CR><CR>
+command! CallTree :CCTreeTraceReverse
 "}}}
 " Ctags ----------------------------{{{
 command! CtagsMake !ctags -R --exclude=.git .
