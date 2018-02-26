@@ -622,7 +622,7 @@ iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
 cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
-cabbr email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to $TO --from $FROM %
+cabbr email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
 
 iabbr uqmi_prepare static enum qmi_cmd_result cmd_SERVICE_FNAME_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
 iabbr uqmi_no_cb #define cmd_SERVICE_FNAME_cb no_cb
