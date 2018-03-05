@@ -1,5 +1,10 @@
 iabbr #i #include
 iabbr #d #define
+" Insert comment
+iabbr /* /**/<esc>F*i
+
+" Go to the beginning of a function section {}
+nnoremap ^ <M-[><M-{>
 
 function! CHeader()
     let filename = expand('%:t')

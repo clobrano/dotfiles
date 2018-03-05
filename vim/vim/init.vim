@@ -49,6 +49,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-abolish'
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
@@ -129,7 +131,7 @@ set wildmenu                   " graphical menu of autocomplete matches
 set wildmode=list:longest,full
 " ------------------------------------------ UI config
 set guioptions-=T " Remove toolbar
-set scrolloff=7   " Keeping the cursor away from the last line make it easy to scroll down/up.
+set scrolloff=10   " Keeping the cursor away from the last line make it easy to scroll down/up.
 set relativenumber
 hi clear CursorLine
 set cursorline
@@ -234,7 +236,7 @@ nnoremap } }zz
 if has('nvim')
     nnoremap ff <esc>:FZF<cr>
 else
-    nnoremap ff <esc>:n **/*
+    nnoremap ff <esc>:FZF<cr>
 endif
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
@@ -298,7 +300,6 @@ let g:netrw_liststyle = 3             " tree-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
 let g:netrw_preveiw = 1
 nnoremap <leader>fe <esc>:Lexplore<cr>
-nnoremap <leader>ff <esc>:FZF<cr>
 command! Sethere lcd %:p:h
 nnoremap <leader>h <Esc>:Sethere<CR>
 " }}}
@@ -408,6 +409,17 @@ let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
 " }}}
 " Cscope ---------------------------{{{
 if has("cscope")
+    command! CscopeMake !find . -name '*.c' -o -name '*.cpp' -o -name '*.h' > cscope.files && cscope -b -i cscope.files
+    command! CscopeLoad cs add cscope.out
+    function! _TagsReload()
+        exec "!rm cscope.files cscope.out"
+        exec "CscopeMake"
+        exec "cscope reset"
+        exec "cscope add cscope.out"
+        exec "CtagsMake"
+    endfunction
+    command! TagsReload :call _TagsReload()
+    nnoremap <leader>tr :TagsReload<cr>
     set csprg=/usr/bin/cscope
     set csto=0
     set cst
@@ -424,7 +436,7 @@ endif
 set cscopetag nocscopeverbose
 " Quickfix window for cscope in place of interactive window
 if has('quickfix')
-    set cscopequickfix=c-,d-,e-,f-,g-,i-,t-,s-
+    "set cscopequickfix=c-,d-,e-,f-,g-,i-,t-,s-
 endif
 nnoremap <leader>fc :cs find c <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fs :cs find s <C-R>=expand("<cword>")<CR><CR>
@@ -627,3 +639,11 @@ cabbr email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com -
 iabbr uqmi_prepare static enum qmi_cmd_result cmd_SERVICE_FNAME_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
 iabbr uqmi_no_cb #define cmd_SERVICE_FNAME_cb no_cb
 iabbr uqmi_cb static void cmd_SERVICE_FNAME_cb(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg)
+
+iabbr parsetlv <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/parseTlv.vim<cr>
+iabbr packstring <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packstring.vim<cr>
+iabbr packstruct <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packstruct.vim<cr>
+iabbr packfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packfun.vim<cr>
+iabbr unpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/unpackfun.vim<cr>
+
+
