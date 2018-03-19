@@ -21,6 +21,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ctrlpvim/ctrlp.vim',          { 'for': 'go'}
 Plug 'derekwyatt/vim-fswitch'
 Plug 'junegunn/fzf',                { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/Mark--Karkat',    { 'on': 'Mark'}
@@ -32,7 +33,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ryanoasis/vim-devicons'
-Plug 'vim-scripts/Tagbar'
+"Plug 'vim-scripts/Tagbar'
 Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -143,6 +144,7 @@ set noswapfile
 set autowrite
 " ------------------------------------------ Autocomplete setaway fromset completeopt=longest,menu,preview
 " Block select not limited to shortest line
+set completeopt=longest,menu,preview
 set virtualedit=
 set laststatus=2 lazyredraw
 set tabstop=4 shiftwidth=4 softtabstop=4
@@ -457,6 +459,12 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 if has('nvim')
     let g:fzf_launcher = 'xterm -T fzf -fa monaco -fs 10 -e bash -ic %s'
 endif
+" New shortcuts for fzf
+nnoremap ff :Files<cr>
+nnoremap fb :Buffers<cr>
+nnoremap ft :Tags<cr>
+nnoremap fl :BLines<cr>
+"nnoremap fa :Ag<cr>
 " }}}
 " Getting Things Done --------------{{{
 command! Todo :-1r~/dotfiles/vim/vim/snippets/todo.md
@@ -626,6 +634,9 @@ command! Journal :-1r~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
 cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
+nnoremap <leader>er /error<cr>
+nnoremap <leader>1 :Make<cr>
+nnoremap <leader>2 :Dispatch docker-do -i cisco -b
 
 iabbr blobu8   blobmsg_add_u8(&(status[req->status_buf_index]),
 iabbr blobu16  blobmsg_add_u16(&(status[req->status_buf_index]),
@@ -646,4 +657,5 @@ iabbr packstruct <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packstruct.vim<cr>
 iabbr packfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packfun.vim<cr>
 iabbr unpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/unpackfun.vim<cr>
 
-
+iabbr tpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/telitpack.vim<cr>
+iabbr tunpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/telitunpack.vim<cr>
