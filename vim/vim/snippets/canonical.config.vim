@@ -32,10 +32,14 @@ function! CommunithemeBuild(project)
         execute ':!bash ~/workspace/script-fu/gnome-toggle-communitheme.sh'
     endif
 endfunction
+
 command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
 nnoremap <leader>gtk :CBuildGtk<cr>
+nnoremap <leader>3 :CBuildGtk<cr>
+
 command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
 nnoremap <leader>shell :CBuildShell<cr>
+nnoremap <leader>4 :CBuildShell<cr>
 
 " use gnome-screenshoot to take a pic
 cabbr shot !gnome-screenshot -capf ~/Pictures/tmp.png

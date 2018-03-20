@@ -116,7 +116,7 @@ else
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
-command! Papercolor :colorscheme PaperColor
+command! Papercolor :colorscheme PaperColor | :AirlineTheme pencil
 command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
@@ -154,6 +154,8 @@ set showbreak=└
 set showmatch
 highlight ExtraWhitespace ctermbg=Yellow
 nnoremap ss :ToggleStripWhitespaceOnSave<CR>
+" Reload open buffers
+nnoremap <leader>r :checktime<cr>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
 map <leader>d a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 inoremap <A-d> <C-R>=strftime("%y%W%u")<CR>
@@ -162,7 +164,7 @@ map <A-d> a<C-R>=strftime("%y%W%u")<CR><Esc>
 " System mappings ------------------{{{
 
 " redo last command
-nnoremap <leader>r :<Up>
+"nnoremap <leader>r :<Up>
 
 " Fix weird chars in terminal using arrow keys (INSERT mode)
 inoremap [1;5A <esc>ki
