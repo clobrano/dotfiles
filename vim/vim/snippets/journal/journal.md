@@ -1,11 +1,19 @@
-Subject:
+Subject: 
 
-Mood  :
-Energy:
-Why?:
-Positive things from yesterday (experience, learning, ...):
+Mood  : 
+Energy: 
 
-Priorities
+I'm grateful for:
+
+Yesterday's review (experience, learning, good things):
+
+Today's Goal: 
+Today's Priorities:
+1.
+2.
+3.
+
+---
 
 Values
 - Be Focused
@@ -15,10 +23,10 @@ Values
 Tools
 - 1h Challenge
 
-Want-What-You-Do 18081
-- Rimettere al centro il mantra annuale
-- meditare ogni giorno
-- passare più tempo coi colleghi (pausa di mezza mattina o pomeriggio)
-- 3 cose da proporre per migliorare l'azienda
+Want-What-You-Do
+# 18121 (2018-03-19)
+- meditazione
+- chiudi tutti i conti col cambio della casa (ENEL chiusura e voltura, ASL, TARI)
+- rilascio backdrop rework
 
 
