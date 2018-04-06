@@ -52,6 +52,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
+Plug 'scrooloose/nerdcommenter'
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
@@ -111,9 +112,9 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 9
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme PaperColor
+  colorscheme pencil
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
@@ -303,7 +304,7 @@ let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " tree-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
 let g:netrw_preveiw = 1
-nnoremap <leader>fe <esc>:Lexplore<cr>
+nnoremap <leader>e <esc>:Lexplore<cr>
 command! Sethere lcd %:p:h
 nnoremap <leader>h <Esc>:Sethere<CR>
 " }}}
@@ -479,9 +480,9 @@ nnoremap tpa v$:s/([A-C])/(A)/g<CR>
 nnoremap tpb v$:s/([A-C])/(B)/g<CR>
 nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 
-cabbr SortPj sort '+[a-zA-z]*' r
-cabbr SortPr sort '([A-Z])' r
-cabbr SortCx sort '@[a-zA-z]*' r
+cabbr _sortPj sort '+[a-zA-z]*' r
+cabbr _sortPr sort '([A-Z])' r
+cabbr _sortCx sort '@[a-zA-z]*' r
 "}}}
 " Git ------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
@@ -491,25 +492,13 @@ nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
 
-cabbr gam !git commit --amend
-cabbr gamn !git commit --amend --no-edit
+cabbr _gam !git commit --amend
+cabbr _gamn !git commit --amend --no-edit
 function! GerritReview(branch)
 	exec 'Git push origin HEAD:refs/for/' . a:branch
 endfunction
 command! -nargs=1 GerritReview :call GerritReview(<f-args>)
 cabbr gerritreview GerritReview
-
-function! GerritWip(branch)
-	exec 'Git push origin HEAD:refs/for/' . a:branch. '\%wip'
-endfunction
-command! -nargs=1 GerritWip :call GerritWip(<f-args>)
-cabbr gerritwip GerritWip
-
-function! GerritReady(branch)
-	exec 'Git push origin HEAD:refs/for/'. a:branch . '%Ready'
-endfunction
-command! -nargs=1 GerritReady :call GerritReady(<f-args>)
-cabbr gerritready GerritReady
 
 nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 " Shortcut for Fugitive vertical diff
@@ -620,19 +609,19 @@ nnoremap <leader>tv :TerminalV<cr>
 endif
 " }}}
 " Notes ----------------------------{{{
-nnoremap <leader>ww <esc>:e ~/Dropbox/Notes/index.md<cr>
-nnoremap <leader>sam <esc>:e ~/Dropbox/Notes/sam/2018.md<cr>
-nnoremap <leader>ubuntu <esc>:e ~/Dropbox/Notes/canonical/todo.md<cr>
-nnoremap <leader>telit <esc>:e ~/Dropbox/Notes/telit/todo.md<cr>
+nnoremap <leader>ww <esc>:e ~/Notes/index.md<cr>
+nnoremap <leader>sam <esc>:e ~/Notes/sam/2018.md<cr>
+nnoremap <leader>ubuntu <esc>:e ~/Notes/canonical/todo.md<cr>
+nnoremap <leader>telit <esc>:e ~/Notes/telit/todo.md<cr>
 
-nnoremap <leader>todo <esc>:e ~/Dropbox/todo/todo.txt<cr>
+nnoremap <leader>todo <esc>:e ~/todo/todo.txt<cr>
 " Make a link with macro
 let @l='S]f]a()jjh'
 " Make selection bold
 let @b='S*a*jjf*i*'
 
 iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
-command! Journal :-1r~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
+command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
 cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
@@ -646,8 +635,7 @@ iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
 iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
 iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
 
-cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
-cabbr email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
+cabbr _email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
 
 iabbr uqmi_prepare static enum qmi_cmd_result cmd_SERVICE_FNAME_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
 iabbr uqmi_no_cb #define cmd_SERVICE_FNAME_cb no_cb
