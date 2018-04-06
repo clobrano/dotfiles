@@ -22,7 +22,7 @@ gitconfigure:
 	./git_configuration.sh
 
 tilixconfigure:
-	./tilix.configure.sh
+	./tilix.configure.sh --load
 
 clean:
 	-[ -f .inputrc ] && rm .inputrc || echo "No inputrc found"
