@@ -179,7 +179,7 @@ alias node='nodejs'
 
 # Disable terminal freeze shortcut C-s
 stty -ixon
-alias itsmine='sudo chown carlolo:carlolo'
+alias itsmine="sudo chown $USER"
 # HIKEY arm64 bootimage aliases
 alias hikeydefconf='make ARCH=arm64 hikey_defconfig'
 alias hikeymenuconf='make ARCH=arm64 menuconfig'
