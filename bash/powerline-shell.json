@@ -5,7 +5,9 @@
     "bzr",
     "git",
     "virtual_env",
-    "root"
+    "root",
+    "read_only",
+    "set_term_title"
   ],
   "mode": "flat",
   "cwd": {
