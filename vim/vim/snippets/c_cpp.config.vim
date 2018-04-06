@@ -22,3 +22,10 @@ iabbr cguard <esc>:call CHeader()
 
 iabbr cpputest <esc>:-1r~/dotfiles/vim/vim/snippets/cpp/cpputest.template
 au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
+
+fun! ShowFuncName()
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bWn'))
+  echohl None
+endfun
+nnoremap func :call ShowFuncName() <CR>
