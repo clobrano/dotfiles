@@ -27,7 +27,7 @@ endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 
 function! CommunithemeBuild(project)
-    execute ':!python3 ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
+    execute ':!gksu python3 ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
     if a:project == 'gtk-communitheme'
         execute ':!bash ~/workspace/script-fu/gnome-toggle-communitheme.sh'
     endif
@@ -35,11 +35,13 @@ endfunction
 
 command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
 nnoremap <leader>gtk :CBuildGtk<cr>
-nnoremap <leader>3 :CBuildGtk<cr>
 
 command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
 nnoremap <leader>shell :CBuildShell<cr>
+
+nnoremap <leader>3 :CBuildGtk<cr>
 nnoremap <leader>4 :CBuildShell<cr>
+nnoremap <leader>5 :!theme-refresh.sh<cr>
 
 " use gnome-screenshoot to take a pic
 cabbr shot !gnome-screenshot -capf ~/Pictures/tmp.png
