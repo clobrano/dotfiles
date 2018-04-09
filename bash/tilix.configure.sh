@@ -45,5 +45,5 @@ while getopts 'hlsf:' OPT; do
 done
 # GENERATED_CODE: end
 
-[ $_save ] &&  set -x; dconf dump /com/gexperts/Tilix/ > "$_file"; set +x
-[ $_load ] &&  set -x; dconf load /com/gexperts/Tilix/ < "$_file"
+[ ! -z $_save ] &&  dconf dump /com/gexperts/Tilix/ > "$_file"
+[ ! -z $_load ] &&  dconf load /com/gexperts/Tilix/ < "$_file"
