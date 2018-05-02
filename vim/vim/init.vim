@@ -112,7 +112,7 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 9
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
   colorscheme pencil
 endif
@@ -470,7 +470,7 @@ nnoremap fl :BLines<cr>
 "nnoremap fa :Ag<cr>
 " }}}
 " Getting Things Done --------------{{{
-command! Todo :-1r~/dotfiles/vim/vim/snippets/todo.md
+command! Todo :-1r ~/dotfiles/vim/vim/snippets/todo.md
 " Task Done, Up, Later, Next, change Prio
 nnoremap td dd/^#.*Done<esc>p^a <C-R>=strftime("%y%W%u")<CR><esc>
 nnoremap tu dd?^#<cr>p<leader><space>
@@ -558,9 +558,6 @@ let g:syntastic_cpp_checkers=['clang_check', 'cppcheck']
 let g:syntastic_python_checkers=['flake8']
 " }}}
 " Snippets -------------------------{{{
-nnoremap <leader>mbox :silent !xdg-open https://takeout.google.com/settings/takeout
-nnoremap <leader>sass :silent !xdg-open http://sass-lang.com/documentation/file.SASS_REFERENCE.html
-
 augroup Shebang
   autocmd BufNewFile *.sh 0put =\"#!/usr/bin/env bash\<nl># -*- coding: UTF-8 -*-\<nl>\"|$
   autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl># -*- coding: utf-8 -*-\<nl># vi: set ft=python :\<nl>\"|$
@@ -569,13 +566,18 @@ augroup Shebang
   autocmd BufNewFile *.\(cc\|hh\) 0put =\"//\<nl>// \".expand(\"<afile>:t\").\" -- \<nl>//\<nl>\"|2|start!
 augroup END
 
-iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
-source ~/dotfiles/vim/vim/snippets/bootstrap.config.vim
 source ~/dotfiles/vim/vim/snippets/browser.config.vim
 source ~/dotfiles/vim/vim/snippets/c_cpp.config.vim
 source ~/dotfiles/vim/vim/snippets/canonical.config.vim
 source ~/dotfiles/vim/vim/snippets/licenses.config.vim
 source ~/dotfiles/vim/vim/snippets/shell.config.vim
+
+nnoremap <leader>1 :Make<cr>
+
+iabbr editorconfig <esc>:-1 r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
+
+cabbr _email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
+cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
@@ -610,42 +612,13 @@ endif
 " }}}
 " Notes ----------------------------{{{
 nnoremap <leader>ww <esc>:e ~/Notes/index.md<cr>
-nnoremap <leader>sam <esc>:e ~/Notes/sam/2018.md<cr>
-nnoremap <leader>ubuntu <esc>:e ~/Notes/canonical/todo.md<cr>
-nnoremap <leader>telit <esc>:e ~/Notes/telit/todo.md<cr>
-
 nnoremap <leader>todo <esc>:e ~/todo/todo.txt<cr>
-" Make a link with macro
+" Make a markdown link
 let @l='S]f]a()jjh'
-" Make selection bold
+" Make markdown bold
 let @b='S*a*jjf*i*'
 
-iabbr editorconfig <esc>:-1r~/dotfiles/vim/vim/snippets/editorconfig/template.vim
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
-cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
-nnoremap <leader>er /error<cr>
-nnoremap <leader>1 :Make<cr>
-nnoremap <leader>2 :Dispatch docker-do -i cisco -b
 
-iabbr blobu8   blobmsg_add_u8(&(status[req->status_buf_index]),
-iabbr blobu16  blobmsg_add_u16(&(status[req->status_buf_index]),
-iabbr blobu32  blobmsg_add_u32(&(status[req->status_buf_index]),
-iabbr blobstr  blobmsg_add_string(&(status[req->status_buf_index]),
-iabbr blobhex  blobmsg_add_hex(&(status[req->status_buf_index]),
-
-cabbr _email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
-
-iabbr uqmi_prepare static enum qmi_cmd_result cmd_SERVICE_FNAME_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
-iabbr uqmi_no_cb #define cmd_SERVICE_FNAME_cb no_cb
-iabbr uqmi_cb static void cmd_SERVICE_FNAME_cb(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg)
-
-iabbr parsetlv <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/parseTlv.vim<cr>
-iabbr packstring <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packstring.vim<cr>
-iabbr packstruct <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packstruct.vim<cr>
-iabbr packfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/packfun.vim<cr>
-iabbr unpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/unpackfun.vim<cr>
-
-iabbr tpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/telitpack.vim<cr>
-iabbr tunpackfun <esc>:r!cat ~/dotfiles/vim/vim/snippets/gobi/telitunpack.vim<cr>
