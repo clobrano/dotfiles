@@ -29,4 +29,4 @@ alias wiresharkqmi='wireshark -X lua_script:qmi_dissector_gen.lua'
 alias to_go_t="to_go -context telit | raffaello -f to_go"
 alias ff='fuz'
 alias ffv='fuz -e gvim'
-alias ffn='fuz -e gvim -d /mnt/4EBCC563BCC545E5/Store/Notes/'
+alias ffn='fuz -e gvim -d ~/Dropbox/Notes/'
