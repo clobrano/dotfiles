@@ -420,7 +420,6 @@ if has("cscope")
         exec "!rm cscope.files cscope.out"
         exec "CscopeMake"
         exec "cscope reset"
-        exec "cscope add cscope.out"
         exec "CtagsMake"
     endfunction
     command! TagsReload :call _TagsReload()
