@@ -3,13 +3,12 @@
     "ssh",
     "cwd",
     "bzr",
-    "git",
     "virtual_env",
     "root",
     "read_only",
-    "set_term_title"
+    "set_term_title",
+    "git"
   ],
-  "mode": "flat",
   "cwd": {
       "mode": "dironly"
   }
