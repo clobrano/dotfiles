@@ -112,7 +112,7 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 9
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
   colorscheme pencil
 endif
@@ -239,9 +239,9 @@ nnoremap N Nzz
 nnoremap } }zz
 " ------------------------------------------ Fzf fuzzy searcher (ff = find file)
 if has('nvim')
-    nnoremap ff <esc>:FZF<cr>
+    nnoremap <leader>ff <esc>:FZF<cr>
 else
-    nnoremap ff <esc>:FZF<cr>
+    nnoremap <leader>ff <esc>:FZF<cr>
 endif
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
