@@ -20,7 +20,7 @@ function! CHeader()
 endfunction
 iabbr cguard <esc>:call CHeader()
 
-iabbr cpputest <esc>:-1r~/dotfiles/vim/vim/snippets/cpp/cpputest.template
+iabbr cpputest <esc>:-1r ~/dotfiles/vim/vim/snippets/cpp/cpputest.template
 au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
 
 fun! ShowFuncName()
