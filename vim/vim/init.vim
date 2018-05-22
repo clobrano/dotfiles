@@ -39,6 +39,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
 Plug 'reedes/vim-colors-pencil'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 " Text and Code Checking/Linting
 Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
@@ -53,6 +54,7 @@ Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'scrooloose/nerdcommenter'
+Plug 'igankevich/mesonic'
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
@@ -239,9 +241,9 @@ nnoremap N Nzz
 nnoremap } }zz
 " ------------------------------------------ Fzf fuzzy searcher (ff = find file)
 if has('nvim')
-    nnoremap ff <esc>:FZF<cr>
+    nnoremap <leader>ff <esc>:FZF<cr>
 else
-    nnoremap ff <esc>:FZF<cr>
+    nnoremap <leader>ff <esc>:FZF<cr>
 endif
 nnoremap fa <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left>
 nnoremap fc <Esc>:Ack! --ignore-dir=TAGS --ignore-dir=tags --ignore-dir=cscope.* ""<left><C-r><C-w>
@@ -577,6 +579,10 @@ iabbr editorconfig <esc>:-1 r~/dotfiles/vim/vim/snippets/editorconfig/template.v
 
 cabbr _email !git send-email --smtp-encryption tls --smtp-server smtp.gmail.com --smtp-user $SMTP_USER --smtp-pass $SMTP_PASS --smtp-server-port 587 --8bit-encoding UTF-8 --to "$TO" --from "$FROM" %
 cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
+
+" In diff mode, move to the next/previous diff and center the screen
+nnoremap <leader>cc ]czz
+nnoremap <leader>C [czz
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
@@ -619,5 +625,3 @@ let @b='S*a*jjf*i*'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
-
-
