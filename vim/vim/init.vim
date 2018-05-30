@@ -16,6 +16,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin()
 
+
+
+Plug 'vim-scripts/gtags.vim'
 " Search & Replace
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ctrlpvim/ctrlp.vim',          { 'for': 'go'}
@@ -29,6 +32,7 @@ Plug 'szw/vim-g'                    " Quick Google lookup
 "Plug 'ludovicchabant/vim-gutentags'
 
 " Look & Feel
+Plug 'vim-scripts/eclipse.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
 Plug 'jeetsukumaran/vim-buffergator'
@@ -113,10 +117,11 @@ set linespace=1
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
+  set guifont=Source\ Code\ Pro\ for\ Powerline
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme pencil
+  colorscheme PaperColor
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
@@ -259,6 +264,10 @@ noremap <C-s> <Esc>:w<CR>
 nnoremap x <Esc>:bd<space>
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
+nnoremap xl <C-w>l:bd<CR>
+nnoremap xh <C-w>h:bd<CR>
+nnoremap xj <C-w>j:bd<CR>
+nnoremap xk <C-w>k:bd<CR>
 nnoremap qa <esc>:qa
 " Maximize current window
 nnoremap <C-w>m <C-w>\|<C-w>_
@@ -450,7 +459,7 @@ nnoremap <leader>fd :cs find g <C-R>=expand("<cword>")<CR><CR>
 command! CallTree :CCTreeTraceReverse
 "}}}
 " Ctags ----------------------------{{{
-command! CtagsMake !ctags -R --exclude=.git .
+command! CtagsMake !ctags -R --extra=+f --exclude=.git .
 "Makes ctags visible from subdirectories
 set tags=tags;/
 noremap T <Esc>:tag<space>
@@ -589,22 +598,6 @@ vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
 vnoremap <silent> <Leader>cet    :Tabularize /#<CR>              "tabular
 vnoremap <silent> <Leader>ce     :Tabularize /
 " }}}
-" TagBar ---------------------------{{{
-nnoremap tb <Esc>:TagbarToggle<CR>
-let g:tagbar_left = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_zoomwidth = 0
-let g:tagbar_ctags_bin = "ctags"
-let g:tagbar_type_vimwiki = {
-      \   'ctagstype':'vimwiki'
-      \ , 'kinds':['h:header']
-      \ , 'sro':'&&&'
-      \ , 'kind2scope':{'h':'header'}
-      \ , 'sort':0
-      \ , 'ctagsbin':'~/.vim/config/vwtags.py'
-      \ , 'ctagsargs': 'all'
-      \ }
-" }}}
 " Terminal -------------------------{{{
 if has("nvim")
 tnoremap qq <C-\><C-n>
@@ -625,3 +618,7 @@ let @b='S*a*jjf*i*'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
+
+let g:solarized_contrast="high"
+let g:netrw_banner=0
+let g:airline#extensions#tabline#formatter = 'default'

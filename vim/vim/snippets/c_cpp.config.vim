@@ -6,6 +6,8 @@ iabbr /* /**/<esc>F*i
 " Go to the beginning of a function section {}
 nnoremap ^ <M-[><M-{>
 
+
+" Autogenerate a .h header content
 function! CHeader()
     let filename = expand('%:t')
     let headername = toupper(filename)
@@ -18,11 +20,14 @@ function! CHeader()
     call setline(cur_line + 2, "")
     call setline(cur_line + 3, "#endif /* " . headername . " */")
 endfunction
-iabbr cguard <esc>:call CHeader()
+iabbr cheader <esc>:call CHeader()
+
 
 iabbr cpputest <esc>:-1r ~/dotfiles/vim/vim/snippets/cpp/cpputest.template
 au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
 
+
+"" Show the name of the function for the current scope
 fun! ShowFuncName()
   echohl ModeMsg
   echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bWn'))
