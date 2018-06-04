@@ -16,9 +16,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin()
 
-
-
-Plug 'vim-scripts/gtags.vim'
 " Search & Replace
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ctrlpvim/ctrlp.vim',          { 'for': 'go'}
@@ -312,9 +309,10 @@ set splitbelow
 " }}}
 " File exploring -------------------{{{
 let g:netrw_winsize = -28             " absolute width of netrw window
-let g:netrw_liststyle = 3             " tree-view
+let g:netrw_liststyle = 3             " treetest-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
-let g:netrw_preveiw = 1
+let g:netrw_preview = 1
+let g:netrw_banner=0
 nnoremap <leader>e <esc>:Lexplore<cr>
 command! Sethere lcd %:p:h
 nnoremap <leader>h <Esc>:Sethere<CR>
@@ -620,5 +618,4 @@ command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
 
 let g:solarized_contrast="high"
-let g:netrw_banner=0
 let g:airline#extensions#tabline#formatter = 'default'
