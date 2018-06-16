@@ -228,7 +228,7 @@ let g:ackhighlight = 1
 noremap rep <Esc>:%s//gc<Left><Left><Left>
 " Highlight current word
 nnoremap * *<C-o>
-highlight Search guibg=green guifg=black gui=underline
+highlight Search gui=underline
 nnoremap <leader><space> :nohlsearch<CR>
 " Look for text in current buffer
 nnoremap fb <Esc>:g//#<left><left>
