@@ -26,6 +26,7 @@ Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/Mark--Karkat',    { 'on': 'Mark'}
 Plug 'szw/vim-g'                    " Quick Google lookup
+Plug 'vim-scripts/taglist.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 
 " Look & Feel
@@ -109,11 +110,16 @@ nnoremap <silent> <leader>V :source ~/.vimrc<CR>:PlugInstall<CR>:exe ":echo 'vim
 " Editor ---------------------------{{{
 syntax enable
 filetype on
+
 set linespace=1
+set thesaurus+=~/.vim/thesaurus/thesaurus.txt
+let g:airline#extensions#tabline#formatter = 'default'
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
+  colorscheme solarized
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
@@ -126,8 +132,7 @@ command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
-set thesaurus+=~/.vim/thesaurus/thesaurus.txt
-let g:airline#extensions#tabline#formatter = 'default'
+
 " }}}
 " System settings ------------------{{{
 set mouse=a
@@ -159,7 +164,7 @@ set wrap linebreak nolist
 set list
 set showbreak=└
 set showmatch
-highlight ExtraWhitespace ctermbg=Yellow
+"highlight ExtraWhitespace ctermbg=Yellow
 nnoremap ss :ToggleStripWhitespaceOnSave<CR>
 " Reload open buffers
 nnoremap <leader>r :checktime<cr>
@@ -301,9 +306,9 @@ nnoremap <leader>htv <C-w>t<C-w>H
 nnoremap <leader>vth <C-w>t<C-w>K
 " ------------------------------------------ Tabs
 nnoremap <C-S-t> :tabnew<CR>
-inoremap <C-S-t> <Esc>:tabnew<CR>
-nnoremap <C-S-l> :tabnext<cr>
-nnoremap <C-S-h> :tabprevious<cr>
+nnoremap <leader>tc <Esc>:tabnew<CR>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
 set splitright " Style open split on the right
 set splitbelow
 " }}}
@@ -465,6 +470,11 @@ noremap T <Esc>:tag<space>
 noremap <C-[> <C-o>
 " Open Tag in vertical split
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" }}}
+" TagList --------------------------{{{
+nnoremap <leader>t :Tlist<cr>
+"let Tlist_Display_Prototype = 1
+let Tlist_Show_One_File = 1
 " }}}
 " FZF ------------------------------{{{
 if has('nvim')
