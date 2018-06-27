@@ -119,7 +119,6 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
-  colorscheme solarized
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
