@@ -27,16 +27,17 @@ endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 
 function! CommunithemeBuild(project)
-    execute ':!sudo python3 ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
-    if a:project == 'gtk-communitheme'
+    "execute ':!python ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
+    execute ':!bash ~/workspace/script-fu/communitheme-build.sh -p ' . a:project
+    if a:project == 'gtk'
         execute ':!bash ~/workspace/script-fu/gnome-toggle-communitheme.sh'
     endif
 endfunction
 
-command! CBuildGtk call CommunithemeBuild('gtk-communitheme')
+command! CBuildGtk call CommunithemeBuild('gtk')
 nnoremap <leader>gtk :CBuildGtk<cr>
 
-command! CBuildShell call CommunithemeBuild('gnome-shell-communitheme')
+command! CBuildShell call CommunithemeBuild('shell')
 nnoremap <leader>shell :CBuildShell<cr>
 
 nnoremap <leader>3 :CBuildGtk<cr>
