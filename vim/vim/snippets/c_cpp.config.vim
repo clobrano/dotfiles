@@ -22,6 +22,15 @@ function! CHeader()
 endfunction
 iabbr cheader <esc>:call CHeader()
 
+" Autogenerate a C main content
+function! CMain()
+    let cur_line = line('.')
+    call setline(cur_line, "int main(int argc, char *argv[])")
+    call setline(cur_line + 1, "{")
+    call setline(cur_line + 2, "    return 0;")
+    call setline(cur_line + 3, "}")
+endfunction
+iabbr cmain <esc>:call CMain()
 
 iabbr cpputest <esc>:-1r ~/dotfiles/vim/vim/snippets/cpp/cpputest.template
 au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim

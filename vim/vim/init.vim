@@ -113,7 +113,6 @@ filetype on
 
 set linespace=1
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
-let g:airline#extensions#tabline#formatter = 'default'
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -414,8 +413,9 @@ let g:airline_powerline_fonts=1
 "let g:airline_symbols.branch = '⭠'
 "let g:airline_symbols.readonly = '⭤'
 "let g:airline_symbols.linenr = '⭡'
+let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#fnamemod = ':~:.'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#left_alt_sep = ''
 "let g:airline#extensions#tabline#left_sep = ''
