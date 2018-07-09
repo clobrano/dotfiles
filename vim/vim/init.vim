@@ -472,8 +472,11 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 " TagList --------------------------{{{
 nnoremap <leader>t :Tlist<cr>
-"let Tlist_Display_Prototype = 1
-let Tlist_Show_One_File = 1
+"let Tlist_Display_Prototype=1
+let Tlist_Auto_Highlight_Tag=1
+let Tlist_Auto_Update=1
+let Tlist_Compact_Format=1
+let Tlist_Show_One_File=1
 " }}}
 " FZF ------------------------------{{{
 if has('nvim')
@@ -542,6 +545,9 @@ let g:go_fmt_command = "goimports"
 "let g:jedi#force_py_version=3
 let g:jedi#completions_command = "<C-n>"
 let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = "<space>fd"
+let g:jedi#usages_command = "<space>fd"
+
 " }}}
 " Letsdo ---------------------------{{{
 
