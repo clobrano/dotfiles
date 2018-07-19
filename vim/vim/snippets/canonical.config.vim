@@ -26,23 +26,12 @@ call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](b
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 
-function! CommunithemeBuild(project)
-    "execute ':!python ~/dotfiles/vim/vim/snippets/communitheme.py ' . a:project
-    execute ':!bash ~/workspace/script-fu/communitheme-build.sh -p ' . a:project
-    if a:project == 'gtk'
-        execute ':!bash ~/workspace/script-fu/gnome-toggle-communitheme.sh'
-    endif
+function! CommunithemeBuild()
+    execute ':!bash ~/workspace/script-fu/communitheme-build.sh'
 endfunction
 
-command! CBuildGtk call CommunithemeBuild('gtk')
-nnoremap <leader>gtk :CBuildGtk<cr>
-
-command! CBuildShell call CommunithemeBuild('shell')
-nnoremap <leader>shell :CBuildShell<cr>
-
-nnoremap <leader>3 :CBuildGtk<cr>
-nnoremap <leader>4 :CBuildShell<cr>
-nnoremap <leader>5 :!theme-refresh.sh<cr>
+command! CBuild call CommunithemeBuild()
+nnoremap <leader>3 :term sudo -H python ~/dotfiles/vim/vim/snippets/communitheme.py ~/workspace/communitheme<cr>
 
 " use gnome-screenshoot to take a pic
 cabbr shot !gnome-screenshot -capf ~/Pictures/tmp.png
