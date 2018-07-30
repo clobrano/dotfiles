@@ -175,7 +175,6 @@ map <A-d> a<C-R>=strftime("%y%W%u")<CR><Esc>
 
 " redo last command
 "nnoremap <leader>r :<Up>
-
 " Fix weird chars in terminal using arrow keys (INSERT mode)
 inoremap [1;5A <esc>ki
 inoremap [1;5C <esc>li
@@ -247,6 +246,7 @@ nnoremap } }zz
 " ------------------------------------------ Fzf fuzzy searcher (ff = find file)
 if has('nvim')
     nnoremap <leader>ff <esc>:FZF<cr>
+    cabbr ! term
 else
     nnoremap <leader>ff <esc>:FZF<cr>
 endif
@@ -261,7 +261,7 @@ nnoremap <F5> <esc>:make<cr>
 " ------------------------------------------ Save, Close and Force close current buffer
 inoremap <C-s> <Esc>:w<CR>
 noremap <C-s> <Esc>:w<CR>
-nnoremap x <Esc>:bd<space>
+nnoremap x <Esc>:bd
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
 nnoremap xl <C-w>l:bd<CR>
@@ -396,6 +396,14 @@ autocmd SessionLoadPost * call CheckSession()
 nnoremap <space>a :FSHere<cr>
 nnoremap <space>al :FSSplitRight<cr>
 
+" Jump to next/prev error
+nnoremap [e :lprev<cr>
+nnoremap ]e :lnext<cr>
+
+" Jump to next/prev build error
+nnoremap [b :cprev<cr>
+nnoremap ]b :cnext<cr>
+
 " Zeal offline documentation browser
 nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
 " }}}
@@ -471,7 +479,7 @@ noremap <C-[> <C-o>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 " TagList --------------------------{{{
-nnoremap <leader>t :Tlist<cr>
+nnoremap <leader>ts :Tlist<cr>
 "let Tlist_Display_Prototype=1
 let Tlist_Auto_Highlight_Tag=1
 let Tlist_Auto_Update=1
