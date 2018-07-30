@@ -2,10 +2,13 @@ iabbr #i #include
 iabbr #d #define
 " Insert comment
 iabbr /* /**/<esc>F*i
+" Error template
+iabbr scerr <esc>:-1r! sed -n 2,5p ~/dotfiles/vim/vim/snippets/cpp/cpp-snippets.vim
+iabbr scfor <esc>:-1r! sed -n 6,9p ~/dotfiles/vim/vim/snippets/cpp/cpp-snippets.vim
 
+nnoremap <leader>2 :term sudo make install<cr>
 " Go to the beginning of a function section {}
 nnoremap ^ <M-[><M-{>
-
 
 " Autogenerate a .h header content
 function! CHeader()
@@ -35,6 +38,7 @@ iabbr cmain <esc>:call CMain()
 iabbr cpputest <esc>:-1r ~/dotfiles/vim/vim/snippets/cpp/cpputest.template
 au Filetype cpp source ~/dotfiles/vim/vim/snippets/cpp/cpputest.vim
 
+"iabbr sniperr <esc>:r! sed -n 4,6p ~/dotfiles/vim/vim/snippets/cpp/cpp-snippets.vim
 
 "" Show the name of the function for the current scope
 fun! ShowFuncName()
@@ -43,3 +47,5 @@ fun! ShowFuncName()
   echohl None
 endfun
 nnoremap func :call ShowFuncName() <CR>
+
+
