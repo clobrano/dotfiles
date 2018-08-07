@@ -26,12 +26,12 @@ call setline(curline, '+bug [' . bugno . '](' . a:buglink . ') [' . title . '](b
 endfunction
 nnoremap <leader>cb vE"ay<esc>:call LpBugTitle('<C-r>"')<cr>
 
-function! CommunithemeBuild()
-    execute ':!bash ~/workspace/script-fu/communitheme-build.sh'
+function! YaruBuild()
+    execute ':!bash ~/workspace/script-fu/yaru-build.sh'
 endfunction
 
-command! CBuild call CommunithemeBuild()
-nnoremap <leader>3 :term sudo -H python ~/dotfiles/vim/vim/snippets/communitheme.py ~/workspace/communitheme<cr>
+command! CBuild call YaruBuild()
+nnoremap <leader>3 :term sudo -H python ~/dotfiles/vim/vim/snippets/communitheme.py ~/workspace/yaru<cr>
 
 " use gnome-screenshoot to take a pic
 cabbr shot !gnome-screenshot -capf ~/Pictures/tmp.png
