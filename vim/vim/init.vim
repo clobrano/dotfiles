@@ -479,8 +479,9 @@ noremap <C-[> <C-o>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 " TagList --------------------------{{{
-nnoremap <leader>ts :Tlist<cr>
-"let Tlist_Display_Prototype=1
+nnoremap <leader>to :TlistOpen<cr>
+nnoremap <leader>tc :TlistClose<cr>
+    "let Tlist_Display_Prototype=0
 let Tlist_Auto_Highlight_Tag=1
 let Tlist_Auto_Update=1
 let Tlist_Compact_Format=1
