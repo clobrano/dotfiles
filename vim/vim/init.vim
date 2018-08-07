@@ -304,7 +304,7 @@ nnoremap <leader>htv <C-w>t<C-w>H
 nnoremap <leader>vth <C-w>t<C-w>K
 " ------------------------------------------ Tabs
 nnoremap <C-S-t> :tabnew<CR>
-nnoremap <leader>tc <Esc>:tabnew<CR>
+nnoremap <leader>ta <Esc>:tabnew<CR>
 nnoremap <leader>tn :tabnext<cr>
 nnoremap <leader>tp :tabprevious<cr>
 set splitright " Style open split on the right
