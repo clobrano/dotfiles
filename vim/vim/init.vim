@@ -64,6 +64,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 "Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
 "Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
 Plug 'vim-utils/vim-man',                {'for': ['c', 'cpp']}
+Plug 'vim-scripts/DoxygenToolkit.vim',   {'for': ['c', 'cpp']}
 
 " GIT helpers
 Plug 'lambdalisue/gina.vim'
@@ -91,6 +92,8 @@ Plug 'digitaltoad/vim-pug',     {'for': 'pug'}
 " Python
 Plug 'davidhalter/jedi',        {'for': 'python'}
 Plug 'davidhalter/jedi-vim',    {'for': 'python'}
+
+Plug 'AndrewRadev/exercism.vim'
 
 call plug#end()
 
@@ -125,7 +128,7 @@ else
 endif
 command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
-command! Papercolor :colorscheme PaperColor | :AirlineTheme pencil
+command! Papercolor :colorscheme PaperColor | :set background=light
 command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
@@ -268,13 +271,14 @@ nnoremap xl <C-w>l:bd<CR>
 nnoremap xh <C-w>h:bd<CR>
 nnoremap xj <C-w>j:bd<CR>
 nnoremap xk <C-w>k:bd<CR>
+" Close quickfix window only
+nnoremap <leader>x :cclose<cr>
 nnoremap qa <esc>:qa
 " Maximize current window
 nnoremap <C-w>m <C-w>\|<C-w>_
 " Keep only current window
 nnoremap <leader>o <C-w>o
-" Close quickfix window only
-nnoremap <leader>x :cclose<cr>
+
 function! CleanClose(tosave)
 if (a:tosave == 1)
     w!
@@ -404,29 +408,32 @@ nnoremap ]e :lnext<cr>
 nnoremap [b :cprev<cr>
 nnoremap ]b :cnext<cr>
 
+" Show variale definition
+nnoremap D [i
+
 " Zeal offline documentation browser
 nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
 " }}}
 " Airline --------------------------{{{
-let g:airline_powerline_fonts=1
-" To be used only with Monaco font
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+"let g:airline_powerline_fonts=1
 "let g:airline_left_sep = '⮀'
 "let g:airline_left_alt_sep = '⮁'
 "let g:airline_right_sep = '⮂'
 "let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.branch = '⭠'
 "let g:airline_symbols.readonly = '⭤'
 "let g:airline_symbols.linenr = '⭡'
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':~:.'
-let g:airline#extensions#tabline#buffer_nr_show = 1
 "let g:airline#extensions#tabline#left_alt_sep = ''
 "let g:airline#extensions#tabline#left_sep = ''
 "let g:airline#extensions#tabline#right_sep = ''
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#fnamemod = ':~:.'
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_c = '%<%.40F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 let g:airline#extensions#whitespace#show_message = 0
 let g:airline#extensions#whitespace#enabled = 0
@@ -631,12 +638,12 @@ nnoremap <leader>tv :TerminalV<cr>
 endif
 " }}}
 " Notes ----------------------------{{{
-nnoremap <leader>ww <esc>:e ~/Notes/index.md<cr>
-nnoremap <leader>todo <esc>:e ~/todo/todo.txt<cr>
 " Make a markdown link
 let @l='S]f]a()jjh'
 " Make markdown bold
 let @b='S*a*jjf*i*'
+" Make markdown italic
+let @i='S*ajjf*'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
