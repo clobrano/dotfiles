@@ -119,7 +119,7 @@ if has('nvim')
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
   colorscheme PaperColor
 endif
