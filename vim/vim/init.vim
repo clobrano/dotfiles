@@ -267,6 +267,8 @@ noremap <C-s> <Esc>:w<CR>
 nnoremap x <Esc>:bd
 nnoremap xx <Esc>:bd<CR>
 nnoremap fx <Esc>:bd!<CR>
+" close preview window
+nnoremap xp <C-w>z<CR>
 nnoremap xl <C-w>l:bd<CR>
 nnoremap xh <C-w>h:bd<CR>
 nnoremap xj <C-w>j:bd<CR>
@@ -409,7 +411,9 @@ nnoremap [b :cprev<cr>
 nnoremap ]b :cnext<cr>
 
 " Show variale definition
-nnoremap D [i
+nnoremap I [i
+" Open preview window on current name
+nnoremap D <C-w>}
 
 " Zeal offline documentation browser
 nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
