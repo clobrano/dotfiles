@@ -122,13 +122,14 @@ if has('nvim')
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
   colorscheme PaperColor
 endif
-command! Parens highlight MatchParen gui=bold guibg=none guifg=magenta
+command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
 command! Papercolor :colorscheme PaperColor | :set background=light
+command! Onedark :colorscheme onedark | :set background=dark | Parens
 command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
