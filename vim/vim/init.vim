@@ -535,6 +535,7 @@ nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 cabbr _sortPj sort '+[a-zA-z]*' r
 cabbr _sortPr sort '([A-Z])' r
 cabbr _sortCx sort '@[a-zA-z]*' r
+
 "}}}
 " Git ------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
@@ -660,6 +661,8 @@ let @l='S]f]a()jjh'
 let @b='S*a*jjf*i*'
 " Make markdown italic
 let @i='S*ajjf*'
+" Make a note from a todo
+let @n='llvEywwwvE@lp€ýb€ýa'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
