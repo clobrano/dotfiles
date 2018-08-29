@@ -535,6 +535,7 @@ nnoremap tpc v$:s/([A-C])/(C)/g<CR>
 cabbr _sortPj sort '+[a-zA-z]*' r
 cabbr _sortPr sort '([A-Z])' r
 cabbr _sortCx sort '@[a-zA-z]*' r
+
 "}}}
 " Git ------------------------------{{{
 nnoremap <leader>gs <esc>:Gina status<cr>
@@ -546,11 +547,7 @@ nnoremap <leader>gpl <esc>:Gina pull<cr>
 
 cabbr _gam !git commit --amend
 cabbr _gamn !git commit --amend --no-edit
-function! GerritReview(branch)
-	exec 'Git push origin HEAD:refs/for/' . a:branch
-endfunction
-command! -nargs=1 GerritReview :call GerritReview(<f-args>)
-cabbr gerritreview GerritReview
+cabbr greview Git push origin HEAD:refs/for/
 
 nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 " Shortcut for Fugitive vertical diff
@@ -663,6 +660,8 @@ let @l='S]f]a()jjh'
 let @b='S*a*jjf*i*'
 " Make markdown italic
 let @i='S*ajjf*'
+" Make a note from a todo
+let @n='llvEywwwvE@lp€ýb€ýa'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
