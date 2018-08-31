@@ -33,6 +33,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'vim-scripts/eclipse.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
+Plug 'tomasiser/vim-code-dark'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/gtk-vim-syntax'
@@ -56,6 +57,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'scrooloose/nerdcommenter'
 Plug 'igankevich/mesonic'
+Plug 'junegunn/vim-easy-align'
 
 " C/C++
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
@@ -130,7 +132,7 @@ command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
 command! Papercolor :colorscheme PaperColor | :set background=light
 command! Onedark :colorscheme onedark | :set background=dark | Parens
-command! Monokai :colorscheme monokai | Parens
+command! Monokai :colorscheme monokai | :AirlineTheme onedark | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
@@ -429,6 +431,18 @@ nnoremap D <C-w>}
 
 " Zeal offline documentation browser
 nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
+
+" Align text
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga  <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga  <Plug>(EasyAlign)
+
+let g:easy_align_delimiters['d'] = {
+\ 'pattern': '\(const\|static\)\@<! ',
+\ 'left_margin': 0, 'right_margin': 0
+\ }
 " }}}
 " Airline --------------------------{{{
 if !exists('g:airline_symbols')
