@@ -126,7 +126,7 @@ if has('nvim')
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme PaperColor
+  colorscheme onedark
 endif
 command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
@@ -610,6 +610,7 @@ autocmd FileType markdown set conceallevel=2
 "autocmd FileType markdown source ~/dotfiles/vim/vim/after/syntax/markdown.vim
 let g:vim_markdown_no_extensions_in_markdown = 1
 let g:vim_markdown_follow_anchor = 1
+command! Writer :source ~/dotfiles/vim/vim/config/writer.vim
 " }}}
 " Syntastic ------------------------{{{
 set statusline+=%#warningmsg#                                   "syntastic
@@ -663,6 +664,8 @@ command! TerminalV :vnew | terminal
 nnoremap <leader>th :TerminalH<cr>
 nnoremap <leader>tv :TerminalV<cr>
 endif
+" shortcut to write ".*" when searching with regex in terminal
+cabbr .. .*
 " }}}
 " Notes ----------------------------{{{
 " Make a markdown link
