@@ -438,11 +438,6 @@ xmap ga  <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga  <Plug>(EasyAlign)
-
-let g:easy_align_delimiters['d'] = {
-\ 'pattern': '\(const\|static\)\@<! ',
-\ 'left_margin': 0, 'right_margin': 0
-\ }
 " }}}
 " Airline --------------------------{{{
 if !exists('g:airline_symbols')
