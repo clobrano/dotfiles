@@ -124,9 +124,10 @@ if has('nvim')
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
 else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme onedark
+  colorscheme default
+  set lines=35 columns=150
 endif
 command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
@@ -438,11 +439,6 @@ xmap ga  <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga  <Plug>(EasyAlign)
-
-let g:easy_align_delimiters['d'] = {
-\ 'pattern': '\(const\|static\)\@<! ',
-\ 'left_margin': 0, 'right_margin': 0
-\ }
 " }}}
 " Airline --------------------------{{{
 if !exists('g:airline_symbols')
@@ -453,7 +449,7 @@ endif
 "let g:airline_left_alt_sep = '⮁'
 "let g:airline_right_sep = '⮂'
 "let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
+"let g:airline_symbols.branch = '⭠'
 "let g:airline_symbols.readonly = '⭤'
 "let g:airline_symbols.linenr = '⭡'
 "let g:airline#extensions#tabline#left_alt_sep = ''
@@ -469,6 +465,7 @@ let g:airline#extensions#whitespace#show_message = 0
 let g:airline#extensions#whitespace#enabled = 0
 let airline#extensions#syntastic#stl_format_err = '%E{%e}'
 let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
+AirlineRefresh
 " }}}
 " Cscope ---------------------------{{{
 if has("cscope")
