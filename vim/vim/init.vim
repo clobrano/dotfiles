@@ -465,7 +465,6 @@ let g:airline#extensions#whitespace#show_message = 0
 let g:airline#extensions#whitespace#enabled = 0
 let airline#extensions#syntastic#stl_format_err = '%E{%e}'
 let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
-AirlineRefresh
 " }}}
 " Cscope ---------------------------{{{
 if has("cscope")
