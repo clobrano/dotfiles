@@ -95,6 +95,9 @@ Plug 'digitaltoad/vim-pug',     {'for': 'pug'}
 Plug 'davidhalter/jedi',        {'for': 'python'}
 Plug 'davidhalter/jedi-vim',    {'for': 'python'}
 
+" Generics
+"Plug 'scrooloose/vim-slumlord'
+Plug 'aklt/plantuml-syntax'
 Plug 'AndrewRadev/exercism.vim'
 
 call plug#end()
@@ -126,7 +129,7 @@ if has('nvim')
 else
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme default
+  colorscheme pencil
   set lines=35 columns=150
 endif
 command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
@@ -441,31 +444,17 @@ xmap ga  <Plug>(EasyAlign)
 nmap ga  <Plug>(EasyAlign)
 " }}}
 " Airline --------------------------{{{
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-"let g:airline_powerline_fonts=1
-"let g:airline_left_sep = 'â®€'
-"let g:airline_left_alt_sep = 'â®'
-"let g:airline_right_sep = 'â®‚'
-"let g:airline_right_alt_sep = 'â®ƒ'
-"let g:airline_symbols.branch = 'â­ '
-"let g:airline_symbols.readonly = 'â­¤'
-"let g:airline_symbols.linenr = 'â­¡'
-"let g:airline#extensions#tabline#left_alt_sep = ''
-"let g:airline#extensions#tabline#left_sep = ''
-"let g:airline#extensions#tabline#right_sep = ''
+let g:airline_symbols_ascii = 1
 
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#tabline#fnamemod = ':~:.'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_c = '%<%.40F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 let g:airline#extensions#whitespace#show_message = 0
-let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#enabled = 1
 let airline#extensions#syntastic#stl_format_err = '%E{%e}'
 let airline#extensions#syntastic#stl_format_warn = '%W{%w}'
-AirlineRefresh
 " }}}
 " Cscope ---------------------------{{{
 if has("cscope")
@@ -478,7 +467,7 @@ if has("cscope")
         exec "CtagsMake"
     endfunction
     command! TagsReload :call _TagsReload()
-    nnoremap <leader>tr :TagsReload<cr>
+    nnoremap <leader>tr :silent TagsReload<cr>
     set csprg=/usr/bin/cscope
     set csto=0
     set cst
@@ -676,5 +665,7 @@ let @n='llvEywwwvE@lp€ıb€ıa'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
-
+" ULM ------------------------------{{{
+au FileType plantuml nnoremap <Leader>pr :silent !plantuml %<cr>
+" }
 let g:solarized_contrast="high"
