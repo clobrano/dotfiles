@@ -1,14 +1,4 @@
-"
-" __/\\\________/\\\__/\\\\\\\\\\\__/\\\\____________/\\\\____/\\\\\\\\\____________/\\\\\\\\\_
-"  _\/\\\_______\/\\\_\/////\\\///__\/\\\\\\________/\\\\\\__/\\\///////\\\_______/\\\////////__
-"   _\//\\\______/\\\______\/\\\_____\/\\\//\\\____/\\\//\\\_\/\\\_____\/\\\_____/\\\/___________
-"    __\//\\\____/\\\_______\/\\\_____\/\\\\///\\\/\\\/_\/\\\_\/\\\\\\\\\\\/_____/\\\_____________
-"     ___\//\\\__/\\\________\/\\\_____\/\\\__\///\\\/___\/\\\_\/\\\//////\\\____\/\\\_____________
-"      ____\//\\\/\\\_________\/\\\_____\/\\\____\///_____\/\\\_\/\\\____\//\\\___\//\\\____________
-"       _____\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_\/\\\_____\//\\\___\///\\\__________
-"        ______\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_\/\\\______\//\\\____\////\\\\\\\\\_
-"         _______\///________\///////////__\///______________\///__\///________\///________\/////////__
-"
+
 " Vim-plug plugin manager ----------{{{
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -18,41 +8,31 @@ call plug#begin()
 
 " Search & Replace
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'ctrlpvim/ctrlp.vim',          { 'for': 'go'}
 Plug 'derekwyatt/vim-fswitch'
-Plug 'junegunn/fzf',                { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf',                     { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-scripts/Mark--Karkat',    { 'on': 'Mark'}
+Plug 'vim-scripts/Mark--Karkat',         { 'on': 'Mark'}
 Plug 'szw/vim-g'                    " Quick Google lookup
 Plug 'vim-scripts/taglist.vim'
-"Plug 'ludovicchabant/vim-gutentags'
 
 " Look & Feel
-Plug 'vim-scripts/eclipse.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
-Plug 'tomasiser/vim-code-dark'
-Plug 'jeetsukumaran/vim-buffergator'
+Plug 'joshdick/onedark.vim'
+Plug 'reedes/vim-colors-pencil'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/gtk-vim-syntax'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'joshdick/onedark.vim'
-Plug 'reedes/vim-colors-pencil'
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 " Text and Code Checking/Linting
-Plug 'Yggdroot/indentLine',              {'for': 'javascript'}
 Plug 'chrisbra/Colorizer',               {'for': ['css', 'sass', 'scss']}
-Plug 'godlygeek/tabular'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'DougBeney/pickachu',               {'for': ['css', 'sass', 'scss']}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 Plug 'scrooloose/nerdcommenter'
@@ -63,8 +43,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'chazy/cscope_maps',                {'for': ['c', 'cpp']}
 Plug 'hari-rangarajan/CCTree',           {'for': ['c', 'cpp']}
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-"Plug 'vim-scripts/glib.vim',             {'for': ['c', 'cpp']}
-"Plug 'vim-scripts/valgrind.vim',         {'for': ['c', 'cpp']}
 Plug 'vim-utils/vim-man',                {'for': ['c', 'cpp']}
 Plug 'vim-scripts/DoxygenToolkit.vim',   {'for': ['c', 'cpp']}
 
@@ -74,29 +52,27 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Go
-Plug 'fatih/vim-go',            {'for': 'go'}
+Plug 'fatih/vim-go',                     {'for': 'go'}
+Plug 'ctrlpvim/ctrlp.vim',               { 'for': 'go'}
 
 " GTD
-Plug 'plasticboy/vim-markdown',  {'for': 'markdown'}
-Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
-Plug 'junegunn/goyo.vim',        {'on': 'Goyo'}
+Plug 'plasticboy/vim-markdown',          {'for': 'markdown'}
+Plug 'mzlogin/vim-markdown-toc',         {'for': 'markdown'}
 Plug 'vim-jp/vital.vim'
-Plug 'freitass/todo.txt-vim',    {'for': 'text'}
 
 " NodeJS
-Plug 'moll/vim-node',           {'for': 'javascript'}
-Plug 'guileen/vim-node-dict',   {'for': 'javascript'}
+Plug 'moll/vim-node',                    {'for': 'javascript'}
+Plug 'guileen/vim-node-dict',            {'for': 'javascript'}
 
 " Javascript
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'digitaltoad/vim-pug',     {'for': 'pug'}
+Plug 'pangloss/vim-javascript',          {'for': 'javascript'}
+Plug 'digitaltoad/vim-pug',              {'for': 'pug'}
 
 " Python
-Plug 'davidhalter/jedi',        {'for': 'python'}
-Plug 'davidhalter/jedi-vim',    {'for': 'python'}
+Plug 'davidhalter/jedi',                 {'for': 'python'}
+Plug 'davidhalter/jedi-vim',             {'for': 'python'}
 
 " Generics
-"Plug 'scrooloose/vim-slumlord'
 Plug 'aklt/plantuml-syntax'
 Plug 'AndrewRadev/exercism.vim'
 
@@ -434,7 +410,7 @@ nnoremap I [i
 nnoremap D <C-w>}
 
 " Zeal offline documentation browser
-nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
+nnoremap <leader>fz :silent term zeal "<cword>"&<CR><CR>
 
 " Align text
 " Start interactive EasyAlign in visual mode (e.g. vipga)
