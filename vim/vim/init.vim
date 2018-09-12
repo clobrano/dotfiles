@@ -438,17 +438,17 @@ nnoremap <leader>gz :!zeal "<cword>"&<CR><CR>
 
 " Align text
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga  <Plug>(EasyAlign)
+xmap <leader>ea  <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga  <Plug>(EasyAlign)
+nmap <leader>ea  <Plug>(EasyAlign)
 " }}}
 " Airline --------------------------{{{
 let g:airline_symbols_ascii = 1
 
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_c = '%<%.40F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 let g:airline#extensions#whitespace#show_message = 0
