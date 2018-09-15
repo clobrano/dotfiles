@@ -11,5 +11,6 @@
   ],
   "cwd": {
       "mode": "dironly"
-  }
+  },
+  "mode": "flat"
 }
