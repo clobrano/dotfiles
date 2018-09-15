@@ -675,5 +675,7 @@ let @n='llvEywwwvE@lp€ýb€ýa'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
-
-let g:solarized_contrast="high"
+" Exercism -------------------------{{{
+cabbr exercd term exercism download --track=c --exercise=
+cabbr exercs term exercism submit<space>
+" }
