@@ -55,7 +55,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go',                     {'for': 'go'}
 Plug 'ctrlpvim/ctrlp.vim',               { 'for': 'go'}
 
-" GTD
+" Markdown/Notes
 Plug 'plasticboy/vim-markdown',          {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc',         {'for': 'markdown'}
 Plug 'vim-jp/vital.vim'
@@ -311,6 +311,8 @@ set splitright " Style open split on the right
 set splitbelow
 " }}}
 " File exploring -------------------{{{
+set path+=**
+cabbr fn find *
 let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " treetest-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
@@ -410,7 +412,7 @@ nnoremap I [i
 nnoremap D <C-w>}
 
 " Zeal offline documentation browser
-nnoremap <leader>fz :silent term zeal "<cword>"&<CR><CR>
+nnoremap <leader>fz :silent !zeal "<cword>" &<CR><CR>
 
 " Align text
 " Start interactive EasyAlign in visual mode (e.g. vipga)
