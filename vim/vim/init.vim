@@ -643,6 +643,10 @@ let @n='llvEywwwvE@lp€ýb€ýa'
 
 command! Journal :-1r ~/dotfiles/vim/vim/snippets/journal/journal.md | :set ro
 " }}}
+" Exercism -------------------------{{{
+cabbr exercd term exercism download --track=c --exercise=
+cabbr exercs term exercism submit<space>
+" }
 " ULM ------------------------------{{{
 au FileType plantuml nnoremap <Leader>pr :silent !plantuml %<cr>
 " }
