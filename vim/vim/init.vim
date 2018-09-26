@@ -75,6 +75,7 @@ Plug 'davidhalter/jedi-vim',             {'for': 'python'}
 " Generics
 Plug 'aklt/plantuml-syntax'
 Plug 'AndrewRadev/exercism.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 call plug#end()
 
@@ -149,7 +150,9 @@ set list
 set showbreak=└
 set showmatch
 "highlight ExtraWhitespace ctermbg=Yellow
-nnoremap ss :ToggleStripWhitespaceOnSave<CR>
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+nnoremap <leader>ss :ToggleStripWhitespaceOnSave<CR>
 " Reload open buffers
 nnoremap <leader>r :checktime<cr>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
@@ -368,7 +371,10 @@ endfunction
 " EXTRAS
 " SW Develop -----------------------{{{
 set number            " Show line numbers
-set colorcolumn=0     " Show a colored line at the Nth column
+" Show a colored line at the 101st column, only on lines that overcome that measure
+set colorcolumn=0
+call matchadd('ColorColumn', '\%101v', 100)
+
 set nocursorline      " Disable highlight current line
 " Auto add closing bracket
 inoremap {<CR>  {<CR>}<Esc>O
@@ -601,6 +607,7 @@ source ~/dotfiles/vim/vim/snippets/browser.config.vim
 source ~/dotfiles/vim/vim/snippets/c_cpp.config.vim
 source ~/dotfiles/vim/vim/snippets/canonical.config.vim
 source ~/dotfiles/vim/vim/snippets/licenses.config.vim
+source ~/dotfiles/vim/vim/snippets/python.config.vim
 source ~/dotfiles/vim/vim/snippets/shell.config.vim
 
 nnoremap <leader>1 :Make<cr>
