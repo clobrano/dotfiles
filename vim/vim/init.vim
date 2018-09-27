@@ -28,7 +28,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Text and Code Checking/Linting
-Plug 'chrisbra/Colorizer',               {'for': ['css', 'sass', 'scss']}
+Plug 'chrisbra/Colorizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
