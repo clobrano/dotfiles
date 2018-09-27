@@ -55,7 +55,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go',                     {'for': 'go'}
 Plug 'ctrlpvim/ctrlp.vim',               { 'for': 'go'}
 
-" GTD
+" Markdown/Notes
 Plug 'plasticboy/vim-markdown',          {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc',         {'for': 'markdown'}
 Plug 'vim-jp/vital.vim'
@@ -75,6 +75,7 @@ Plug 'davidhalter/jedi-vim',             {'for': 'python'}
 " Generics
 Plug 'aklt/plantuml-syntax'
 Plug 'AndrewRadev/exercism.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 call plug#end()
 
@@ -149,7 +150,9 @@ set list
 set showbreak=└
 set showmatch
 "highlight ExtraWhitespace ctermbg=Yellow
-nnoremap ss :ToggleStripWhitespaceOnSave<CR>
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+nnoremap <leader>ss :ToggleStripWhitespaceOnSave<CR>
 " Reload open buffers
 nnoremap <leader>r :checktime<cr>
 " ------------------------------------------ Insert the current date long and short (insert mode, normal/command mode)
@@ -311,6 +314,8 @@ set splitright " Style open split on the right
 set splitbelow
 " }}}
 " File exploring -------------------{{{
+set path+=**
+cabbr fn find *
 let g:netrw_winsize = -28             " absolute width of netrw window
 let g:netrw_liststyle = 3             " treetest-view
 let g:netrw_sort_sequence = '[\/]$,*' " sort is affecting only: directories on the top, files below
@@ -366,7 +371,10 @@ endfunction
 " EXTRAS
 " SW Develop -----------------------{{{
 set number            " Show line numbers
-set colorcolumn=0     " Show a colored line at the Nth column
+" Show a colored line at the 101st column, only on lines that overcome that measure
+set colorcolumn=0
+call matchadd('ColorColumn', '\%101v', 100)
+
 set nocursorline      " Disable highlight current line
 " Auto add closing bracket
 inoremap {<CR>  {<CR>}<Esc>O
@@ -410,7 +418,7 @@ nnoremap I [i
 nnoremap D <C-w>}
 
 " Zeal offline documentation browser
-nnoremap <leader>fz :silent term zeal "<cword>"&<CR><CR>
+nnoremap <leader>fz :silent !zeal "<cword>" &<CR><CR>
 
 " Align text
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -599,6 +607,7 @@ source ~/dotfiles/vim/vim/snippets/browser.config.vim
 source ~/dotfiles/vim/vim/snippets/c_cpp.config.vim
 source ~/dotfiles/vim/vim/snippets/canonical.config.vim
 source ~/dotfiles/vim/vim/snippets/licenses.config.vim
+source ~/dotfiles/vim/vim/snippets/python.config.vim
 source ~/dotfiles/vim/vim/snippets/shell.config.vim
 
 nnoremap <leader>1 :Make<cr>
