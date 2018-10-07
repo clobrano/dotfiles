@@ -113,7 +113,7 @@ command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
 command! Papercolor :colorscheme PaperColor | :set background=light
 command! Onedark :colorscheme onedark | :set background=dark | Parens
-command! Monokai :colorscheme monokai | :AirlineTheme onedark | Parens
+command! Monokai :colorscheme monokai | Parens
 command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
