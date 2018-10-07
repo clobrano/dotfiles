@@ -20,6 +20,7 @@ Plug 'vim-scripts/taglist.vim'
 " Look & Feel
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
+Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'reedes/vim-colors-pencil'
 Plug 'ryanoasis/vim-devicons'
@@ -109,12 +110,13 @@ else
   colorscheme pencil
   set lines=35 columns=150
 endif
+command! Gruvbox :colorscheme gruvbox | :set background=dark | Parens
+command! Kolor :colorscheme kolor | Parens
+command! Monokai :colorscheme monokai | Parens
+command! Onedark :colorscheme onedark | :set background=dark | Parens
+command! Papercolor :colorscheme PaperColor | :set background=light
 command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
-command! Papercolor :colorscheme PaperColor | :set background=light
-command! Onedark :colorscheme onedark | :set background=dark | Parens
-command! Monokai :colorscheme monokai | Parens
-command! Kolor :colorscheme kolor | Parens
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
 
