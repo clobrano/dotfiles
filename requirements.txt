@@ -36,3 +36,4 @@ xclip
 zeal
 tig
 tilix
+pick-colour-picker
