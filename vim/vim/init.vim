@@ -100,16 +100,6 @@ filetype on
 set linespace=1
 set thesaurus+=~/.vim/thesaurus/thesaurus.txt
 
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set termguicolors
-  set guifont=Source\ Code\ Pro\ for\ Powerline
-else
-  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
-  nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
-  colorscheme pencil
-  set lines=35 columns=150
-endif
 command! Gruvbox :colorscheme gruvbox | :set background=dark | Parens
 command! Kolor :colorscheme kolor | Parens
 command! Monokai :colorscheme monokai | Parens
@@ -119,6 +109,25 @@ command! Parens highlight MatchParen gui=bold guibg=NONE guifg=magenta
 command! Pencil :colorscheme pencil | set background=light
 command! SpellEn set spell spelllang=en
 command! SpellIt set spell spelllang=it
+
+if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  set termguicolors
+  set guifont=Source\ Code\ Pro\ for\ Powerline
+else
+  if system("xandr | awk '/ connected/{print $4}' | cut -d'x' -f1") > 1920
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
+    colorscheme pencil
+  else
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
+    set lines=35 columns=150
+    Gruvbox
+  endif
+"set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
+
+  nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
+endif
+
 
 " }}}
 " System settings ------------------{{{
