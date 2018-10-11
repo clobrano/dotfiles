@@ -115,14 +115,13 @@ if has('nvim')
   set termguicolors
   set guifont=Source\ Code\ Pro\ for\ Powerline
 else
-  if system("xandr | awk '/ connected/{print $4}' | cut -d'x' -f1") > 1920
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 14
-    colorscheme pencil
+  if system("xrandr | awk '/ connected/{print $12}' | cut -d'm' -f1") > 290
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
   else
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 12
-    set lines=35 columns=150
-    Gruvbox
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 13
   endif
+  Gruvbox
+  set lines=35 columns=150
 "set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
 
   nnoremap <leader>ef <esc>:set guifont=Source\ Code\ Pro\ for\ Powerline\<space>
@@ -161,8 +160,8 @@ set list
 set showbreak=└
 set showmatch
 "highlight ExtraWhitespace ctermbg=Yellow
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
+"let g:better_whitespace_enabled=1
+"let g:strip_whitespace_on_save=1
 nnoremap <leader>ss :ToggleStripWhitespaceOnSave<CR>
 " Reload open buffers
 nnoremap <leader>r :checktime<cr>
@@ -445,6 +444,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
 let g:airline_section_c = '%<%.40F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 let g:airline#extensions#whitespace#show_message = 0
 let g:airline#extensions#whitespace#enabled = 1
@@ -540,9 +540,9 @@ nnoremap <leader>gc <esc>:Gina commit<cr>
 nnoremap <leader>gph <esc>:Gina push<cr>
 nnoremap <leader>gpl <esc>:Gina pull<cr>
 
-cabbr _gam !git commit --amend
+cabbr _gam  !git commit --amend
 cabbr _gamn !git commit --amend --no-edit
-cabbr greview Git push origin HEAD:refs/for/
+cabbr _gr   !git push origin HEAD:refs/for/
 
 nnoremap <leader>gpr <esc>:Git push origin HEAD:refs/for/
 " Shortcut for Fugitive vertical diff
