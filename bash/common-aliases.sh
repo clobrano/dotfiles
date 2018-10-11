@@ -25,8 +25,13 @@ alias nvd='nvim -c "colorscheme onedark"'
 alias nvg='nvim -c Gruvbox'
 alias nvc='nvim -c "Papercolor"'
 alias nvp='nvim -c "colorscheme pencil"'
+
 alias pw='pwd'
+
 alias wiresharkqmi='wireshark -X lua_script:qmi_dissector_gen.lua'
+
+alias rn='ranger'
+
 alias f='fuz'
 alias fv='fuz -e gvim'
 alias fn='fuz -e gvim -d ~/Dropbox/Notes/'
