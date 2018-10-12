@@ -1,6 +1,6 @@
 ## This makefile belongs to the suite of file for configure, install, change and remove my dotfiles
 
-SUBDIRS = bash byobu neovim vim fonts
+SUBDIRS = bash byobu neovim vim fonts gestures
 
 .PHONY: subdirs $(SUBDIRS)
 

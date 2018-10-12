@@ -27,6 +27,7 @@ alias nvc='nvim -c "Papercolor"'
 alias nvp='nvim -c "colorscheme pencil"'
 
 alias pw='pwd'
+alias mkd='mkdir -p'
 
 alias wiresharkqmi='wireshark -X lua_script:qmi_dissector_gen.lua'
 
