@@ -631,6 +631,9 @@ cabbr rilh e ~/workspace/hikey7/hardware/ril/reference-ril/ril.h
 " In diff mode, move to the next/previous diff and center the screen
 nnoremap <leader>cc ]czz
 nnoremap <leader>C [czz
+
+" Canned responses
+iabbr cantrelocate  <esc>:-1 r~/dotfiles/vim/vim/snippets/canned/cantrelocate.vim
 " }}}
 " Tabular --------------------------{{{
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
