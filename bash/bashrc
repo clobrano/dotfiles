@@ -87,7 +87,6 @@ letsbin=$(which lets)
 # Fuzzy finder configuration
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
-
 # Aliases
 [[ -f $DOTFILES/git/aliases.sh ]] && source $DOTFILES/git/aliases.sh
 [[ -f $DOTFILES/bash/common-aliases.sh ]] && source $DOTFILES/bash/common-aliases.sh
