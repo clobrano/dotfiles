@@ -1,6 +1,6 @@
 #xargs -a <(awk '/^\s*[^#]/' /path/to/this/file) -r -- sudo apt-get install
 
-# linter
+#linter
 #astyle
 apt-file
 autoconf
@@ -8,7 +8,7 @@ autogen
 automake
 build-essential
 #byobu
-bzr
+#bzr
 #checkinstall
 clang
 cmake
@@ -18,7 +18,7 @@ ctags
 curl
 exuberant-ctags
 #git
-git-email
+#git-email
 #libappindicator1
 #libappindicator3-1
 #meld
@@ -37,3 +37,5 @@ zeal
 tig
 tilix
 pick-colour-picker
+highlight
+ranger
