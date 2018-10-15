@@ -8,111 +8,41 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-# autocmd
-shopt -s autocd
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+shopt -s autocd     # cd into folder without typing 'cd'
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# command history
+shopt -s histappend # append to the history file, don't overwrite it
+HISTCONTROL=ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# terminal and color (more below)
+COLORTERM=gnome-terminal
+TERM=xterm-256color
+color_prompt=yes
+
+stty -ixon # Disable terminal freeze shortcut C-s
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+[[ -e /etc/profile.d/vte-2.91.sh ]] && source /etc/profile.d/vte-2.91.sh
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-
-# Configuration directories
-export TOOLKIT=$HOME/toolkit
-export DOTFILES=PLACEHOLDER
-export EDITOR="gvim -f"
-export CDPATH=$HOME:$HOME/workspace:$HOME/workspace/devel
-
-if [ -e /etc/profile.d/vte-2.91.sh ]; then
-        source /etc/profile.d/vte-2.91.sh
-fi
-
-COLORTERM=gnome-terminal
-TERM=xterm-256color
-
-#https://github.com/banga/powerline-shell
-
+# see https://github.com/banga/powerline-shell
 function _update_ps1() {
   if [ -x ~/.local/bin/powerline-shell ]; then
     PS1="$(powerline-shell $?)"
   else
-    PS1="\s-\v\$"
+    PS1="\u@\h \$ "
   fi
 }
 
 if [ "$TERM" != "linux" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -126,71 +56,54 @@ if ! shopt -oq posix; then
     fi
 fi
 
+export EDITOR="gvim -f"
 
-# Add timestamp to history
-export HISTTIMEFORMAT="%d/%m/%y %T "
-
-# Golang paths
+export DOTFILES=/home/carlo/dotfiles
+export CDPATH=$HOME:$HOME/workspace:$HOME/workspace/devel
 export GOPATH=$HOME/workspace/golang/
 export GOBIN=${GOPATH}bin
-export PATH=$PATH:${GOBIN}
 
-
-# Export paths
+# PATH
 ANDROID_REPO=$HOME/external/bin/
 PATH=$PATH:$HOME/workspace/scripts
 PATH=$PATH:$HOME/workspace/script-fu
 PATH=$PATH:$HOME/toolkit
+PATH=$PATH:${GOBIN}
 PATH=$PATH:$DOTFILES
 PATH=$PATH:$ANDROID_REPO
+PATH=~/.local/bin:$PATH
 
 # Enable gcc colours, available since gcc 4.9.0
 GCC_COLORS=1
-
 # Fix ZSH_VERSION unbound variable
 ZSH_VERSION=${ZSH_VERSION-"none"}
-
 # Let's have core dumps
 ulimit -c unlimited
 
-# GIT aliases
-source $DOTFILES/git/aliases.sh
-
-# Other useful aliases
-source $DOTFILES/bash/common-aliases.sh
-
 # Let's do configuration
 letsbin=$(which lets)
-if [ ! -z ${letsbin:x} ]; then
-    export LETSDO_COLOR=1
-    if [ -f $HOME/.letsdo_completion ]; then
-        source $HOME/.letsdo_completion
-    fi
-fi
+[[ ! -z ${letsbin:x} ]] && [[ -f $HOME/.letsdo_completion ]] && source $HOME/.letsdo_completion
 
-if [ -f $DOTFILES/bash/modemmanager_aliases.sh ]; then
-    source $DOTFILES/bash/modemmanager_aliases.sh
-fi
-if [ -f $DOTFILES/bash/networkmanager_aliases.sh ]; then
-    source $DOTFILES/bash/networkmanager_aliases.sh
-fi
+# Fuzzy finder configuration
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
-if [ -f $DOTFILES/git/aliases.sh ]; then
-    source $DOTFILES/git/aliases.sh
-fi
-PATH=~/.local/bin:$PATH
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-alias letsdo='letsdo -c'
-alias node='nodejs'
+# Aliases
+[[ -f $DOTFILES/git/aliases.sh ]] && source $DOTFILES/git/aliases.sh
+[[ -f $DOTFILES/bash/common-aliases.sh ]] && source $DOTFILES/bash/common-aliases.sh
+[[ -f $DOTFILES/bash/modemmanager_aliases.sh ]] && source $DOTFILES/bash/modemmanager_aliases.sh
+[[ -f $DOTFILES/bash/networkmanager_aliases.sh ]] && source $DOTFILES/bash/networkmanager_aliases.sh
 
-# Disable terminal freeze shortcut C-s
-stty -ixon
+# some more aliases
+alias ls='ls --color=auto --group-directories-first'
+alias ll='ls -l'
+alias la='ls -alF'
+alias grep='grep --color=auto'
+alias ccat='highlight --out-format=ansi'
+alias node='nodejs'  # in ubuntu binary is called wrong
 alias itsmine="sudo chown $USER"
-# HIKEY arm64 bootimage aliases
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias sendat='sudo $GOBIN/sendat'
 alias hikeydefconf='make ARCH=arm64 hikey_defconfig'
 alias hikeymenuconf='make ARCH=arm64 menuconfig'
 alias hikeymake='make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- -j2'
-
-export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g"
-alias sendat='sudo $GOBIN/sendat'
